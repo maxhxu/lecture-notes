@@ -12,4 +12,4 @@ Then need to rotate pulled files 270 degrees, because Samsung Notes do not allow
 jpegtran -rotate 90 -outfile ~/lecture-notes/temp.jpg ~/lecture-notes/temp.jpg
 ```
 
-I still need to name the file to something other than temp though :P
+I still need to name the file to something other than temp.jpg though, maybe incorporate into bash script idk :P
