@@ -2,7 +2,7 @@
 
 We are trying to:
 \begin{itemize}
-    \item understand computer software and hardware: why is max int $2^{32} - 1$
+    \item Understand computer software and hardware: Why is max int $2^{32} - 1$?
     \item How does Python evaluate \texttt{true} and \texttt{false}: Why are some values truthy? There's a hardware reason for that!\footnote{None, False, and generally numeric zero values and empty sequences/collections evaluate to false}
 \end{itemize}
 
@@ -31,9 +31,9 @@ Unlike other CS courses, this course is about creating devices and machines, rat
 \item Be able to create and design circuits, implement Finite State Machines
 \item Understand microprocessor architecture
 \item Understand assembly language
+\item Learn about how lower-level languages and even hardware achieve higher-level behavior
 \end{itemize}
 
-Learn about how lower-level languages and even hardware achieve higher-level behavior.
 
 \subsection{Administrative Details}
 \begin{itemize}
@@ -57,7 +57,7 @@ Half of this tutorial is explaining what the lab is, and the other is a TA going
 
 \subsection{Transistors}
 
-Transistors form the basic building blocks of all computer hardware, used for amplification, switching, and digital logic design. They made vacuum tubes obsolete, and made computing practical.
+Transistors form the basic building blocks of all computer hardware, used for amplification, switching, and digital logic design. They made vacuum tubes obsolete, and made computing practical, since vacuum tubes keep breaking.
 
 \includegraphics{csc258/figures/transistor.jpg}
 
@@ -79,7 +79,8 @@ To represent 2 different states, we need connect our wire to a battery (for high
 
 \includegraphics{csc258/figures/neg5explanation.jpg}
 
-TODO: Explain the -5 part here
+TODO: The reason -5 appears sometimes is because when you're measuring a low and compare it to a high, it will be -5, except when you measure 2 highs it'll show up as a low? Won't you always want to measure relative to ground or something idk.
+
 \begin{definition}[Electricity]
     The flow of charged particles (usually electrons) through a material. 
 \end{definition}
@@ -88,14 +89,14 @@ Charged particles can do \textit{work}, and originate from atoms. Electrons flow
 This means that voltage is almost always measured relative to something else. Current is influenced by voltage, as follows.
 
 \begin{example}[Water Tower Analogy]
-    \textbf{Voltage} is like the elevation of the water above the ground. \textbf{Current} is the rate at which the water flows. The more potential energy, the easier it is to unleash (TODO: for some reason... why is Ohm's law true? by definition? why is it that resistance seem to be mostly invariant)
+    \textbf{Voltage} is like the elevation of the water above the ground. \textbf{Current} is the rate at which the water flows. The more potential energy, the easier it is to unleash
 \end{example}
 
 \begin{definition}[Resistance]
     Denoted $R$, it is the relationship between voltage $V$ (measured in volts) and current $I$ (measured in amps).
 \end{definition}
 \[
-R := \frac{V}{I}
+R := \frac{V}{I}\footnote{also we say that resistance doesn't change a lot because ``the material isn't changing'' - prof}
 \]
 
 Electrical resistance indicates how well a material allows electricity to flow through it. \textbf{Insulators} have high resistance, do not conduct electricity well, with \textbf{conductors} having low resistance and conducting electricity well.
@@ -105,8 +106,6 @@ Electrical resistance indicates how well a material allows electricity to flow t
 \end{remark}
 
 Static electricity demonstrates this imbalance, which is caused by materials `stealing' electrons from each other. When an imbalanced object comes in contact or close enough with a balanced one (because electrons tend to not move through the air), extra electrons transfer over and there exists a \textit{current}, since electrons are flowing!
-
-\newpage
 
 Sources of electricity include:
 \begin{itemize}

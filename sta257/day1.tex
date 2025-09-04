@@ -1,0 +1,45 @@
+\section{Day 1: (Sept 9, 2025)}
+
+Life is very random and uncertain, with interesting problems to solve (e.g. whats the probability that I win the lottery). This course uses certain mathematics to study the uncertainty of probabilities. You will be able to solve problems like this:
+
+\begin{problem}
+Which is more likely: getting at least one six when rolling a fair 6 sided die 4 times, or getting one pair of sixes when rolling two six sided dice 24 times?
+\end{problem}
+
+5\% of your grade is poll-based, \href{http://probability.ca/jeff/teaching/2526/sta257/pollinfo.html}{more info here}.
+
+\begin{definition}[Sample Space]
+A non-empty set containing all possible outcomes, written $S$.
+\end{definition}
+
+e.g. coin-flipping: $S = \{ \text{Heads}, \text{Tails} \}$, two die: $S = \{ 1, 2, 3, 4, 5, 6 \} \times \{ 1, 2, 3, 4 ,5 , 6 \}$
+
+\begin{definition}[Event]
+Any subset $A \subseteq S$ is an event. 
+\end{definition}
+Prof says in some continuous sample spaces, there may exist some non-measurable subsets to which the probability measure defined later won't work on, but don't worry about it in this course. (yay!!)
+\begin{definition}[Probability]
+    For any event $A$, define probability $\mathrm{P}(A)$ that satisfies:
+    \begin{itemize}
+        \item For all $A \in \mathcal{P}(S)$, $0 \leq \mathrm{P}(A) \leq 1$
+        \item $A = S$, $\mathrm{P}(A) = \mathrm{P}(S) = 1$
+        \item $A = \emptyset$, corresponding to no outcome, then $\mathrm{P}(A) = \mathrm{P}(\emptyset) = 0$
+        \item \textbf{Additivity}: if $A \cap B = \emptyset$, then $P(A \cup B) = P(A) + P(B)$
+    \end{itemize}
+    If $A_1, \dots, A_n$ are disjoint\footnote{prof said this but i think he meant pairwise disjoint?} events, we have
+    \begin{itemize}
+        \item \textbf{Finite Additivity}: For some $n \in \mathbb{N}$,
+\[
+\mathrm{P}\left(\bigcup_{i = 1}^n A_i\right) = \sum_{i=1}^n \mathrm{P}(A_i)
+\]
+        \item \textbf{Countable Additivity}:
+\[
+\mathrm{P}\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \mathrm{P}(A_i)
+\]
+    \end{itemize}
+
+\end{definition}\footnote{we could've actually done this with just 3, see \href{https://en.wikipedia.org/wiki/Probability_axioms}{probability axioms}}
+
+When looking at the probability of getting heads from a coinflip, $\mathrm{P}(H)$ with $S = \{T, H\}$ is really shorthand for $\mathrm{P}(\{ H \})$, since $H$ may not be a subset of $S$. For uniformly picking any number between 0 and 1, denoted $\mathrm{Uniform}[0, 1]$, we can define a probability $\mathrm{P}([a, b]) = b - a$ whenever $0 \leq a \leq b \leq 1$. (don't know what uniform means yet)
+
+Note that by definition of probability, $\mathrm{P}(A_i)$ is positive, so the right hand side is an absolutely convergent series (prof didn't mention this).
