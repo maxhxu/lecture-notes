@@ -1,3 +1,6 @@
+## Idk where mtc is coming from
+*.mtc
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
