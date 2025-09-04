@@ -1,5 +1,7 @@
 ## Idk where mtc is coming from
 *.mtc
+*.mtc0
+empty*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
