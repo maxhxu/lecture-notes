@@ -1,0 +1,66 @@
+\section{Day 2: (Sept 8, 2025)}
+
+\subsection{Additional Properties of Probability}
+Today we will be deriving properties of probability from the `axioms' we stated last class. Note that most of these follow from the additivity property \ref{prop:probadd}. Have $A, B \subseteq S$ be events.
+\begin{simplethm}
+    If $A^C$ is the complement of $A$, then $P(A^C) = 1 - P(A)$. \label{prop:pcomplement}
+\end{simplethm}
+\begin{proof}
+    $A$ and $A^C$ are by definition disjoint, and their union is $S$. By additivity \ref{prop:probadd} $P(A) + P(A^C) = P(S) = 1$ .
+\end{proof}
+\begin{simplethm}
+    $P(A) = P(A \cap B) + P(A \cap B^C)$ \label{prop:intcomplement} 
+\end{simplethm}
+The set of $\{ x \in A : x \in B \}$ and $\{ x \in A : x \not \in B \}$ are by definition disjoint, and the union of the two is $A$. This then follows by additivity \ref{prop:probadd}.
+\begin{simplethm}
+    If $A$ contains $B$, $P(A) = P(B) + P(A \cap B^C)$ \label{prop:padecomposebaspeb}
+\end{simplethm}
+\begin{proof}
+    Have \ref{prop:intcomplement}, except $P(A \cup B) = P(B)$ where $A \supseteq B$.
+\end{proof}
+\begin{simplethm}[Monotonicity]
+    If $A \supseteq B$, then $P(A) \geq P(B)$
+\end{simplethm}
+Immediately follows from \ref{prop:padecomposebaspeb}, since $P(A \cap B^C)$ must be non-negative, giving the inequality. 
+
+\begin{theorem}
+    Suppose $A_1, A_2, \dots$ are a sequence of events which form a \textit{partition} of $S$ (pairwise disjoint) , with their union being the entire sample space ($\bigcup_i A_i = S$). Let $B$ be any event. Then we have
+    \[
+    P(B) = \sum_i P(A_i \cap B)
+    \]
+\end{theorem}
+
+\begin{simplethm}[Principle of Inclusion-Exclusion]
+    $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+\end{simplethm}
+\begin{proof}
+The events $A \cap B^C$, $B \cap A^C$, $A \cap B$ are disjoint events. 
+\begin{align*}
+    P(A \cup B) &= P(A \cap B) + P(A \cap B^C) + P(B \cap A^C) \\
+    &= P(A \cap B) + [P(A) - P(A \cap B)] + [P(B) - P(A \cap B)] & \text{from } \ref{prop:intcomplement}
+\end{align*}
+\end{proof}
+\noindent For a more generalized version of inclusion-exclusion formula, look at Challenge 1.3.10 in textbook.
+
+\begin{simplethm}[Subadditivity]
+For any sequence of events $A_1, A_2, \dots$ not necessarily pairwise disjoint, have
+\[
+    P(A_1 \cup A_2 \dots) \leq P(A_1) + P(A_2) + \dots
+\]
+\end{simplethm}
+
+\begin{remark}
+    This is more of a worry in grad-level courses, where you study more pathological probability spaces, but `uncountable' subadditivity does not exist. Consider $S = \text{Uniform}([0, 1])$. Have $A_x = \{ x \}$ for $x \in S$. $P(\bigcup_{x \in S}) A_x = P(S) = P([0, 1]) = 1$. Yet for any `singleton' $x$, $P(A_x) = P(\{ x \}) = 0$, meaning $\sum_{x \in S} P(A_x) = 0$.
+\end{remark}
+
+\newpage
+
+\subsection{Uniform Probabilities on Finite Spaces}
+Have $S = \{ s_1, \dots ,s_n \}$. For all $\{ s_i \}$ to have the same probability, $P(\{ s_i \}) = \frac{1}{n}$, called a \textit{discrete uniform distribution}. 
+
+Any $A \subseteq S$ with $k$ elements, would have $P(A) = \frac{k}{n}$, meaning
+\[
+P(A) = \frac{|A|}{|S|}
+\]
+
+A problem solving technique to find $P$ of a rather complicated event is to see if the probability of its complement can be easily found, then use \ref{prop:pcomplement}.

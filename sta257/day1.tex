@@ -1,4 +1,4 @@
-\section{Day 1: (Sept 9, 2025)}
+\section{Day 1: Sample Spaces and Probability (Sept 3, 2025)}
 
 Life is very random and uncertain, with interesting problems to solve (e.g. whats the probability that I win the lottery). This course uses certain mathematics to study the uncertainty of probabilities. You will be able to solve problems like this:
 
@@ -21,10 +21,10 @@ Prof says in some continuous sample spaces, there may exist some non-measurable 
 \begin{definition}[Probability]
     For any event $A$, define probability $\mathrm{P}(A)$ that satisfies:
     \begin{itemize}
-        \item For all $A \in \mathcal{P}(S)$, $0 \leq \mathrm{P}(A) \leq 1$
+        \item For all $A \subseteq S$, $0 \leq \mathrm{P}(A) \leq 1$
         \item $A = S$, $\mathrm{P}(A) = \mathrm{P}(S) = 1$
         \item $A = \emptyset$, corresponding to no outcome, then $\mathrm{P}(A) = \mathrm{P}(\emptyset) = 0$
-        \item \textbf{Additivity}: if $A \cap B = \emptyset$, then $P(A \cup B) = P(A) + P(B)$
+        \item \textbf{Additivity}: if $A \cap B = \emptyset$, then $P(A \cup B) = P(A) + P(B)$ \label{prop:probadd} 
     \end{itemize}
     If $A_1, \dots, A_n$ are disjoint\footnote{prof said this but i think he meant pairwise disjoint?} events, we have
     \begin{itemize}

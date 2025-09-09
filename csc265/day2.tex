@@ -1,4 +1,4 @@
-\section{Day 2: Priority Queues (Sept 5, 2025)}
+\section{Day 2: Priority Queues, Array Representation (Sept 5, 2025)}
 
 Last class we were looking at worst case analysis for the dictionary ADT.
 
@@ -12,7 +12,7 @@ Last class we were looking at worst case analysis for the dictionary ADT.
 \subsection*{Direct Access Table}
 Suppose universe of keys $U = \{ 1, \dots, n \}$ and $n$ is small. As array indexing takes $\Theta(1)$ time, all operations with the ADT take $\Theta(1)$ time. 
 
-We have a slot for every single key in the universe, meaning we could hold the keys themselves, pointers to objects in the set, or even numbers to extend to a multiset, etc.
+We have a slot for every single key in the universe, meaning we could hold the keys themselves, pointers to objects in the set, or even numbers, which we can extend to a multiset, etc.
 
 \subsection{Priority Queue ADT}
 The object is a set of elements each with a key (sometimes called priority, for consistency with CLRS), with the following operations
