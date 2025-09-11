@@ -1,4 +1,4 @@
-\section{Day 3: Assignment Expectations, Binomial Heaps (Sept 8, 2025)}
+\section{Day 3: Assignment Expectations, Heaps (Sept 8, 2025)}
 
 The CLRS chapter on binomial heaps is posted on Quercus, because it was removed after the 2nd chapter.
 
@@ -48,8 +48,8 @@ At most $n$ calls will be made to the \textsc{MaxHeapify} function, each taking 
 
 The reason the bound wasn't tight is because for the lower levels, we are performing a lot less swaps than $\log n$. We observe that there are at most $2^{h - i}$ nodes at the $i$-th level (note that the root is considered to be at level 0). \textsc{MaxHeapify} on a node of height $i$ takes at most $ci$ steps.
 \begin{align*}
-    T(n) &= \sum_{i=1}^{n} 2^{h-i} ci \\
-    &\leq c 2^n \sum_{i=1}^{n} \frac{i}{2^i} \\
+    T(n) &= c \cdot \sum_{i=1}^{h} 2^{h-i} i \\
+    &= c \cdot 2^h \sum_{i=1}^{h} \frac{i}{2^i} \\
     &\leq cn \sum_{i=1}^{\infty} \frac{i}{2^i} \\
     &= 2cn \in O(n)
 \end{align*}
@@ -71,7 +71,9 @@ A binomial tree of degree $k$ is defined recursively:
 \end{itemize}
 \end{definition}
 
-\noindent For a binary tree of degree $k$,
+\includegraphics{csc265/figures/binomialtree.jpg}
+
+\noindent For a binomial tree of degree $k$,
 \begin{enumerate}
 \item There are $2^k$ nodes
 \item The height is $k$
@@ -79,4 +81,4 @@ A binomial tree of degree $k$ is defined recursively:
     \item The root has degree $k$ and its $i$-th child is the root of a binomial tree $B_i$ (children are labelled $k-1$ to 0 left to right) 
 \end{enumerate}
 
-Defining the operations this way makes the operations quite simple, although we didn't have time to go over them in class.
+Defining the operations this way makes the operations quite simple, we didn't have time to go over them this class.

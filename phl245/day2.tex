@@ -25,7 +25,9 @@ An argument is \textbf{sound} if and only if it is both valid and all premises a
 \subsubsection*{Informal Notation Rules:}
 \begin{enumerate}
 \item Parentheses over some connectives
-\item Since $\wedge$ and $\vee$ commute, you don't need parentheses for chains of them (rightmost one is the main connective)
+\item Since $\wedge$ and $\vee$ commute, you don't need parentheses for chains of them
+\item Use the hierarchy of connectives to disambiguate
+    \item For strings of $\wedge$ and $\vee$, the rightmost one is the main connective\footnote{We evaluate symbols left to right, which results in the rightmost one being evaluated last}
 \end{enumerate}
 
 \begin{definition}[Consistent]

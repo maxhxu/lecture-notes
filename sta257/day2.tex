@@ -1,4 +1,4 @@
-\section{Day 2: (Sept 8, 2025)}
+\section{Day 2: Properties of Probability (Sept 8, 2025)}
 
 \subsection{Additional Properties of Probability}
 Today we will be deriving properties of probability from the `axioms' we stated last class. Note that most of these follow from the additivity property \ref{prop:probadd}. Have $A, B \subseteq S$ be events.
@@ -31,7 +31,7 @@ Immediately follows from \ref{prop:padecomposebaspeb}, since $P(A \cap B^C)$ mus
 \end{theorem}
 
 \begin{simplethm}[Principle of Inclusion-Exclusion]
-    $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+    $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ \label{prop:inclexcl} 
 \end{simplethm}
 \begin{proof}
 The events $A \cap B^C$, $B \cap A^C$, $A \cap B$ are disjoint events. 
@@ -49,11 +49,11 @@ For any sequence of events $A_1, A_2, \dots$ not necessarily pairwise disjoint, 
 \]
 \end{simplethm}
 
+TODO: Add proof for this
+
 \begin{remark}
     This is more of a worry in grad-level courses, where you study more pathological probability spaces, but `uncountable' subadditivity does not exist. Consider $S = \text{Uniform}([0, 1])$. Have $A_x = \{ x \}$ for $x \in S$. $P(\bigcup_{x \in S}) A_x = P(S) = P([0, 1]) = 1$. Yet for any `singleton' $x$, $P(A_x) = P(\{ x \}) = 0$, meaning $\sum_{x \in S} P(A_x) = 0$.
 \end{remark}
-
-\newpage
 
 \subsection{Uniform Probabilities on Finite Spaces}
 Have $S = \{ s_1, \dots ,s_n \}$. For all $\{ s_i \}$ to have the same probability, $P(\{ s_i \}) = \frac{1}{n}$, called a \textit{discrete uniform distribution}. 

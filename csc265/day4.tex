@@ -1,0 +1,21 @@
+\section{Day 4: Binomial Heaps (Sept 10, 2025)}
+
+Last week, we looked at binary heaps. Today we will look at binomial heaps, whose definition were given last class. To store $n$ nodes where $n$ were not a power of 2, write $n$ in binary
+\[
+n = b_k2^k + \cdots + b_1 \cdot 2^1 + b_0 \cdot 2^0
+\]
+with $b_i \in \{ 0, 1 \}$. The collection of binomial trees (binomial forest) where there is a binomial tree $B_i$ of degree $i$ for each $b_i$ when $b_i = 1$ would have $n$ nodes.
+
+A \textbf{binomial heap} is a binomial forest, where the roots of the binomial trees are in a LinkedList sorted by strictly increasing degree. Each binomial tree satisfies the max-heap property.
+
+To represent a binomial heap in memory, have each node $x$ store its key, degree, parent, left child (pointer), and right sibling (pointer to the sibling immediately to its right). Note that for the roots of trees $B_i$, there will be no right-sibling, so we can use the right-sibling field to achieve LinkedList behavior.
+
+\begin{description}
+    \item[Link($H_1$, $H_2$)]: link together two binomial trees with the same degree. need to update the degree (+1) and left child of the tree with the larger root key to the tree with the smaller root key. update the right sibling and parent of the tree with smaller root key. $\Theta(1)$, as this is a constant number of pointer updates.
+    \item[Union($H_1$, $H_2$)]: merge LinkedList of $H_1$ and $H_2$ sorted by increasing degree. link trees together by increasing degree until at most 1 tree of each degree link trees together by increasing degree until at most 1 tree of each degree link trees together by increasing degree until at most 1 tree of each degree. $H_1$ has $t_1$ trees, $H_2$ has $t_2$ trees, merging would take $O(t_1 + t_2)$, linking would require $O(t_1 + t_2)$, the sum is $O(\log n)$
+    \item[Insert($H$, x)]: Create a single node $N$ with key $x$, then call \textsc{Union}($H$, $N$). Note that if $n = 2^{k-1}$, then it would take $O(\log n)$, since you will be performing at least $\log n$ merges. However if $n = 2^k$, then the new node will just get added to the linkedlist in constant time. For this reason you can't get a tight $\Theta$ bound on this operation. Also need to update the max pointer here, if the new inserted node is greater than \textsc{Max} pointer.
+    \item[Max($H$)] traverse the LinkedList and return the largest, takes $O(\log n)$. we can make this $\Theta(1)$, by maintianing a pointer to the root with the largest key. 
+    \item[ExtractMax($H$)]: Traverse the roots to find binomial tree $B_i$ with the largest key. Remove the root of $B_i$, create binomial heap $H$ from its children. To ensure it's valid, reverse the order, this means sorted by increasing degree, then call \textsc{Union}($H$, $H'$). Traverse roots to find the largest key, to update the \textsc{Max} pointer.
+\end{description}
+
+\noindent Next week, we will look at balanced binary search trees.

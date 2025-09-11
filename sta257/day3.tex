@@ -1,0 +1,45 @@
+\section{Day 3: `Combinatorics' (Sept 10, 2025)}
+
+For the first few weeks, we will mostly be dealing with uniform spaces. Be careful, if the probability is non-uniform, meaning not all outcomes are equally likely, the counting technique from last class would not apply.
+
+The sample space can also be a discrete infinite set, e.g. $S = \mathbb{N} = \{ 1, 2, \dots \}$, with $P(\{ i \}) = 2^{-i}$ for $i \in \mathbb{N}$. We can check that this is valid by checking that each $0 \leq P(\{ i \})$
+\[
+\sum_{i=1}^{\infty} 2^{-i} = 1
+\]
+To get the probability of the even numbers, we can compute the sum
+\[
+\sum_{i=2,4,6,\dots}^{\infty} 2^{-i} = \frac{1}{3}
+\]
+which is quite surprising.
+
+\noindent \textbf{On a discrete infinite space, we cannot have a uniform distribution.}
+
+\subsection{More Finite Uniform Probabilities}
+
+The number of ways to pick $k$ distinct items \textit{in order} out of $n$ items total, is
+\[
+n(n-1) \cdots (n-k+1) = \frac{n!}{(n-k)!}
+\]
+which is also called a `permutation', written $P(n, k)$.
+
+There are $k!$ ways to order $k$ distinct objects. For this reason, the number of ways to pick $k$ distinct \textit{unordered} objects,
+\[
+n(n-1) \cdots (n-k+1) / k! = \frac{n!}{(n-k)!k!}
+\]
+This formula is called `combinations', `choose formula', or `binomial coefficient', written $C(n, k)$, $n$ choose $k$, and $\binom{n}{k}$ respectively. 
+
+\[
+C(n, k) = \frac{P(n, k)}{k!}
+\]
+
+\begin{remark}
+My best advice is to not buy a lottery ticket. But if you really wanted to, you should avoid common patterns, valid birthdays etc... - Prof Rosenthal
+\end{remark}
+
+In a standard deck of playing cards, there are 4 suits, with each suit having 13 ranks, making $4 \cdot 13 = 52$ cards total. 
+
+\[
+P(\text{Clubs or $7$}) = P(\text{Clubs}) + P(7) - P(\text{Clubs and $7$})
+\]
+
+\noindent which is by inclusion-exclusion \ref{prop:inclexcl}. 
