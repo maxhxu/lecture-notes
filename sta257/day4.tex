@@ -1,0 +1,36 @@
+\section{Day 4: Conditional Probability (Sept 15, 2025)}
+
+From last class: choosing a subset in order is called a permutation, choosing a subset irrespective of the order is called a combination. You don't have to use R in this course, but if you wanted to there is some info \href{http://probability.ca/Rinfo.html}{here}.
+
+\begin{problem}
+    Suppose we flip 4 fair coins, what is $P(\text{exactly 2 heads})$?
+\end{problem}
+
+\noindent You could solve this by writing out the entire sample space. Or by computing $\frac{\binom{4}{2}}{2^4} = \frac{3}{8}$. In general, for flipping $n$ coins, the probability of getting exactly $k$ heads is
+\[
+\frac{\binom{n}{k}}{2^n} \text{for $0 \leq k \leq n$}
+\]
+
+\subsection{Conditional Probability}
+
+We now receive some information that restricts the sample space of interest to some subset of the original sample space $S$. If $P$ was a discrete uniform distribution, $P$ on said subset is remains a discrete uniform distribution. 
+
+\begin{definition}[Conditional Probability]
+    If $A$ and $B$ are two events, where $P(B) > 0$, then the \textit{conditional probability} of $A$ given $B$ is written $P(A \mid B)$  represents the fraction of the times when $B$ occurs, in which $A$ also occurs. 
+\[
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}
+\]
+\end{definition}
+
+\begin{simplethm}[Conditional Multiplication Formula] \label{thm:condmultf}
+    \[P(A \cap B) = P(A)P(B \mid A) = P(B)(A \mid B)\]
+\end{simplethm}
+
+Combining with law of total probability \ref{thm:lawoftotalprob} we can get a more useful version where we replace $P(A_i \cap B)$ according to \ref{thm:condmultf}, giving
+\[
+P(B) = \sum_i P(A_i)P(B \mid A_i)
+\]
+
+\begin{problem}[Challenge]
+Roll $n$ fair die. What are the odds we get more than $0 \leq k \leq n$ 5s? 
+\end{problem}
