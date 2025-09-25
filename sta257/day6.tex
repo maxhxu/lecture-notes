@@ -1,0 +1,66 @@
+\section{Day 6: Continuity of Probabilities (Sep 22, 2025)}
+
+Midterm \#1 is just 2 weeks away, Monday Oct 6 in this very room. Usually this is not the case. If you have a calculator, you would need to get it pre-approved 1 week before the midterm. It cannot be programmable, do algebra, solve equations, etc.
+
+Last class, we looked at conditional probability, now we study independence. Pairs of events can be independent, but the intersection of them may not, as illustrated by the following example:
+
+\begin{example}
+Have $A = \{ \text{first coin heads} \}$, $B = \{ \text{second coin heads} \}$, and $C = \{ \text{both coins flip the same} \}$.
+
+Realize that pairwise, $A, B, C$ are independent, but as a whole, knowing $A, B$ lets you `deduce' $C$, and having $C$ and exactly one of $A$ or $B$ lets you deduce the other. For events $A, B, C$ to be truly independent, we need $P(A \cap B \cap C) = P(A) P(B) P(C)$, motivating the following definition.
+\end{example}
+
+
+\begin{definition}[Independence]
+For a collection $\{ A_i \}$ of events to be independent, for any finite subcollection of the events $\{ i_k \}$, 
+\[
+    P(A_{i_1} \cap \cdots \cap A_{i_k}) = P(A_{i_1}) \cdots P(A_{i_k})
+\]
+\end{definition}
+
+\begin{simplethm}
+    If $P(A), P(B) > 0$, then $A$ and $B$ cannot be both independent and disjoint. 
+\end{simplethm}
+
+\begin{proof}
+    TODO: prove this
+\end{proof}
+
+\subsection{Continuity of Probabilities}
+
+Recall for functions $f : \mathbb{R} \to \mathbb{R}$, continuity means if $\displaystyle \lim_{ n \to \infty } x_n = x$, then $\displaystyle \lim_{ n \to \infty } f(x_n) = f(x)$. We want an analogue for probabilities $P$, which motivates:
+
+\begin{definition}[Nested Increasing]
+    We say that $\{ A_n \} \nearrow A$ if $\bigcup_n A_n = A$, with $A_n \subseteq A_{n+1}$ for all $n$.
+\end{definition}
+
+\noindent As in $A_1 \subseteq A_2 \subseteq \cdots$. For example if $A_n = \{ 1, 2, \cdots, n \}$ then $\{ A_n \} \nearrow \mathbb{N}$. 
+
+\begin{theorem}[Continuity of Probabilities Theorem]
+    If $\{ A_n \} \nearrow A$, then $\displaystyle \lim_{ n \to \infty } P(A_n) = P(A)$.
+\end{theorem}
+
+The proof is similar to that of the subadditivity property of probability \ref{thm:subadditivity}. However, since we know that $\{ A_n \} \nearrow A$, meaning $A_1, \cdots, A_{n-2} \subseteq A_{n-1}$, we can take $B_n = A_n \cap (A_1 \cup \cdots \cup A_{n-1})^c = A_n \cap (A_{n-1})^c$ which is much less complicated. 
+
+\begin{definition}[Nested Decreasing]
+    Write $\{ A_n \} \searrow A$ if $\bigcap_n A_n = A$ and $A_n \supseteq A_{n+1}$ for all $n$. 
+\end{definition}
+
+If we only have probabilities defined on closed intervals, and wish to compute the probabilities of open intervals, we can either take the complement, or express an open interval as an arbitrary union of closed intervals. For example, to express $(a, b)$ as a union of closed intervals, we can compute
+\[
+\bigcup_{i = 1}^\infty \left[a + \frac{1}{n}, b - \frac{1}{n}\right] = \lim_{ n \to \infty } \bigcup_{i = 1}^n \left[a + \frac{1}{n}, b - \frac{1}{n}\right] = (a, b)
+\]
+
+This marks the end of chapter 1 in the textbook. Chapter 2 is much longer than chapter 1 though.
+
+\subsection{Random Variables}
+\begin{definition}[Random Variable]
+A random variable is any function from $S$ to $\mathbb{R}$. 
+\end{definition}
+
+A constant random variable, $X$, is a function such that for all $s \in S$, $X(s) = c$. Random variables can also be unbounded, where for every $M \in \mathbb{R}$, there exist $s \in S$ such that $X(s) > M$ or $X(s) < M$ or $|X(s)| > M$. 
+
+\begin{definition}[Indicator Function]
+    $I_A(s) = 1$ if $s \in A$. Otherwise $I_A(s) = 0$.
+\end{definition}
+

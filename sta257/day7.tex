@@ -1,0 +1,37 @@
+\section{Day 7: Distributions (Sep 24, 2025)}
+
+\subsection{Distributions}
+
+\begin{definition}[Distribution]
+The distribution of a random variable is the collection of all of the probabilities of the variable being in every possible subset of $\mathbb{R}$.
+\end{definition}
+
+We write $P(X \in B)$ to mean $P(X^{-1}(B)) := P \{ s \in S: X(s) \in B \}$. We call $X^{-1}(B)$ the inverse image of $B$. 
+
+\begin{definition}[Discrete Random Variables]
+A random variable is called discrete if
+\[
+    \sum_{x \in \mathbb{R}} P(X = x) = 1
+\]
+\end{definition}
+
+\noindent Also define the \textbf{probability function} as $p_X(x) := P(X = x)$
+
+\begin{definition}[Bernoulli $(\theta)$ Distribution]
+    $P(X = 1) = \theta, P(X = 0) = 1 - \theta$.
+\end{definition}
+If $X$ is a distribution with this property we write $X \sim \text{Bernoulli}(\theta)$. Though for completeness on homework problems, you should say that otherwise for all other $x$, $p_X(x) = P(X = x) = 0$.
+
+\begin{definition}[Binomial($n$, $\theta$) Distribution]
+    $p_X(k) := P(X = k) = \binom{n}{k} \theta^k (1 - \theta)^{n-k}$.
+\end{definition}
+
+To prove that $X$ sums to 1, recall the binomial theorem, which states that
+\[
+(a + b)^n = \sum_{k = 0}^n \binom{n}{k} a^kb^{n-k} 
+\]
+which can be proved inductively. Substitute $a = \theta, b = (1 - \theta)$, and $(\theta + (1 - \theta))^n = 1$.
+
+There exists a special case $\theta = \frac{1}{2}$, making $P(X = k) = \frac{\binom{n}{k}}{2^{n}}$. Bernoulli($\theta$) is the same as Binomial(1, $\theta$). Suppose $X_1, \cdots, X_n \sim \text{Bernoulli}(\theta)$ are independent random variables. We claim that the distribution of $Y = \sum_i X_i \sim \text{Bernoulli}(n, \theta)$.
+
+Picking independent at random with replacement, with binary outcomes is usually binomial?

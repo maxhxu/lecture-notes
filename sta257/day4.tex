@@ -22,6 +22,8 @@ P(A \mid B) = \frac{P(A \cap B)}{P(B)}
 \]
 \end{definition}
 
+If $P(B) = 0$, then $P(A | B)$ is undefined. Assuming that an event with probability 0 occurring would lead to all sort of contradictions that I don't want to explore.
+
 \begin{simplethm}[Conditional Multiplication Formula] \label{thm:condmultf}
     \[P(A \cap B) = P(A)P(B \mid A) = P(B)(A \mid B)\]
 \end{simplethm}
@@ -30,7 +32,9 @@ Combining with law of total probability \ref{thm:lawoftotalprob} we can get a mo
 \[
 P(B) = \sum_i P(A_i)P(B \mid A_i)
 \]
+which is a lot more useful. Remember that $\bigcup_i A_i = S$. 
 
 \begin{problem}[Challenge]
-Roll $n$ fair die. What are the odds we get more than $0 \leq k \leq n$ 5s? 
+Roll $n$ fair six sided dice. What are the odds we get more than $0 \leq k \leq n$ 5s? 
 \end{problem}
+

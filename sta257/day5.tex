@@ -1,0 +1,29 @@
+\section{Day 5: Independence (Sep 17, 2025)}
+
+When solving problems, solve them systematically, it is very easy to get tricked. English is already a complex language, and reading comprehension is even more difficult. Don't rely on analogies to familiar phenomena, when asked to obtain results do everything from the definition.
+
+We start this class with some review of conditional probability. The main challenge in conditional probability questions is finding the correct partition for $S$. 
+
+Recall the conditional multiplication formula \ref{thm:condmultf}. We are given $P(A)$, $P(B)$, and one of $P(A \mid B)$ or $P(B \mid A)$. To solve for the other, we can use the following (simply divide by $P(B)$)
+
+\begin{simplethm}[Bayes Theorem]
+\[
+    P(A \mid B) = \frac{P(A)}{P(B)} P(B \mid A)
+\]
+\end{simplethm}
+
+\subsection{Independence}
+If $A$ and $B$ are any to events, to say that they are independent is that knowing that one happens does not effect the probability of the other. We could define independence as $P(A \mid B) = P(A)$ and $P(B \mid A) = P(B)$, but they are undefined for $P(A), P(B) = 0$. To try to see how we can deal with this drawback, we look into the definition of conditional probability, where we find that we are dividing by $P(B)$.
+\begin{align*}
+    P(A \mid B) = \frac{P(A \cup B)}{P(B)} &= P(A) \\
+    P(A \cup B) &= P(A)P(B)
+\end{align*}
+which is a much better definition, as it's more symmetric, easier to work with, and defined for more events.
+\begin{definition}[Independence]
+    We say 2 events $A, B \subseteq S$ are independent if 
+    \[
+    P(A \cup B) = P(A)P(B)
+    \]
+\end{definition}
+
+So far, independence is defined pairwise. What about triplets, or more? We cover that next class.

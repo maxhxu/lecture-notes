@@ -1,0 +1,21 @@
+\section{Day 9: Open and Closed Sets (Sep 22, 2025)}
+
+You should know that there exist sequential formulations equivalent to the definition of closed and open sets.
+
+We want sets that have nice properties: Let $A \subseteq \mathbb{R}^n$. We want a class of sets such that if a sequence in $\mathbb{R}^n$ converges to $a \in A$, then the \textit{tail} of the sequence belongs in $A$.
+
+\begin{definition}[Open Set]
+$A$ is open if every point of $A$ is an interior point of $A$.  
+\end{definition}
+
+This is equivalent to saying $A = A^o$, and $A \cap \partial A = \emptyset$.
+
+\begin{definition}[Cloesd Set]
+$A$ is closed if every limit point of $A$ belongs to $A$. 
+\end{definition}
+
+That is, $A^* \subseteq A$.
+
+\begin{theorem}
+    A set $A$ is open if and only if its complement $A^c = \mathbb{R}^n \setminus A$ is closed.
+\end{theorem}

@@ -1,0 +1,50 @@
+\section{Day 4: Sequential Circuits (Sep 23, 2025)}
+
+Recall that sequential circuits depend on more than just the input: they also depend on the memory. Suppose that you wanted to build a `tickle-me elmo'. Your contraption also needs to keep track of how many times it's been tickled.
+
+The sequential circuit will have some \textit{feedback loop}. The stored information gets processed as `input' again at some point. We also need some delay between when the information is read-in the first time, and when it is re-processed again.
+
+Even in combinational circuits, outputs do not change instantly. There exists gate/propagation delay, which is the length of time it takes for an input to change to result in a corresponding output change. We call the time where the input changes $T$, and the time where the output changes/finishes processing $T+1$.
+
+Some gates possess useful properties when outputs are fed back in on inputs.
+
+\subsection*{AND, OR Gates}
+
+\subsection*{NAND Gates}
+If we leave $A$ unchanged, we can store the value of in $Q$ unchanged indefinitely. There exists waveform behavior, where whenever $A$ is high, $Q$ (as a whole) is oscillating. Due to propagation delay, this process isn't instant in practice, although it should be in theory. This behavior is not quite right for storing memory though.
+
+\subsection{$\overline{S}\overline{R}$ Latches}
+
+The reason we negate $S$ and $R$ here is so that set retains its original meaning. If we didn't, $Q$ would actually be storing the negation of the value we are setting, which complicates things. 
+
+We claim that inputs of 11 retain the previous input state,
+
+If you want to store 1, set $\overline{S}$ to 1. 
+
+Due to physical limitations, we cannot oscillate the values of set and reset too quickly, because of gate-propagation related delays.
+
+\subsection{Clock Signals}
+
+Clocks are `regular' pulse signals, the high value indicates when to update the output of the latch. The frequency is the number of pulses per second, measured in hertz (Hz), which is $s^{-1}$.
+
+Clocked SR latches gives us a control input signal $C$.
+
+Exists a forbidden state, $S, R, C$ being all high at the same time. Then we get $Q = \overline{Q}$, which is undesired. Introduce D-latches (aka gated D latch), which prevent this very thing from happening.
+
+As a somewhat unfortunate side effect, we cannot have 00 anymore, but the pros outweigh the cons.
+
+We then encounter timing issues, in each clock cycle, we may set something a bajillion times.
+
+\begin{definition}[Transparent]
+    Any changes to the inputs of a D-latch are visible to the output when the control signal (clock) is 1.
+\end{definition}
+
+Latches are transparent, the output values of this clock cycle will also affect the computations of this cycle.
+
+\subsection{Devices}
+
+We have a device that implements flip-flops, but how do we use them to actually remember things? A \textbf{shift register} is a series of D flip-flops, which can store a multi-bit value. Data can be shifted into this register, over $n$ clock cycles total for a $n$ bit integer.
+
+With this implementation, we cannot write instantaneously. It would take $n$ clock cycles to write into this register. Thus a faster clock cycle (higher Hz) is desirable, making operations take less time. 
+
+However, we could've done this all in 1 clock cycle with another implementation, called a $n$-bit \textbf{load register}, where we can individually load the values into the flip-flops in parallel. But then we need to control when 
