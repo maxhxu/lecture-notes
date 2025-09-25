@@ -5,10 +5,10 @@ Lecture notes for my UofT classes. No warranty whatsoever, use at your own risk!
 ## Current Classes
 - MAT237
 - STA257
-- CSC207
+- CSC207 (not keeping notes, mostly programming exercises in lecture)
 - CSC258
 - CSC265
-- PHL245 (not keeping notes)
+- PHL245 (not keeping notes, mostly exercises in lecture)
 
 ## Past Classes
 None
