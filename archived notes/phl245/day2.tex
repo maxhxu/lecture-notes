@@ -1,0 +1,42 @@
+\section{Day 2: Arguments (Sept 5, 2025)}
+
+In this class units do not correspond to weeks.
+
+Arguments are made of statements, which are either true (T) or false (F). In this class, `sentences' are equivalent to statements, and all arguments here are deductive. Deductive arguments are certain, meaning the conclusion must follow.
+
+\textbf{Validity} is about form and structure, and is a property unique to arguments. To show validity, suppose all premises are true and prove the conclusion follows.
+
+An argument is \textbf{sound} if and only if it is both valid and all premises are true statements.
+
+\subsection{Symbols for Sentiential Logic}
+\begin{description}
+    \item[Atomic Statements] capital letters P-Z
+    \item[Logical Connectives] $\sim \text{ or } \neg, \to , \leftrightarrow, \wedge, \vee$
+    \item[Organization] {(), []}
+\end{description}
+
+\subsection{Well Formed Formulae}
+\subsubsection*{Formal Notation Rules:}
+\begin{description}
+    \item[Sentence Letters] P-Z by themselves
+    \item[Unary Connectives] only applies to $\sim$ or $\neg$, you cannot have parentheses
+    \item[Binary Connectives] must be in parentheses
+\end{description}
+\subsubsection*{Informal Notation Rules:}
+\begin{enumerate}
+\item Parentheses over some connectives
+\item Since $\wedge$ and $\vee$ commute, you don't need parentheses for chains of them
+\item Use the hierarchy of connectives to disambiguate
+    \item For strings of $\wedge$ and $\vee$, the rightmost one is the main connective\footnote{We evaluate symbols left to right, which results in the rightmost one being evaluated last}
+\end{enumerate}
+
+\begin{definition}[Consistent]
+For a set of statements, there exists a truth value assignment such that all statements are true.
+\end{definition}
+\begin{definition}[Tautology]
+A sentence that is always true.
+\end{definition}
+\begin{definition}[Contradiction]
+A sentence that is always false.
+\end{definition}
+\noindent There exist \textit{contingent} statements, that are neither always true nor always false.

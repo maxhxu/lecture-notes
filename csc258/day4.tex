@@ -10,41 +10,95 @@ Some gates possess useful properties when outputs are fed back in on inputs.
 
 \subsection*{AND, OR Gates}
 
-\subsection*{NAND Gates}
-If we leave $A$ unchanged, we can store the value of in $Q$ unchanged indefinitely. There exists waveform behavior, where whenever $A$ is high, $Q$ (as a whole) is oscillating. Due to propagation delay, this process isn't instant in practice, although it should be in theory. This behavior is not quite right for storing memory though.
+\includegraphics{csc258/figures/feedbackandor.jpg}
 
-\subsection{$\overline{S}\overline{R}$ Latches}
+\subsection*{NAND, NOR Gates}
 
-The reason we negate $S$ and $R$ here is so that set retains its original meaning. If we didn't, $Q$ would actually be storing the negation of the value we are setting, which complicates things. 
+\includegraphics{csc258/figures/feedbacknandnor.jpg}
 
-We claim that inputs of 11 retain the previous input state,
+If we leave $A$ unchanged, we can store the value of 1 and 0 respectively for NAND and NOR gates in the output $Q$ indefinitely. For each of NAND and NOR, there exist some inputs that make it exhibit waveform behavior. In real life, the oscillation is limited by gate propagation delays. This oscillation is not useful, since it is hard to control, and we would rather use a more reliable source for oscillations (e.g. a quartz crystal).
 
-If you want to store 1, set $\overline{S}$ to 1. 
+Our search for a circuit with better behavior, and the ability to `store an input' continues.
+
+\subsection{$\overline{S}\overline{R}$, $SR$ Latches}
+
+The reason we negate $S$ and $R$ here for the first latch is so that \textit{set} retains its original meaning. If we didn't, $Q$ would actually be storing the negation of the value we are setting, which complicates things. 
+
+We claim that inputs of 11, meaning that when both $S$ and $R$ are low, the latch retains the previous input state, or is in a `hold' state. To set a value, set $S$ to high, which causes $Q$ to also be high. Making $R$ high causes $Q$ to become low. Note that we disregard the $\overline{SR} = 00$, which we call a \textit{forbidden} case because of it's undesirable behavior.
+
+\includegraphics{csc258/figures/notsnotrlatch.jpg}
 
 Due to physical limitations, we cannot oscillate the values of set and reset too quickly, because of gate-propagation related delays.
 
+\includegraphics{csc258/figures/srlatch.jpg}
+
+SR latches operate similarly, except 11 is now the \textit{forbidden case}. The reason 00 for $\overline{SR}$ latches and 11 for $SR$ latches are forbidden, is mainly because of that we want $Q_T$ and $\overline{Q_T}$ to actually be the negation of the other, otherwise using this notation doesn't make sense. Later, we work to prevent the circuit from entering such a state altogether.
+
+
+As for instability, the signals don't change simultaneously in real life, thus the outcome depends on which signal changes first. For simplicity, I assumed that they did in these notes.
+
 \subsection{Clock Signals}
+
+We need clock signals, to known exactly when the outputs are ready to be sampled. Otherwise, gate-propagation delays are a hassle to deal with. We also encounter trouble telling a single high signal from two high signals in a row. This is resolved using clock signals.
 
 Clocks are `regular' pulse signals, the high value indicates when to update the output of the latch. The frequency is the number of pulses per second, measured in hertz (Hz), which is $s^{-1}$.
 
-Clocked SR latches gives us a control input signal $C$.
+\includegraphics{csc258/figures/clockedsrlatch.jpg}
 
-Exists a forbidden state, $S, R, C$ being all high at the same time. Then we get $Q = \overline{Q}$, which is undesired. Introduce D-latches (aka gated D latch), which prevent this very thing from happening.
+To create a clocked SR latch, we add another layer of NAND gates to the $\overline{SR}$ latch. Clocked SR latches provide a control input signal $C$, often connected to a pulse signal that alternates regularly between 0 and 1. Notice that if $C$ is 0, then the NAND gate ensures that both ``$\overline{S}$'' and ``$\overline{R}$'', analogous to the inputs of a $\overline{SR}$ latch, take on values of 11. Hence this is equivalent to having when $C$ be low, both $S$ and $R$ are forcibly set to 0, ensuring that the latch enters the hold state. 
 
-As a somewhat unfortunate side effect, we cannot have 00 anymore, but the pros outweigh the cons.
+If $C$ is 1, then the NAND gate ensures that the output is simply the negation of the respective signal. Since the $S:0, R:0$ state in $\overline{SR}$ latches is forbidden, thus $C:1, S:1, R:1$ is also a forbidden state, as it would also produce $Q = \overline{Q}$. 
 
-We then encounter timing issues, in each clock cycle, we may set something a bajillion times.
+\subsection{D Latch}
+
+To solve this issue, we add additional circuitry to prevent $S$ and $R$ from every being 1 at the same time, avoiding the indeterminate state problem altogether.
+
+\includegraphics{csc258/figures/Dlatch.jpg}
+
+As a somewhat unfortunate side effect, we cannot have the input of 00 anymore, but the pros outweigh the cons. \textbf{For the midterm, you need to know what the $D$ input does}.
 
 \begin{definition}[Transparent]
     Any changes to the inputs of a D-latch are visible to the output when the control signal (clock) is 1.
 \end{definition}
 
-Latches are transparent, the output values of this clock cycle will also affect the computations of this cycle.
+The output values will change as long as the clock signal is high. The output can toggle back and forth repeatedly in a single clock cycle, which is undesirable. We want a circuit that is \textit{edge triggered}, such that it only performs the action the moment the clock changes, instead of the entire duration of the high clock signal.
+
+We solve this by creating a middle section set to the input value when the clock is high as a `buffer', which is then sent to the output when the clock is low. The SR m-s flip-flop is such a latched circuit, where the output is triggered when $C$ changes value from high to low, also known as being \textbf{negative-edge triggered}.
+
+\includegraphics{csc258/figures/srmsflipflop.jpg}
+
+Note that the same oscillatory behavior still occurs when $C:1, S:1, R:1$, so we replace the first part by a D-latch, which has the nice property in that its $Q$ and $\overline{Q}$ are always the negation of each other, thus we can continue using the clocked SR latch for the 2nd part. The overall circuit would look as follows:
+
+\includegraphics{csc258/figures/dflipflop.jpg}
+
+Now we analyze its behavior. When the clock is high, notice that the clocked $SR$ latch is in the `hold' state, since its' $C$ input is negated. Only when the clock goes to low, the output from the $D$ flip flop reaches the clocked $SR$ latch, which now has a high $C$ input. The clocked $SR$ latch's outputs would then be the same as the $D$ flip flop's outputs when the clock was originally high. After the clock has been set to low, the $D$ flip flop's outputs when then depend on the value of $D$, and the cycle can continue.
+
+There also exist positive edge triggered flipflops, which we can derive by simply taking the negation of $C$.
+
+\includegraphics{csc258/figures/posedgedflipflop.jpg}
 
 \subsection{Devices}
 
-We have a device that implements flip-flops, but how do we use them to actually remember things? A \textbf{shift register} is a series of D flip-flops, which can store a multi-bit value. Data can be shifted into this register, over $n$ clock cycles total for a $n$ bit integer.
+We have a device that implements flip-flops, but how do we use them to actually remember things? A \textbf{shift register} is a series of positive edge triggered D flip-flops, which can store a multi-bit value. Data can be shifted into this register, over $n$ clock cycles total for a $n$ bit integer.
 
 With this implementation, we cannot write instantaneously. It would take $n$ clock cycles to write into this register. Thus a faster clock cycle (higher Hz) is desirable, making operations take less time. 
 
-However, we could've done this all in 1 clock cycle with another implementation, called a $n$-bit \textbf{load register}, where we can individually load the values into the flip-flops in parallel. But then we need to control when 
+However, we could've done this all in 1 clock cycle with another implementation, called a $n$-bit \textbf{load register}, where we can individually load the values into the flip-flops in parallel.
+
+\includegraphics{csc258/figures/shiftloadregister.jpg}
+
+This introduces an additional challenge, where we need to control when we are loading $D_i$ into the associated positive edge triggered $D$ flip flop. We create a new input, being $EN$, standing for enable. If $EN$ is low, it takes on the value of the previous value, ignoring the new value of $D$. Otherwise if $EN$ is high, we want to pass the input directly into to the positive edge triggered D flip flop, which can be accomplished as follows:
+
+\includegraphics{csc258/figures/dflipflopwithenable.jpg}
+
+\begin{remark}
+    In this course, I believe we adopt the convention that all $D$ flip flops unless otherwise stated are \textbf{positive edge triggered}, contrary to how $SR$, $\overline{SR}$, $SR$ m-s flips flops. It can be argued that $SR$ m-s flip flops are not truly edge triggered, but I don't think we need to worry about it. 
+\end{remark}
+
+For load registers with write, we also introduce an additional \textit{Write} input, to denote when we enable/disable loading into the register. Below is a diagram of our Load Register (with Write). But note that in a shift register this still has utility: we can use this to ensure that the shifting stops after the entire number is shift in, by disabling the EN flag.
+
+\includegraphics{csc258/figures/loadregisterwithwrite.jpg}
+
+\begin{exercise}
+As an exercise, create a mind map of all circuits covered in lecture, with arrows denoting the motivation for developing such a circuit.
+\end{exercise}

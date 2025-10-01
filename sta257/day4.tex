@@ -29,9 +29,13 @@ If $P(B) = 0$, then $P(A | B)$ is undefined. Assuming that an event with probabi
 \end{simplethm}
 
 Combining with law of total probability \ref{thm:lawoftotalprob} we can get a more useful version where we replace $P(A_i \cap B)$ according to \ref{thm:condmultf}, giving
+\begin{theorem}[Law of Total Probability: Conditioned Version] 
+    Given $\bigcup_i A_i = S$, $A_i$ are pairwise disjoint, then \label{thm:ltpcond}
 \[
 P(B) = \sum_i P(A_i)P(B \mid A_i)
 \]
+
+\end{theorem}
 which is a lot more useful. Remember that $\bigcup_i A_i = S$. 
 
 \begin{problem}[Challenge]

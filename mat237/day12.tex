@@ -1,0 +1,19 @@
+\section{Day 12: Continuity (Sep 29, 2025)}
+
+\begin{definition}[Continuity]
+Let $f: A \subseteq \mathbb{R}^n \to \mathbb{R}^m$ be a function, let $a \in A$. $f$ is continuous at $a$ if
+\[
+    \forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } \forall x \in A, ||x - a|| < \delta \implies ||f(x) - f(a)|| < \epsilon 
+\]
+\end{definition}
+
+With this definition, $f$ is always continuous at isolated points in $A$, since there is a $\delta$ radius around said point that do not contain any other points in $A$. Yet we cannot write $\displaystyle \lim_{ x \to a } f(x)$ here, since $a$ would not be a limit point (from last class, we only define limits at limit points). 
+
+\begin{simplethm}
+If $a$ is indeed a limit point, then $\displaystyle \lim_{ x \to a } f(x) = f(a)$ is equivalent to our definition of continuity. 
+\end{simplethm}
+
+
+\begin{simplethm}
+Linear functions are continuous.
+\end{simplethm}

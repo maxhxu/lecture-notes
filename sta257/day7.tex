@@ -32,6 +32,6 @@ To prove that $X$ sums to 1, recall the binomial theorem, which states that
 \]
 which can be proved inductively. Substitute $a = \theta, b = (1 - \theta)$, and $(\theta + (1 - \theta))^n = 1$.
 
-There exists a special case $\theta = \frac{1}{2}$, making $P(X = k) = \frac{\binom{n}{k}}{2^{n}}$. Bernoulli($\theta$) is the same as Binomial(1, $\theta$). Suppose $X_1, \cdots, X_n \sim \text{Bernoulli}(\theta)$ are independent random variables. We claim that the distribution of $Y = \sum_i X_i \sim \text{Bernoulli}(n, \theta)$.
+There exists a special case $\theta = \frac{1}{2}$, making $P(X = k) = \frac{\binom{n}{k}}{2^{n}}$. Bernoulli($\theta$) is the same as Binomial(1, $\theta$). Suppose $X_1, \cdots, X_n \sim \text{Bernoulli}(\theta)$ are independent random variables. We claim that the distribution of $Y = \sum_i X_i \sim$, $Y \sim \text{Bernoulli}(n, \theta)$.
 
-Picking independent at random with replacement, with binary outcomes is usually binomial?
+Picking independently $k$ elements at random with replacement, with binary outcomes is usually $P(X = k)$, where $X \sim \text{Binomial}(n, \theta)$? 

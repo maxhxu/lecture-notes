@@ -1,0 +1,74 @@
+\section{Day 5: Sequential Circuit Design (Sep 30, 2025)}
+
+Our main motivation is to create complex circuits, which can store state information.\footnote{or if you really wanted to build a tickle-me elmo, or a thomas the tank engine that plays voicelines} Latches, flipflops, are all stepping stones towards this goal. There remains a major issue, being that the input should not be changing at the same time as the active edge of the clock.
+
+\begin{definition}[Setup Time]
+The amount of time the input should be stable for, before active clock edge.
+\end{definition}
+
+\begin{definition}[Hold Time]
+The amount of time the input should be stable for, after the clock edge.
+\end{definition}
+
+In an ideal world, both the setup and hold time would be 0, but this is not possible in practice. Thus the input needs to be held for some amount of time. The rule of thumb is that the time period between two active clock edges cannot be shorter than the longest propagation delay between any two flip flops plus the setup time of the flip flop.
+
+The intuitive explanation is that ``some information will still be making its way through the circuit, which leads to usually unwanted side effects, where the incorrect information propagates as a clock cycle is skipped''. We can lower the frequency of the clock signal, but overall this reduces the number of computations we can perform per second.
+
+When flip-flops (FFs) are first powered up, they are in an unknown state, and we need to initialize them with values. We introduce a \textit{Reset} signal, which is unrelated to the $R$ input of the $SR$ latch. We will not dive into the circuitry for this one. Note that the reset must be \textbf{synchronous}, where the output is reset only on the active edge of the clock. An \textbf{asynchronous reset} is when the output is reset to 0 immediately, as soon as the asynchronous reset signal becomes active, independent of the clock signal.
+
+\begin{definition}[Signal]
+    A signal (sometimes written \texttt{SI}) is a function of time.
+\end{definition}
+
+Counters are of particular interest. A motivating example is that we need a \textit{program counter}, to keep track of which line of the program are we currently on, which is of great utility. Otherwise, the computer has no idea what its instructions are.
+
+We can cheaply implement a ripple counter, by chaining together $D$ flip flops with enable. However, the propagation delay adds on quickly, thanks to its asynchronous nature. 
+
+We can create a synchronous version, which will only have a slight delay.
+
+\subsection{Finite State Machines}
+
+For now, let us abstract away all of the underlying flip flops and circuitry and take a deeper look at what we actually wanted to implement. There exists states, as well as transitions between states. 
+
+Recall our 5-step (ish) plan \ref{part:5stepplan} for simple circuits. For more complicated circuits, your design plan would look as follows:
+\begin{enumerate}
+\item Create a graph, representing the desired logic of your circuit
+\item Create a table, with each row representing some combination of current state and input values, such that the table captures all combinations, as well as the transition that will be performed for each combination.
+\item Assign flip flop configuration to each state, meaning number of flip flops needed is $\lceil \log_2 \text{number of states} \rceil $
+\item Redraw state table with flip-flop values.
+\item Derive combination circuit for output and for each flip-flop input. Here, for each output, you would draw a Karnaugh map and do exactly what you did for combinational circuits.
+\end{enumerate}
+
+\begin{definition}[Finite State Machine]
+An abstract model that captures the operations of a sequential circuit.
+\end{definition}
+
+\noindent Rigorously, a FSM can be modelled by a deterministic finite automaton (DFA), which is a 5-tuple
+\[
+M = (Q, \delta, \Sigma, q_0, F)
+\]
+where $Q$ is the set of states, $\delta : Q \times \Sigma \to Q$ is the transition function, $\Sigma$ is the set of `inputs' to the circuit, $q_0$ is the starting state, and $F$ are the accepting states. 
+
+We suppose that exactly \textbf{one} transition occurs per clock tick. The slides say that you can have multiple starting states, but this is just for convenience. Rigorously, you would just have a dummy starting state $q_0$, which then transitions to one ofyour `actual' starting states after one tick.
+
+\begin{exercise}
+Draw FSM diagrams for various machines that you encounter in your life. This could very well be a midterm question.
+\end{exercise}
+
+\begin{exercise}
+    Create a sequence recognizer, that raises a signal if three high values have been seen in a row. (The input has been high for three rising clock edges). Suppose there is a single input $X$ and a single output $Z$. 
+\end{exercise}
+
+\begin{definition}[Moore Machine]
+    The output of the FSM depends solely on the current state (based on entry actions).
+\end{definition}
+
+\begin{definition}[Mealy Machine]
+    The output for the FSM depends on the state and the input (based on past actions, steps taken along the way). Being in the state $X$ can result in different output, depending on the input that cause that state. 
+\end{definition}
+
+\subsection{Lab Tips}
+
+For the lab, before adding a real clock, consider using a switch instead. This lets you avoid most oscillatory side effects, since you likely won't be able to flip the clock fast enough.
+
+Arithmetic and logical shifts mean quite different things. Ensure that you understand which is which. Note that your ALU is a transparent device, input values are processed with a small delay into the output. The register after the ALU should be clocked, meaning values only enter when the clock goes from 0 to 1.

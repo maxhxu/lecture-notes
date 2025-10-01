@@ -1,0 +1,10 @@
+\section{Day 2: More Java (Sept 11, 2025)}
+
+Official course notes are available \href{https://github.com/CSC207-UofT/207-course-notes}{here}. Today, we went over:
+\begin{itemize}
+\item For if-else statements, if the content is a single line you can get away without curly braces. You can nest complex \textit{statements} inside this way as well, so long as the indentation is correct.
+    \item Switch-case only works for primitive objects and strings. You cannot use it on an arbitrary object. You can put \texttt{default} first if you wish, but it is typically bad practice because it typically is the last case you would consider.
+\item Being careful about variable scope. Variables declared inside a for loop, if-else, \dots will not be accessible outside.
+\item Like in python, \texttt{break} has you exiting the loop completely when it is reached. \texttt{continue} skips the current iteration of the loop.
+\item You can have empty statements in java, represented by just a semicolon or $\{\};$ or $\{ \{ \{ \{  \} \} \} \};$. They will still compile but the style checker may complain.
+\end{itemize}

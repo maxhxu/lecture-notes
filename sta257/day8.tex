@@ -1,0 +1,59 @@
+\section{Day 8: More Distributions (Sep 29, 2025)}
+
+\begin{definition}[Geometric Distribution]
+    $P(Z = k) = (1 - \theta)^k \theta$ 
+\end{definition}
+
+Intuitively, this can be thought of as $k$ failed attempts at something with $\theta$ probability each time, with success on the $k + 1$-th attempt. Some textbooks count the number of attempts to be up to and including the first success, not here though. 
+
+\begin{simplethm}
+    If $X \sim \text{Geometric}(\theta)$ for any $0 < \theta < 1$, with $m \in \mathbb{N}$, then $P(X \geq m) = (1 - \theta)^m > 0$, yet $P(X = \infty) = 0$.
+\end{simplethm}
+
+\begin{simplethm}[Memoryless Property]
+    If $X \sim \text{Geometric}(\theta)$, $a, b \in \mathbb{N}$ then 
+\[
+    P(X \geq a + b \mid X \geq a) = P(X \geq b)
+\]
+\end{simplethm}
+
+An analogy is that the probability of you having to wait an additional $b$ minutes, is `independent' of you having already waited $a$ minutes. 
+
+\begin{definition}[Poisson Distribution]
+    Given $\lambda$, and $k \in \mathbb{N} \cup \{ 0 \}$,
+    \[
+    P(k) = e^{-\lambda} \frac{\lambda^k}{k!}
+    \]
+\end{definition}
+
+Suppose we have $n$ houses in a city, with each house independently having a $\theta$ probability of a fire on. The number of houses on fire $\lambda = n \theta$. We can compute the probability of having $k$ houses on fire as follows:
+\[
+P(\text{\# fires} = k) = \binom{n}{k} (1-\theta)^{n-k} \theta^{k}
+\]
+
+We will be skipping the Negative-Binomial($r, \theta$) and Hypergeometric($N$, $M$, $n$) distributions, and cover them next year.
+
+\begin{theorem}
+If $X$ is a discrete random variable, with values $x_1, x_2, \cdots$ and corresponding probabilities $p_1, p_2, \cdots$ and $B$ is any event, then
+\[
+    P(B) = \sum_i P(X = x_i) P(B \mid X = x_i) = \sum_i p_i P(B \mid X = x_i)
+\]
+\end{theorem}
+
+This follows almost immediately from \ref{thm:ltpcond}, since $X = x_i$ for some $i$ will always occur, by definition of $x_i$, thus they union to $S$. For pairwise disjointedness $X$ can only take on one value at a time, hence this is a valid partition.
+
+\begin{remark}
+For now we say that $\binom{0}{3}$ is undefined. There is a way to define it using negative binomials, but we're not interested in that just yet.
+\end{remark}
+
+\subsection{Continuous Random Variables}
+
+\begin{definition}[Continuous]
+$X$ is continuous if for all $x \in S$, $P(X = x) = 0$.
+\end{definition}
+
+\begin{definition}[Density Function]
+    A density function is `any' $f: \mathbb{R} \to \mathbb{R}$ with $f(x) \geq 0$, and $\int_{-\infty}^{\infty} f(x) \, dx  = 1$.
+\end{definition}
+
+Given any density function $f$, we can define $X$, where $P(a \leq X \leq b) = \int_a^b f(x) \, dx$ for $a \leq b$. Immediately $X$ is continuous, since for any $x \in S$, have $P(X = x) = \int_x^x f(t) \, dt = 0$. We call such an $X$, \textbf{absolutely continuous} and write $f_X(x)$ to denote that it's $X$'s density function.

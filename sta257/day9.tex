@@ -1,0 +1,47 @@
+\section{Day 9: Continuous Random Variables (Oct 01, 2025)}
+
+At the end of today, we will be told exactly what will be on the midterm. Recall that continuous random variables have the property that $P(X \leq a) = P(x < a)$, since by definition $P(X = x)$.
+
+For $L < R \in \mathbb{R}$, we can define the Uniform[$L$, $R$] distribution with the density function
+\[
+f_X(x) = \begin{cases}
+    0 & x < L \\
+    \frac{1}{R-L} & L \leq x \leq R \\
+    0 & x > R
+\end{cases}
+\]
+Notice that whenever $L \leq a \leq b \leq R$, $P(a \leq X \leq b) = \frac{b-a}{R - L}$. Also $P(L \leq X \leq R) = 1$, so we say that this distribution is \textbf{bounded}.
+
+The Exponential(1) distribution has the following density function
+\[
+f(x) = \begin{cases}
+    e^{-x} & x \geq 0 \\
+    0 & x < 0 
+\end{cases}
+\]
+
+We generalize this to the Exponential($\lambda$) has $f(x) = \lambda e^{-\lambda x}$ for $x \geq 0$, and 0 everywhere else.
+
+\begin{simplethm}
+    Exponential($\lambda$) has the memoryless property.
+\end{simplethm}
+
+\noindent Consider the function
+\[
+\phi(x) = \frac{1}{\sqrt{2 \pi}} e^{- \frac{x^2}{2}}
+\]
+Clearly, $\phi(x) \geq 0$, but it is less clear than that $\int_ \infty ^ \infty \phi(x) \, dx = 1$. For now, assume it is and thus it is a density. Now if $X$ has density $\phi$, we say that $X$ has the Normal(0, 1) or N(0, 1) distribution. Then for all $a \leq b$
+\[
+P(a \leq X \leq b) = \int_a^b \phi(x) \, dx = \int_a^b \frac{1}{\sqrt{2\pi}} e^{- \frac{x^2}{2}} \, dx
+\]
+We claim that we cannot compute this integral analytically, so you would approximate this using software, or tables.
+
+We generalize to the Normal($\mu$, $\sigma^2$) distribution, where for any $\mu \in \mathbb{R}$ and $\sigma > 0$, have
+\[
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{- \frac{(x-\mu)^2}{2 \sigma^2}}
+\]
+The curve is centered at $\mu$, and increasing/decreasing $\sigma$ makes the curve `fatter'/`thinner' respectively. 
+
+This distribution arises naturally when there are lots of small influences (we can show this via Central Limit Theorem).
+
+What is covered on the midterm: everything up to and including the discrete distributions (no continuous distributions).

@@ -1,0 +1,51 @@
+\section{Day 9: Hash Tables (Sep 29, 2025)}
+
+Last time we looked at average case and (worst case) expected case analysis. Remember that average case is for deterministic algorithms, while expected case is for randomized algorithms.
+
+A \textbf{hash table} $T$ is another data structure for a dictionary $S$ (suppose keys are distinct).\footnote{If all elements are the same, then we cannot get good expected bounds} Have $n = |S|$. If consists of an array $T[0..m-1]$ of size $m$. Let $U$ be the universe of possible keys. Let $h : U \to \{ 0, \cdots, m-1 \}$ be the hash function mapping each key in the universe to a slot/bracket in $T$. 
+
+If 2 keys $x, y \in U$ hash to the same slot, meaning $h(x) = h(y)$, we say that they collide. If $|U| > m$, collisions are guaranteed by the pigeonhole principle. To resolve this we use \textit{chaining}: putting all elements of $S$ that hash into the same slot into an unsorted doubly linked list. 
+
+\begin{description}
+    \item[Insert($T$, $k$)] Given key $k$ not in $T$, first create a new node with key $k$, and inserted at the head of $T[h(k)]$.
+    \item[Delete($T$, $x$)] Given pointer to node to remove $x$, delete $x$ from the doubly linked list, done in $\Theta(1)$ time.
+    \item[Search($T$, $k$)] Search linked list at $T[h(k)]$ for a node with key $k$. Worst case time is $O(n)$, since all keys could be in the same slot, which contains a doubly linked list of length $n$.
+\end{description}
+
+If the hash function distributes the keys into slots somewhat evenly, \textsc{Search} would instead take $\frac{n}{m} \in O(1)$ time. This value is of particular interested, and motivates finding `better' hash functions. Define \textbf{load factor} $\alpha = \frac{n}{m}$, our goal is to have $\alpha \in O(1)$.
+
+In \textit{simple uniform hashing}, a key $k$ is equally likely to be hashed to any of the $m$ slots, independent of where all other elements in $T$ have been hashed. For \textit{universal hashing}, the main idea is to choose a hash function randomly from a family of hash functions.
+
+\begin{definition}[Universal]
+    A finite set $\mathcal{H}$ of hash functions from $U$ to $\{ 0, \cdots, m-1 \}$ is called universal if for every 2 distinct keys $x, y \in U$, \[  \underset{h \in \mathcal{H}}{\text{Pr}}(h(x) = h(y)) \leq \frac{1}{m} \] or equivalently, 
+    \[
+    |\{ h \in \mathcal{H} \mid h(x) = h(y) \}| \leq \frac{|\mathcal{H}|}{m}
+    \]
+\end{definition}
+
+We will leverage results from number theory to achieve this, but let's analyze chaining with universal hashing first. Let $S$ be a fixed set of elements. Consider hash table $T[0..m-1]$, with randomly chosen hash function $h \in \mathcal{H}$, where $\mathcal{H}$ is universal.
+
+Insert $S$ into $T$. For $x \in U$, define $C_x : \mathcal{H} \to \mathbb{N}$ such that $C_x(h)$ equals the number of elements in $S$ that hash to $h(x)$ (the length of the doubly linked list in the hash table). Note that $x$ may not be in $S$. 
+
+\begin{simplethm}
+For any $x \in U$
+\[
+    \underset{h \in \mathcal{H}}{\mathbb{E}}[C_x] \leq 1 + \frac{n}{m}
+\]
+\end{simplethm}
+
+\noindent To prove this, we want to split $C_x$ into smaller random variables that are easier to deal with. 
+\begin{proof}
+    Fix $x \in U$, $y \in S$ let $C_{x, y}(h)$ be an indicator random variable, that is 1 if and only if $h(x) = h(y)$ and 0 otherwise. Thus $C_x(h) = \sum_{y \in S}C_{x, y}(h)$ by the law of total probability. 
+    \[
+    \mathbb{E}[C_x] = \mathbb{E}[\sum_{y \in S}C_{x, y}(h)] = \sum_{y \in S} \mathbb{E}(C_{x, y}(h)) = \sum_{y \in S} \text{Pr}(h(x) = h(y))
+    \]
+    Because $\mathcal{H}$ is universal, $\underset{h \in \mathcal{H}}{\text{Pr}}(h(x) = h(y)) \leq \frac{1}{m}$. If $x \in S$,
+    \[
+    \mathbb{E}[C_x] = \mathbb{E}[C_{x, x}] + \sum_{y \in S \setminus \{ x \}} \mathbb{E}[C_{x, y}] \leq 1 + \frac{n - 1}{m} \leq 1 + \frac{n}{m}
+    \]
+
+    \noindent If $x \not \in S$, then $\mathbb{E}[C_x] \leq \frac{n}{m} = \alpha$. In either case the theorem holds.
+\end{proof}
+
+Next class we will describe these families of universal hash functions.
