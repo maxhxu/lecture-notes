@@ -1,0 +1,68 @@
+\section{Tutorial 4 (Oct 10, 2025)}
+
+Formally, let $\sigma$ be any sequence of $m$ operations. Have $\epsilon_i$ be the amortized cost assigned to the $i$-th operation, and $c_i$ be the actual cost of the $i$-th operation. Then
+\[
+\sum_{i=1}^{n} \epsilon_i \geq \sum_{i=1}^{n} c_i + (\text{credits stored in the data structure})
+\]
+
+$\epsilon_i$ is allowed to be wasteful, because sometimes it's simpler to `count less money'. We introduce a credit invariant, in an effort to attach a chunk of the whole data structure's balance to say, a single node, which simplifies computations.
+
+\begin{definition}[Credit Invariant]
+A rule that says how many credits is stored in parts of the data structure.
+\end{definition}
+
+\begin{problem}
+
+\end{problem}
+
+Our goal is to show that \textsc{AddToEnd} has amortized cost $O(1)$, meaning on average, it takes a constant amount of work to append to this data structure. We perform analysis as follows:
+
+\subsection*{Accounting Method}
+\begin{description}
+    \item[Step 1] Define what \$ pays for (i.e. what is a step) \\
+    Here, we have 1 \$ pay for writing an in integer into an array. 
+
+    \item[Step 2] Determine what we charge for each operation \\
+    We charge \$ 2 for each call to \textsc{AddToEnd} called.
+
+    \item[Step 3] Define a credit invariant \\
+    \textbf{Credit Invariant}: Each nonempty entry in the second half of the array $A$ has \$3 allocated to it.
+    
+    \item[Step 4] Prove the credit invariant by induction \\
+    Want to show that our credit invariant holds, that each non-empty entry in the second half of $A$ has \$2.
+
+    \[
+    \sum_{i=1}^{m} \epsilon_i \geq \sum_{i=1}^{m} c_i + (\text{sum of credits in the data structure})
+    \]
+
+    \textbf{Base Case}: $n = 1$, with each $A[1] = \textsc{Nil}$. \\
+    Since no operation was performed, $m = 0$. Since $A[1] = \textsc{Nil}$, the data structure have 0 credits. Thus both the invariant and the inequality holds.
+
+    \textbf{Induction Step}: Assume the invariant and inequality both hold for some $m$. Want to show they still hold for $m+1$. We proceed by cases:
+
+    \textit{Case 1}: Suppose $A$ is not full (i.e. $\ell = m \leq n$ at the start of the $(m+1)$-th operation). Assume that \$3 is charged for the $(m+1)$-th \textsc{AddToEnd}, and use \$1 to pay for writing $k$ to $A[\ell]$. Allocate the remaining \$2 of credit to $A[\ell]$.
+day16
+    Since the credit invariant was maintained on all other elements in the second half of $A$, and $A[\ell]$ is the only empty entry that becomes non-empty during this operation, we conclude that the credit invariant holds after the $(m+1)$-th operation. We also have
+
+    \begin{align*}
+        \sum_{i=1}^{m+1}  \epsilon_i &\geq \sum_{i=1}^{m} \epsilon_i  + 3 \\
+        &\geq \sum_{i=1}^{m} c_i + (\text{old sum of credits}) + 3 \\
+        &\geq \sum_{i=1}^{m} c + (\text{new sum of credits} - 2) + 3
+    \end{align*}
+
+    \textit{Case 2}: Suppose that $A$ is full (i.e. $\ell = m = n + 1$ at the start of the $(m+1)$-th operation). Copy the elements of $A$ into the first half of $A'$, which costs \$n. We pay for the transfer using the $\frac{n}{2} \cdot \$2$ of credits in the second half of $A$. This amount of credits exists, since we know that $A$ is full. 
+
+    Among the \$3, collected from calling the $(m+1)$-th call of \textsc{AddToEnd}, use \$1 to write $k$ into $A'[\ell]$, and store \$2 to $A'[\ell]$. As $A'[\ell]$ is the only such entry in the second half of $A'$, and has \$2 allocated to it, the credit invariant holds. Returning to the inequality,
+
+    \begin{align*}
+        \sum_{i=1}^{m} \epsilon_i & \sum_{i=1}^{m} = \epsilon_i + 3 \\
+        &\geq \sum_{i=1}^{m} c_i + \underset{= n}{(\text{old credits in DS})} + 3 \\
+        &= \sum_{i=1}^{m} c_i + (\text{new credits in DS}) + n - 2 + 3 \\
+        &= \sum_{i=1}^{m} c_i + n + (\text{new credits}) + 1 \\
+        &\geq \sum_{i=1}^{m} c_i + (\text{new credits})
+    \end{align*}
+
+    \item[Step 5] State the conclusion. \\
+    By the previous inequality, the sum of the amortized cost is at least the sum of the actual cost of the $m$ operations. Since each \textsc{AddToEnd} operation has amortized cost \$3, the (actual) cost for performing a sequence of $m$ operations is upper bounded by $3m$. 
+
+\end{description}

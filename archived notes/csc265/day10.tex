@@ -1,0 +1,17 @@
+\section{Day 10: More Universal Hash Functions (Oct 01, 2025)}
+
+Today, we will show more results relating to families of universal hash functions.
+
+\begin{simplethm}
+The set of all possible hash functions $\mathcal{H}$ from $U$ to $\{ 0, \cdots, m-1 \}$ is universal.
+\end{simplethm}
+
+\begin{proof}
+    Let $u = |U|$. Each element of $U$ can get mapped to one of $m$ values, so $|\mathcal{H}| = m^u$. Fix distinct $x, y \in U$.
+    \[
+    |\{ h \in \mathcal{H} : h(x) = h(y) \}| = \frac{m^u}{m} = \frac{|\mathcal{H}|}{m}
+    \]
+    because $y$ must take on $x$'s value, $h(x)$ can be one of $m$ values. For the remaining $u - 2$ elements in $U$, there are $m^{u-2}$ choices, thus $m \cdot m^{u-2} = m^{u-1}$. 
+\end{proof}
+
+This family is suboptimal, since you would need $u \log_2 m$ bits to specify it. $u$ is size for the domain, mapping to explicitly defined numbers, which is basically a lookup table. In this case, using a direct access table is a better choice.

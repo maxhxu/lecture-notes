@@ -1,0 +1,77 @@
+\section{Day 11: Bloom Filters (Oct 06, 2025)}
+
+\subsection{Bloom Filters}
+
+A \textbf{bloom filter} is a data structure that approximately maintains a set of keys $S$ from universe $U$. For a given $x$, it will return ``$x$ is definitely not in $S$'' or ``$x$ is probably in $S$''.
+\begin{description}
+    \item[BF-Insert($S$, $x$)] adds key $x$ to $S$
+    \item[BF-Search($S$, $x$)] If $x \in S$, returns $ProbTrue$. If $x \not \in S$, returns False 99\% of the time, but returns $ProbTrue$ with low probability (1\%)
+\end{description}
+
+\begin{definition}[False Positive]
+When \textsc{Search} returns $ProbTrue$, yet $x \not \in S$.
+\end{definition}
+
+The upside is that bloom filters are space efficient. Here, more space means a smaller probability of error. An example usecase is when a large blacklist of websites needs to be stored. A bloom filter consists of
+\begin{itemize}
+    \item An array $BF[0, \dots, m-1]$ of $m$ bits, initialized to 0 
+    \item $h_1, \cdots, h_t$, which are $t$ independent hash functions $U \to \{ 0, \cdots, m-1 \}$. \\
+    Assume random hash functions mapping each key in $U$ to $\{ 0, \cdots, m-1 \}$ uniformly at random (for simplicity).
+\end{itemize}
+
+\subsection*{Insert($S$, $x$)}
+\begin{algorithmic}[1]
+    \For{$i = 1$ to $t$}
+    \State $BF[H_i(x)] = 1$
+\EndFor
+\end{algorithmic}
+
+\subsection*{Search($S$, $x$)}
+\begin{algorithmic}[1]
+    \For{$i = 1$ to $t$}
+    \If{$BF[h_i(x)] = 0$}
+        \State return $False$
+    \EndIf
+\EndFor
+\State return $ProbTrue$
+\end{algorithmic}
+
+\noindent Suppose $x_1, \cdots, x_n$ are inserted into $S$. 
+\begin{problem}
+    What is the probability that $BF(\ell) = 0$, for a fixed $0 \leq \ell \leq m - 1$? 
+\end{problem}
+
+\begin{problem}
+    What is the probability of \textsc{BF-Search} returning $ProbTrue$ for $y \not \in S$? (Probability of a getting a false positive)
+\end{problem}
+
+\begin{problem}
+    Given $n$ and $m$, how to choose $t$ to minimize probability of false positives ($f$). 
+\end{problem}
+
+We can tackle this by getting more hash functions, meaning there is a larger chance for \textsc{Search} to find a 0 bit and returning $False$, by having a larger fraction of 1s in the BF array. We do this while making the BF array longer (increasing the size of $m$)?
+
+We can approximate $p$ with $\tilde{p}$, where
+\[
+p = \left(1 - \frac{1}{m}\right)^{nt} \approx e^{\frac{-tn}{m}} = \tilde{p}
+\]
+From calculus, the optimal choice of $t$ occurs when $t = \frac{m}{n} \ln (2)$, have $\tilde{{p}} = 0.5$.
+
+\subsection{Open Addressing}
+
+Open addressing is an alternative way to handle collisions. We currently handle collisions by storing them in a doubly-linked list, which is not very efficient.
+
+We store keys directly in the table, and probe a sequence of slots to find each key.
+\[
+h(k, i) : U \times \{ 0, \cdots, m-1 \} \to \{ 0, \cdots, m-1 \}
+\]
+The sequence $(h(k, 0), h(k, 1), \cdots, h(k, m-1))$ is called the \textbf{probe sequence}. It must be a permutation of $\{ 0, \cdots, m-1 \}$ (this isn't a strict requirement, but otherwise you won't be checking all of the slots).
+
+More probing methods include linear probing, quadratic probing, and double hashing.
+
+\begin{description}
+    \item[Insert($T$, $k$)] read entries of $T$ according to prove sequence, place $K$ in the first empty slot. Return an error if $T$ is full.
+    \item[Search($T$, $k$)] traverse the probe sequence looking for $k$. Return $False$ if we find an empty slot, or search all $m$ slots without finding $k$.
+    \item[Delete($T$, $k$)] \textbf{lazydeletion or `tombstone method'}: replaced keys with the ``DELETED'' marker.\\
+    For \textsc{Insert}, we can insert into a marked slot. However, for \textsc{Search}, we cannot stop if we encounter a marker. The key we're searching for may still be in the probe sequence, thus we cannot stop early.
+\end{description}

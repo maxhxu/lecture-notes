@@ -1,0 +1,41 @@
+\section{Day 12: Amortized Analyis (Oct 08, 2025)}
+
+Have $h_1, \cdots, h_t$ be independent hash functions, $h_i : U \to \{ 0, \cdots, m - 1 \}$.
+
+\begin{align*}
+    Pr[BF[\ell] = 0] &= Pr[h_i(x_j) \ne \ell] \text{for all $1 \leq i \leq t, 0 \leq j \leq n$} \\
+    &= \prod_{t=1}^{N} 
+\end{align*}
+
+blah blah blah just insert the picture
+
+\subsection{Amortized Analysis}
+
+Amortized analysis determines the worst case step complexity of a sequence of operations, as opposed to a single operation. As motivation, suppose we have a hash table with chaining. If $\alpha$, the load factor, becomes too large, we create a new array with twice the size and re-hash all elements. With this modification, we expect \textsc{Insert} to now be $\Theta(1)$, with $\alpha \in \theta(1)$, and \textsc{Insert} to be $\Theta(n)$ with resizing. 
+
+Let $\sigma$ be any sequence of operations. Let $T(\sigma) = \sum_t_i$, denoting the time taken to process $\sigma$ starting from the initial data strcture, where $t_i$ is the time taken on the $i$-th operation. 
+
+The worst case sequence time complexity is
+\[
+C(m) = \text{max}\{ T(\sigma) : \text{$\sigma$ is a sequence of length $m$} \}
+\]
+and also define the amortized cost per operation as $\frac{C(m)}{m}$. To give an upper bound on $C(m)$, meaning $C(m) \in O(f(m))$, show that for some constant $c$ and all $m$ large enough, for every sequence of length $m$, the time to process $\sigma$ is at most $cf(m)$. To get a lower bound, show that there exists a sequence of length $m$, $\sigma$, the time to process $\sigma$ is at least $cg(m)$.
+
+Amortized analysis are useful when expensive operations are infrequent. Consider this example
+\begin{itemize}
+    \item Let $X[0..k-1]$ be an array of bits represent $x = \sum_{i=0}^{k-1} X[i]2^i \text{ mod } 2^k$ 
+\end{itemize}
+
+We state the aggregate method, which goes as follows
+\begin{enumerate}
+\item Do a careful worst-case analysis on the sequences
+\item Turn everything into a sum
+\end{enumerate}
+
+We also state the accounting method, with the idea that each time an operation is invoked, we charge some number of dollars to the operation to pay for its cost, as well as save some as credit in a bank.
+
+Have $\sigma$ be any sequence of $m$ operations, and let $\hat{c}i$ be the amortized cost assigned to the $i$-th operation in $\sigma$. Let $c_i$ be the actual cost (\# of steps) taken by the $i$-th operation. Require
+\[
+\sum_{i=1}^m \hat{c}i \geq \sum_{i=1}^{n} c_i
+\]
+which implies that the sum of amortized costs is an upper bound on the total number of steps taken in $\sigma$.

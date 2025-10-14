@@ -45,9 +45,9 @@ An abstract model that captures the operations of a sequential circuit.
 
 \noindent Rigorously, a FSM can be modelled by a deterministic finite automaton (DFA), which is a 5-tuple
 \[
-M = (Q, \delta, \Sigma, q_0, F)
+M = (Q, \Sigma, \delta, q_0, F)
 \]
-where $Q$ is the set of states, $\delta : Q \times \Sigma \to Q$ is the transition function, $\Sigma$ is the set of `inputs' to the circuit, $q_0$ is the starting state, and $F$ are the accepting states. 
+where $Q$ is the set of states, $\Sigma$ is the set of `inputs' to the circuit, $\delta : Q \times \Sigma \to Q$ is the transition function, $q_0$ is the starting state, and $F$ are the accepting states. 
 
 We suppose that exactly \textbf{one} transition occurs per clock tick. The slides say that you can have multiple starting states, but this is just for convenience. Rigorously, you would just have a dummy starting state $q_0$, which then transitions to one ofyour `actual' starting states after one tick.
 

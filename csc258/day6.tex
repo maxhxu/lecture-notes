@@ -1,0 +1,37 @@
+\section{Day 6: Really Big Problem (Oct 07, 2025)}
+
+\begin{remark}
+`For the midterm, you should review latches and timing diagrams. They are the sections people historically struggle the most on.' - Prof.
+\end{remark}
+
+Today, we will tackle one really big problem. This type of problem will likely not appear on the midterm, since it is very long and parts build upon each other. We will be building an stun grenade pen, as seen in \href{https://www.youtube.com/watch?v=s6moLb_ieqA}{spy movies}. More specifically:
+\begin{itemize}
+\item You can arm the pen by clicking it 3 times
+\item Once armed, the pen will activate if 4 seconds have passed, and the pen is not disarmed
+\item Then pen can be disarmed by clicking it 3 times.
+\end{itemize}
+
+\subsection{Step 0: Inputs \& Outputs}
+The input would be a button on the back of the pen. 0 = no click, 1 = clicked. The output is the armed signal to the stun device. 1 start timer, 0 = end timer. The FSM diagram would be as follows:
+
+Note that we do not include a detonated state, since that transition is based on time. Recall the transition function is $\delta: Q \times \Sigma \to Q$. This would me that time would be an element of $\Sigma$, which greatly complicates things, meaning that we would have up to $3 \times 4$ more states (one state for second till detonation, for the armed states). Generally we do not consider time to be an input.
+
+\subsection{Step 1: FSM Diagram}
+
+\subsection{Step 2: FSM Table}
+
+\subsection{Step 3: Flip flop Assignments}
+
+The na\"{i}ve way of doing things is quite dangerous, and we need to find a safer flip flop assignment. Consider the following, with a very interesting `diagonal' pattern.
+
+\subsection{Step 4: Redraw State Table}
+
+Replace each of our states with the numerical values that we have chosen in step 3.
+
+\subsection{Step 5: Circuit Design}
+
+Create a Karnaugh map. Make sure that your Karnaugh map is indeed a Karnaugh map (the column and row labels satisfy some properties).
+
+Making $click$ edge-triggered solves the infinite spamming problem? 
+
+Active low, rising edge triggered.

@@ -1,0 +1,18 @@
+\section{Day 16: Partial Derivatives (Oct 07, 2025)}
+
+We now want to generalize 1 dimensional derivatives to $n$-dimensional derivatives. Unfortunately, we find that this is not the right generalization, for reasons you will see later.
+
+\begin{definition}[Partial Derivative]
+The $i$-th partial derivative of $f : A \subseteq \mathbb{R}^n \to \mathbb{R}^m$ at $a \in A^o$ is given by
+\[
+    \partial_j f(a) := \lim_{ h \to 0 } \frac{f(a + he_j) - f(a)}{h}
+\]
+\end{definition}
+
+Equivalent notation for $\partial_j f$ are
+\[
+\frac{\partial f}{\partial x_j}, \quad D_{e_j} f, \quad f_{x_j}, \quad D_jf, \partial_{x_j}f
+\]
+Note that $\partial_j f(a)$ is essentially the limit of a real valued function, and is relatively straightforward to compute. 
+
+``Translating technical language into everyday language is a crucial skill that you will need later in your careers. It is best if you develop it during your studies.''

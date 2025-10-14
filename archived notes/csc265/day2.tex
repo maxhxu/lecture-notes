@@ -1,0 +1,58 @@
+\section{Day 2: Priority Queues, Array Representation (Sept 5, 2025)}
+
+Last class we were looking at worst case analysis for the dictionary ADT.
+
+\subsection*{Sorted Array}
+\begin{description}
+    \item[Insert(A, x)] $\Theta(n)$, necessary to shift elements `greater' than $x$ right by 1 
+    \item[Delete] $\Theta(n)$, necessary to shift elements `greater' than $x$ left by 1 
+    \item[Search(A,x)] Use binary search, known to take $\Theta(\log n)$
+\end{description}
+
+\subsection*{Direct Access Table}
+Suppose universe of keys $U = \{ 1, \dots, n \}$ and $n$ is small. As array indexing takes $\Theta(1)$ time, all operations with the ADT take $\Theta(1)$ time. 
+
+We have a slot for every single key in the universe, meaning we could hold the keys themselves, pointers to objects in the set, or even numbers, which we can extend to a multiset, etc.
+
+\subsection{Priority Queue ADT}
+The object is a set of elements each with a key (sometimes called priority, for consistency with CLRS), with the following operations
+\begin{description}
+    \item[Insert(S, x)] adds an element with key $x$ to $S$ 
+    \item[Max(S)] returns the largest key
+    \item[Remove(S)] removes element with largest key and returns key
+\end{description}
+
+\subsection{Binary Heap ADT}
+The set $S$ is stored in a complete binary tree (every level is filled except possibly for the lowest level, which is filled from left to right)
+
+A complete binary tree with height $h$ has $2^h \leq n \leq 2^{h + 1}$ nodes. With $n$ nodes, it has height $\lfloor \log n \rfloor$. A max heap is a complete binary tree that satisfies the \textbf{max heap} property, where the key of each node is greater than or equal to the keys of its children (if they exist).
+
+\subsection{Array Representation of Binary Heaps}
+A binary heap can be represented as an array of length equal to the number of nodes, $A.heapsize$. In this course arrays are indexed starting at 1. Advantages include no need to store papers 
+\begin{simplethm}
+    Given an index $i$ corresponding to a node in a binary heap represented as an array $A$, we have $left(i) = 2i, right(i) = 2i+1, parent(i) = \lfloor \frac{i}{2} \rfloor $
+\end{simplethm}
+\noindent The max heap property for this representation is as follows:
+\begin{center}
+For all integers $i$, $1 < i \leq A.heapsize, A[\lfloor \frac{i}{2} \rfloor ] \geq A[i]$
+\end{center}
+
+\subsubsection{Operations}
+\begin{description}
+    \item[Max(A)] return A[1], $\Theta(1)$ worst case 
+    \item[Insert(A, x)] Increment $A.heapsize$, set $A[A.heapsize] = x$. While the new inserted node has key larger than parent key, swap places with parent.\footnote{To prove correctness, the loop invariant is that below level $n$, there are no violations of the max heap property, then you move $n$ to $0$.}
+    \item[IncreaseKey(A, i, k)] Increase $A[i]$ to $k$, takes $\Theta(\log A.heapsize)$, used for the `bubbling up' procedure in \textsc{Insert}. \footnote{I don't really understand what $k$ is here, will ask soon }
+    \item[MaxHeapify(A, i)] \leavevmode\newline % not sure why this works
+    \textbf{Preconditions}: $A[i].left$ and $A[i].right$ are max heaps$A[i]$ may be smaller exactly one of its children. \\
+    \textbf{Postconditions}: $A[i]$ is the root of max-heap with same elements \\
+    Swap the root with the larger of the children, so that the violation moves down the tree. Similar loop invariant to earlier, worst case runtime $\Theta(\log n)$.
+    \item[ExtractMax(A)] Set $r = A[1]$, for returning at the end. Swap $A[A.heap.size]$ (last element) and $A[1]$. Then decrement A.heap.size, and call MaxHeapify(A, 1), as putting the last element in the first index may violate the max heap property. Finally return the $r$.
+\end{description}
+
+\subsubsection{Building a Max Heap}
+
+\begin{problem}
+Given an array $A[1..n]$ of $n$ keys in arbitrary order, we want to modify $A$-in place such that it is a MaxHeap.
+\end{problem}
+
+The na\"{i}ve non-inplace solution is to perform $n$ $Insert(A, x)$ operations, which will take $\Theta(n \log n)$ steps. We could also reverse sort the array in decreasing order, which ensures the max-heap property is satisfied since the element at each index, which generally takes $O(n \log n)$.
