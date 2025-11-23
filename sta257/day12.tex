@@ -1,0 +1,59 @@
+\section{Day 12: Change of Variables (Oct 20, 2025)}
+
+\subsection{Change of Variables}
+
+\begin{simplethm}[Discrete Change of Variables Theorem]
+    Let $X$ be a discrete random variable, $h : \mathbb{R} \to \mathbb{R}$ be a function, have $h(X) = Y$. Then $Y$ is also a discrete random variable. 
+\end{simplethm}
+
+Note that if $X$ has a density $f_X(x)$ (hence absolutely continuous), $Y = h(X)$ is not necessarily absolutely continuous. Consider $h(x) = 0$. $h(X)$ would then be discrete. Thus even if $h$ was continuous, non-decreasing, or constant, this is not sufficient for $H(X)$ being absolutely continuous. 
+
+\begin{theorem}[Absoltely Continuous Change of Variable Theorem]
+    Suppose $X$ has density $f_X(x)$, $Y = h(X)$, with $h : \mathbb{R} \to \mathbb{R}$ being differentiable and strictly increasing or decreasing (at least on $\{ x : f_X(x) > 0 \}$), with inverse function $h ^{-1}$, then $Y$ is also absolutely continuous, with density function
+    \[
+    f_Y(y) = \frac{f_X(h ^{-1}(y))}{ | h'(h ^{-1} (y))| } = \frac{f_X(x)}{|h'(x)|}
+    \]
+\end{theorem}
+\begin{proof}
+    Consider $P(Y \leq y) = P(h(X) \leq y) = P(X \leq h ^{-1} (y)) = F_X(h ^{-1} (y))$. TODO: finish
+\end{proof}
+
+\subsection{Joint Distributions}
+Suppose $X$ and $Y$ are two random variables, and we know the distribution of $X$ and the distribution of $Y$. This does not tell us the whole story, as we cannot conclude what $P(X = x, Y = x)$ evaluates to. Hence we need joint CDFs:
+
+\begin{definition}[Joint CDF]
+    For random variables $X, Y$, their joint cumulative distribution function or joint cdf is the function $F_{x, y} : \mathbb{R}^2 \to [0, 1]$, where
+    \[
+    F_{X, Y}(x, y) = P(X \leq x, Y \leq y) \equiv P(X \leq x \text{ and } Y \leq y)
+    \]
+\end{definition}
+
+\noindent They are not testable. On the other hand joint probability functions are easier to work with.
+
+\begin{definition}[Joint Probability Functions]
+    If $X, Y$ are discrete, then define the joint probability function $p_{X, Y}(x, y): \mathbb{R}^2 \to [0, 1]$,
+\[
+    p_{X, Y}(x, y) = P(X = x, Y = y) \equiv P(X = x \text{ and } Y = y)
+\]
+\end{definition}
+
+It is assumed that $X, Y$ are over the same sample space. However, if we know $p_{X, Y}(x, y)$ for all $x, y \in \mathbb{R}$, we can retrieve the values of $P(X = x)$ and $P(Y = y)$, through the law of total probability \ref{thm:lawoftotalprob}.
+
+\begin{simplethm}[Marginals]
+    Suppose $X, Y$ are discrete, then 
+    $p_X(x) = \sum_{y \in \mathbb{R}} p_{X, Y}(x, y)$.
+\end{simplethm}
+
+\begin{proof}
+    Each singleton subset of $\mathbb{R}$ forms a partition of $\mathbb{R}$. Since $Y$ is discrete, and by the law of total probability \ref{thm:lawoftotalprob}, 
+    \[
+    P(X ^{-1}(\{ x \})) = \sum_{y \in \mathbb{R}} P(X ^{-1} (x) \cap Y ^{-1} (y))
+    \]
+\end{proof}
+
+\begin{definition}[Jointly Absolutely Continuous]
+    Random variables $X, Y$ are jointly absolutely continuous if there is a joint density function $f_{X, Y} : \mathbb{R}^2 \to \mathbb{R}$, which is $\geq 0$, with $\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f_{X, Y} = 1$, such that
+    \[
+    P(a \leq X \leq b, c \leq Y \leq d) = \int_c^d \int_a^b f_{X, Y}(x, y) \, dx \, dy \text{ for all } a \leq b, c \leq d
+    \]
+\end{definition}

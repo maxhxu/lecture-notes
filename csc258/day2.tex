@@ -12,7 +12,7 @@ Why is NAND the most common gate?
 
 \includegraphics{csc258/figures/nmospmosnotgate.jpg}
 
-$V_{cc}$ is ``common collector voltage'' which is high voltage ($5V$) in this course. You need to \textit{explicitly} connect the output to one of $V_{cc}$ and ground for it to be high and low respectively. Otherwise, the result could be high or low. This is what an AND gate looks like at the transistor-level:
+$V_{cc}$ is ``common collector voltage'' which is high voltage ($5V$) in this course. You need to \textit{explicitly} connect the output to exactly one of $V_{cc}$ or ground for it to be high or low (exclusive) respectively. Otherwise, the result is indeterminate. This is what an AND gate looks like at the transistor-level:
 
 \includegraphics{csc258/figures/andgate.jpg}
 
@@ -53,11 +53,11 @@ Given $n$ variables, to be a minterm/maxterm, all $n$ variables must be used. Th
 
 In a truth table, a row corresponds to both a minterm $m_i$ and a maxterm $M_i$. In this course we mainly care about minterms, but maxterms are also testable. $m_i$ corresponds to the row in \textit{binary}. $m_{15}$ would describe the case where the output is low at all times except when $A = B = C = D = 1$. Maxterms are capitalized, such as $M_0 = A+B+C+D$, which is always high except for the case where all four input values are low.
 
-If row $i$ corresponds to 1, then the minterm $m_i$ should evaluate to 1, consisting of the product of all variables $A_i$, with $A_i$ negated if the input is 0 for that row. If row $i$ corresponds to 0, then the maxterm $M_i$ should evaluate to 0, with the sum of all variables $\overline{A_i}$, with a variable not being negated when the input for it in that column is 0. 
+If row $i$ corresponds to the output value of 1, then the minterm $m_i$ should evaluate to 1, consisting of the product of all variables $A_i$, with $A_i$ negated if the input $A_i$ is 0 for that row. If row $i$ corresponds to 0, then the maxterm $M_i$ should evaluate to 0, with the sum of all variables $\overline{A_i}$, with a variable not being negated when the input for it in that column is 0. 
 
 \includegraphics{csc258/figures/mintermmaxterm.jpg}
 
-The goal is to join minterms and maxterms together to capture the truth table. The purpose of a minterm is to be true ONLY for that specific combination of input values. For a maxterm, it is to be false ONLY for that combination of input values. We can take sums (disjunctions) of minterms, to ensure that the expression is true iff it corresponds to a combination that makes it true. Can also take products (conjunctions) of maxterms, so that the expression is true iff everything is true, meaning the input values don't correspond to a false value. Both describe correct behavior.\footnote{would clean this explanation up}
+The goal is to join minterms and maxterms together to capture the truth table. The purpose of a minterm is to be true ONLY some specific combination of input values. For a maxterm, it is to be false ONLY for some combination of input values. We can take sums (disjunctions) of minterms, to ensure that the expression is true iff it corresponds to a combination that makes it true. Can also take products (conjunctions) of maxterms, so that the expression is true iff everything is true, meaning the input values don't correspond to a false value. Both describe correct behavior.\footnote{would clean this explanation up}
 
 
 \subsection{Back to Gates}
@@ -66,7 +66,7 @@ Once we have a sum-of-minterms expression, we can easily convert it to the equiv
 
 To quantify how `simple' an expression is, we look at the \textbf{gate cost} (G) or the \textbf{gate cost with NOTs} (GN). To make something simpler, we attempt to combine terms.
 
-A tool to derive the \textit{simplest possible circuit} is called the \textbf{Karnaugh map}. It's not always clear from looking at the truth table immediately, to draw a conclusion about which rows can be combined and simplified. Instead we can use a K-map to represent the same information, in a format that is easier to digest.
+A tool to help you derive a simpler circuit is called the \textbf{Karnaugh map}. It's not always clear from looking at the truth table immediately, to draw a conclusion about which rows can be combined and simplified. Instead we can use a K-map to represent the same information, in a format that is easier to digest.
 
 \begin{definition}[Karnaugh Map]
     K-maps are a grid of minterms/maxterms, arranged such that adjacent column/row labels in the grid differ by a single literal.\footnote{Rows and columns are ordered by Gray code instead of the usual binary, because this ordering has desirable properties.}

@@ -30,6 +30,16 @@ This is equivalent to saying that $a$ is an isolated point iff $a \in A \cap (\m
 
 Proof was left as an exercise.
 
-\begin{theorem}[Component-wise Limits]
-    Let $f : A \subseteq \mathbb{R}^n \to \mathbb{R}^m$ be a function. Let $a$ be a limit point of $A$ and $b = (b_1, \cdots, b_m) \in \mathbb{R}^m$. Let $f_i$ be the component functions of $f$, such that $f = (f_1, \cdots, f_m)$, then $\displaystyle \lim_{ x \to a } f(x) = b$ if and only if for all $i \in \{ 1, \cdots, m \}$, $\displaystyle \lim_{ x \to a } f_i(x) = b$.
+\begin{theorem}[Component-wise Limits] \label{thm:compwiselimits}
+    Let $f : A \subseteq \mathbb{R}^n \to \mathbb{R}^m$ be a function. Let $a$ be a limit point of $A$ and $b = (b_1, \cdots, b_m) \in \mathbb{R}^m$. Let $f_i$ be the component functions of $f$, such that $f = (f_1, \cdots, f_m)$, then $\displaystyle \lim_{ x \to a } f(x) = b$ if and only if for all $i \in \{ 1, \cdots, m \}$, $\displaystyle \lim_{ x \to a } f_i(x) = b_i$.
 \end{theorem}
+
+\begin{proof}
+    We prove both directions:\\
+    ($\implies$): Let $\epsilon > 0$. By definition of $\lim_{ x \to a } f(x) = b$, exist $\delta > 0$ (we use this same $\delta$) , for $x \in A$, if $||x - a|| < \delta$ then $||f(x) - b|| < \epsilon$. From the triangle inequality, have $|f_i(x) - b_i| \leq ||f(x) - b|| < \epsilon$, thus $|f_i(x) - b_i| < \epsilon$, which proves the claim. \\
+    ($\impliedby$): Let $\epsilon > 0$ be arbitrary. For $i \in \{ 1, \cdots, m \}$, have some $\delta_i > 0$, if $||x - a|| < \delta_i$ then $|f_i(x) - b_i| < \frac{\epsilon}{\sqrt{m}}$. Take $\delta = \text{min}\{ \delta_1, \cdots, \delta_m \}$. Then we compute
+    \begin{align*}
+        ||f(x) - b||^2 \leq \sum_{i=1}^{m} |f_i(x) - b_i|^2 < \sum_{i=1}^{m} \frac{\epsilon^2}{m} = \epsilon^2 
+    \end{align*}
+    Taking square roots, we get the desired result.
+\end{proof}

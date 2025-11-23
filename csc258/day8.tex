@@ -1,0 +1,26 @@
+\section{Day 8: IDK (Oct 21, 2025)}
+
+Recall that we have combined an ALU with several register. We want the controller to control when we load/write into registers, as well as the ALU's input and operations. We need to coordinate the datapath components, to make the orchestration of such efforts less complex. The controller needs some memory (to remember where values are being stored), hence it needs to usually be a FSM.
+
+From last time, we added 4 additional output flags, to help us check the correctness of the output.
+
+\begin{remark}
+There are multiple ways that the ALU can be implemented, but there are other possible implementations not covered in this course.
+\end{remark}
+
+Let us implement multiplication. There are 3 ways to implement multiplication:
+\begin{enumerate}
+\item Layered adders
+\end{enumerate}
+
+There are 2 types of memory, being the main memory and the cache. The cache is very fast to access, but very limited in both space and size, while the main memory section is much larger and slower.
+
+The \textbf{register file} stores the data that the processor uses for quick calculations. In this course, the register file contains 32 registers.
+
+De-muxes are also known as one-hot decoders.
+
+There is a very large difference between registers and RAM (random access memory). 
+
+A bi-directional wire is called a bus. We use buses, because it is much easier to connect one wire to two components, than two. However, we need to ensure that only one direction is sending signals at the same time. Hence we need the \textbf{tri-state buffer}.
+
+When write enable is high, we output the value of $A$. Otherwise, we pass what's called a \textit{high-impedance} signal. The output is neither connected to high voltage or to the ground. The tri-state buffers are controlled by a \textbf{bus driver}.

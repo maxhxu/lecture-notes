@@ -1,0 +1,34 @@
+\section{Tutorial 5 (Oct 15, 2025)}
+
+No assigned homework this week, so we discuss fun topics instead.
+
+The expectation is the `average/mean' of a random variable.
+\begin{definition}[Expectation]
+If $X$ is discrete,
+\[
+    \mathbb{E}[X] := \sum_{x \in \mathbb{R}} x P(X = x)
+\]
+and if $X$ is continuous
+\[
+    \mathbb{E}[X] := \int x f(x) \, dx
+\]
+\end{definition}
+Immediately, $\int x f(x) \, dx = \int x \, dF(x)$. Next, we look at the Concentration Inequality. Consider a simpler version: Markov's Inequality.
+
+\begin{simplethm}[Markov's Inequality]
+    If $X$, a random variable, is non-negative ($X \geq 0$), and $\mathbb{E}[X] < \infty$, then we have
+    \[
+    \forall \epsilon > 0, P(X \geq \epsilon) \leq \frac{\mathbb{E}[x]}{\epsilon}
+    \]
+\end{simplethm}
+
+\begin{proof}
+    Let $Z = \epsilon \cdot I(X \geq \epsilon)$.
+\end{proof}
+
+\begin{simplethm}[Chebyshev's Inequality]
+    Have $Y$ be a random variable, with $\mathbb{E}[Y^2] < \infty$. Then
+\[
+    P(|Y - \mathbb{E}[Y]| \geq a) \leq \frac{\mathbb{E}[Y - \mathbb{E}[Y]]^2}{a^2}
+\]
+\end{simplethm}

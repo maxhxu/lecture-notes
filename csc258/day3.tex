@@ -6,7 +6,7 @@ To avoid having to deal with gates, we gain another level of abstraction through
 A circuit where the output strictly relies on the inputs.
 \end{definition}
 
-Another category is \textit{sequential circuits} which we will learn about later, which rely on memory. De-multiplexers may be testable, implement one in your own time.
+Another category is \textit{sequential circuits} which we will learn about later, which rely on memory. De-multiplexers may be testable, you should implement one in your own time.
 
 Decoders are translators, which translates the output of one circuit to the input of another. A 7 segment decoder, aka a 7 segment is active-high, meaning that a segment is on when its input is high, and off when its input is low. Active-low also exists, mainly used for safety purposes.
 
@@ -22,7 +22,7 @@ Aka binary adders, they are circuit devices that add two digits together. There 
 
 \includegraphics{csc258/figures/halfadderttb.jpg}
 
-To account for the carry, we need potentially sum up 3 numbers! A full adder has inputs $X, Y, Z$ and outputs $C, S$. When $Z$ is 0, it behaves identically to a full adder. A full adder takes into consideration the carry of the sum of the previous two digits.
+To account for the carry, we need potentially sum up 3 numbers. A full adder has inputs $X, Y, Z$ and outputs $C, S$. When $Z$ is 0, it behaves identically to a full adder. A full adder takes into consideration the carry of the sum of the previous two digits.
 
 \includegraphics{csc258/figures/fulladder.jpg}
 
@@ -31,6 +31,8 @@ As shown in the diagram, to make use of the carry functionality provided by the 
 Now that we have an adder, we should look into subtraction. Recall that a negative integer is the additive inverse for a positive integer, meaning $(-a) + a = 0$.
 
 When you flip all of the bits of a int, the number you obtain is called one's complement. When you add one to one's complement, you get \textit{two's complement}. While using two's complement, to distinguish negative numbers from positive numbers we need to keep track of a sign-bit, typically the most significant bit. With a $n$-bit computer, you can only keep track of as big of a positive integer as a $(n-1)$-bit computer can.
+
+Suppose we are given some signed $b$-bit integer, $n$. Notice that when $n$ is summed with its one's complement, we would get exactly $2^b - 1$. Adding one again, we take advantage of the overflow, and get zero, as we wanted. Note that for a $b$-bit integer to be positive, its signed bit (the most significant bit) must be zero. It's two's complement would have a sign bit of 1, indicating that it is indeed a negative number.
 
 Remember that in an adder circuit, $c_{in}$ is unused, but we can reuse this feature in our subtractor circuit, where for two's complement need to flip all the bits for a number and add one, which $c_{in}$ can do.
 

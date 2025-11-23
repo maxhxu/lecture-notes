@@ -1,0 +1,88 @@
+\section{Day 9: Intro to Assembly (Nov 05, 2025)}
+
+A processor consists of a control unit (FSM), a datapath, and some registers.
+\begin{itemize}
+\item Registers are fast to access
+\item Provide limited memory
+\item Notable registers: Program counter, instruction register
+\end{itemize}
+For this reason, we introduce Memory, distinct from the processor, which provides a lot of storage but slower to access compared to registers. It is split into 2 sections:
+\begin{itemize}
+    \item Instruction Memory: stores the instructions. instruction pointed to by the program counter is stored in the instruction register
+    \item Data Memory: stores intermediate results, data produced as part of your program
+\end{itemize}
+
+\noindent To make full use of these additions, the control unit needs more signals, as follows:
+
+\begin{itemize}
+    \item \texttt{PCWrite}: Write a new value to the program counter (PC)
+    \item \texttt{PCWriteCond}: If the zero condition is met, write a new value to the PC (used later in jumps)
+    \item \texttt{IorD}: For memory access, signals if the memory address being provided is an instruction (for the instruction register) or data (for an ALU operation).
+    \item \texttt{MemRead}: The processor is reading from memory
+    \item \texttt{MemWrite}: The processor is writing to memory
+    \item \texttt{MemToReg}: The register file (the collection of registers in the processor) is receiving data from memory, and not from the ALU output.
+    \item \texttt{IRWrite}: Instruction register is being filled with a new instruction from memory
+    \item \texttt{PCSource}: Signals if the PC value results from a jump or ALU operation (e.g. computing the next/target address).
+    \item \texttt{ALUOp}: Indicates execution of an ALU operation
+    \item \texttt{ALUSrcA}: Input A of the ALU comping from PC (if 0) or register file (if 1)
+    \item \texttt{ALUSrcB}: Input B of the ALU is coming from PC (if 0), constant value 4 (if 1), instruction register (if 2), shifted instruction register (if 3)
+    \item \texttt{RegWrite}: Processor is writing to register file (if 1)
+    \item \texttt{RegDst}: Indicates which part of the instruction is providing the destination address
+\end{itemize}
+
+\subsection{Instructions}
+
+Recall that memory locations are byte-addressable, each byte (8 bits) gets a unique address. Instructions are 32 bits long (4 bytes), meaning they are multiples of 4. Every instruction ends with an update to the program counter, and fetching the next instruction. The overall flow consists of 3 main steps:
+\[
+\cdots \to \text{Instruction fetch} \to \text{Decode instruction} \to \text{Execute Instruction} \to \cdots
+\]
+
+\subsubsection{Instruction Fetch}
+
+Gets the next instruction, pointed to by the program counter. Load this value into the instruction register in the processor, for fast access.
+
+\subsubsection{Decode Instruction}
+
+We decode into machine code, which the control unit can understand. More on this later.
+
+\subsubsection{Execute Instruction}
+
+\begin{itemize}
+\item Read from registers/memory if necessary
+\item Feed information to the ALU as per the instruction
+\item Write to registers/memory to store information if necessary
+\end{itemize}
+
+\subsection{Machine Code}
+
+Machine code instructions are 32 bits long, made up of 0s and 1s. This is broken down into sections, as specified by the MIPS ISA (Microprocessor without Interlocked Pipeline Stages Instruction Set Architecture). A specific processor would implement such a architecture. There are 3 main types of MIPS instruction types, being
+\begin{itemize}
+\item R-type: \\
+    opcode: operation code = 000000, rs: register source 1, rt: register source 2, rd: destination register, shamt: shift amount, func: function
+\[
+    \underset{6}{\text{opcode}} \quad \underset{5}{\text{rs}} \quad \underset{5}{\text{rt}} \quad \underset{5}{\text{rd}} \quad \underset{5}{\text{shamt}} \quad \underset{6}{\text{funct}}
+\]
+Short for `register-type' instructions. Function field specifies the type of operation being performed.
+\item I-type: \\
+opcode: operation code, rs: register source 1, rt: register source 2 (or destination register), immediate: 16-bit constant value
+\[
+    \underset{6}{\text{opcode}} \quad \underset{5}{\text{rs}} \quad \underset{5}{\text{rt}} \quad \underset{16}{\text{immediate}}
+\]
+Immediate can be used as an immediate operand, a branch target offset, or a displacement for a memory operand.
+\item J-type: \\
+opcode: operation code, address: 26-bit target address
+\[
+    \underset{6}{\text{opcode}} \quad \underset{26}{\text{address}}
+\]
+    The only 2 J-type instructions are jump (\texttt{j}) and jump and link (\texttt{jal}). Address is used to store the target address to jump to.
+\end{itemize}
+
+Consider the following line of assembly\footnote{We covered and broke down more instruction mnemonics in class, I was unable to note them all down.}
+\[
+\texttt{add \$t3, \$t1, \$t2}
+\]
+Since we're working with 3 registers, \texttt{\$t1}, \texttt{\$t2}, \texttt{\$t3}, this is going to be a R-type instruction. It performs the operation $\texttt{\$t3} \leftarrow \texttt{\$t1} + \texttt{\$t2}$. Note that \texttt{\$t3} is the destination, so should be rd. \texttt{\$t1} and \texttt{\$t2} would respectively be rs and rt. The op-code of R-type instructions is always 000000. For add, the function code is 100000. So the decoded of the aforementioned line of assembly is
+\[
+000000 \quad 01001 \quad 01010 \quad 01011 \quad \text{XXXXX} \quad 100000
+\]
+if \texttt{\$t1}, \texttt{\$t2}, \texttt{\$t3} have addresses 01001, 01010, 01011 respectively. Note that XXXXX is present, since the add operation does not use the shamt section.

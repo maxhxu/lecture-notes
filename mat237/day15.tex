@@ -1,23 +1,26 @@
 \section{Day 15: Derivatives of One Variable (Oct 06, 2025)}
 
+\begin{remark}
+    We did not learn differentiability until \ref{sec:differentiability}, but there are theorems that use this concept prior to its introduction. Also: 
 ``Professors say: `Never differentiate in public. You will only embarrass yourself.''' -Q
+\end{remark}
 
-Let $A \subseteq \mathbb{R}$ and let $f : A \to \mathbb{R}^m$ be a function. Let $a$ be an interior point of $A$. 
+
+\noindent Let $A \subseteq \mathbb{R}$ and let $f : A \to \mathbb{R}^m$ be a function. Let $a$ be an interior point of $A$. 
 \begin{definition}[Differential]
     If $f$ is differentiable at $a$, define the linear map $d f_a: \mathbb{R} \to \mathbb{R}^m$ given by $d f_a(h) = f'(a)h$ called the differential of $f$ at $a$. 
 \end{definition}
 
-\begin{remark}
-Vectors $v \in \mathbb{R}^m$ are identified with $m \times 1$  column vectors
+\noindent Vectors $v \in \mathbb{R}^m$ are identified with $m \times 1$  column vectors
 \[
 \begin{pmatrix}
 v_1 \\ \vdots \\ v_m
 \end{pmatrix}
 \]
-instead of $1 \times m$ row vectors, despite the fact that we write $v = (v_1, \cdots, v_m)$.
-\end{remark}
+instead of $1 \times m$ row vectors, despite the fact that we write $v = (v_1, \cdots, v_m)$. This is because we can write for $v, w \in \mathbb{R}^m$, $v \cdot w = v^Tw = w^Tv$. We still distinguish between vectors and matrices.\\
 
-From first year calculus, the linear approximation of $f: \mathbb{R} \to \mathbb{R}$ at a point $a$ is given by
+
+\noindent From first year calculus, the linear approximation of $f: \mathbb{R} \to \mathbb{R}$ at a point $a$ is given by
 \[
 g(x) = f(a) + f'(a)(x - a)
 \]
@@ -31,4 +34,3 @@ Rearranging, we get that $f(a+h) - f(a) - df_a(h) \approx 0$. In fact, we can st
 \]
 where $L : \mathbb{R} \to \mathbb{R}^m$ is a linear transformation, such that $L(h) = f'(a)h = df_a(h)$. 
 
-Does this hold for general functions $\mathbb{R}^n \to \mathbb{R}^m$? Do we distinguish between linear transformations and matrices?

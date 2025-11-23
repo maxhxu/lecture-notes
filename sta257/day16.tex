@@ -1,0 +1,30 @@
+\section{Day 16: More E.V., Variance and Standard Deviation (Nov 10, 2025)}
+
+\begin{definition}[Variance]
+    For any random variable $X$, 
+    \[
+    \text{Var}(X) := E[(X - \mu_X)^2] = E[(X - E[X])^2]
+    \]
+\end{definition}
+
+\noindent This is the same as 
+\begin{align*}
+    E[X^2 - 2XE[X] + (\mu_x)^2] &= E(X^2) - 2(\mu_x)^2 + (\mu_x)^2 \\
+    &= E(X^2) - (\mu_x)^2
+\end{align*}
+which is easier to work with for computations. The hardest part is computing $E(X^2)$, where the introduction of the $x^2$ term means that you may need to apply integration by parts.
+
+\begin{definition}[Standard Deviation]
+\[
+    \text{Sd}(X) = \sqrt{\text{Var}(X)}
+\]
+\end{definition}
+
+\noindent This is useful, since we can now say that $X$ is usually within about $\pm \text{Sd}(X)$ of the $E(X)$.
+
+We now understand more about the behavior of $X$, what about the relationship between $X$ and other random variables? Have two random variables, $X, Y$. We're interested in the relationship between $X, Y$, hence we define the covariance of $X$ and $Y$. 
+\begin{definition}[Covariance]
+    $\text{Cov}(X, Y) := E[(X - \mu_X)(Y - \mu_Y)]$
+\end{definition}
+
+\noindent Midterm: Covariance, variance, expected values of absolutely continuous random variables are not covered. Everything up till then may be on the test, with a greater focus on content after midterm 1.

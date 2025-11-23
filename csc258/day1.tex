@@ -11,14 +11,14 @@ We are trying to:
     \item Understanding the machine, integrating software with hardware (e.g. sensors): such hardware skills can be rare these days
     \item Working with devices (Internet of Things)
     \item Satisfying prerequisites: stepping stones, a strong foundation
-    \item You don't get a choice :D
+    \item This course is mandatory (you don't get a choice)
 \end{itemize}
 
 \subsection{The Course at a Glance}
 \includegraphics{csc258/figures/courseataglance.jpg}
 
 \begin{remark}
-    The tradeoff: we want a lot of transistors, because they speed up the processor, but they take up space, and we are reaching a physical limit as to how many we can stuff in a chip. Speeding up processors are not going to be as valuable, unless there is a significant breakthrough. Another way is to solve the problem using more \textit{efficient} circuits, CS Theory enthusiasts rejoice! We could also restrict circuits from being general purpose to more specialized designs that excel at a particular task.\footnote{an example can be GPUs and matrix multiplication}. All in all, there's a lot of active research, and utility for these thingamajigs.
+    The tradeoff: we want a lot of transistors, because they speed up the processor, but they take up space, and we are reaching a physical limit as to how many we can stuff in a chip. Speeding up processors are not going to be as valuable, unless there is a significant breakthrough. Another way is to solve the problem using more \textit{efficient} circuits, CS Theory enthusiasts rejoice! We could also restrict circuits from being general purpose to more specialized designs that excel at a particular task. An example can be GPUs and matrix multiplication. There's a lot of active research, and utility in this field.
 \end{remark}
 
 Logic gates are the hardware equivalent of propositional operators previously encountered. Common ones include: AND, OR, NOT, XOR. We will learn about the mysterious buffer gate, which has the following behavior: $0 \to 0$, $1 \to 1$, in later weeks. To implement logic gates, we will need \textit{transistors}, and we will later properly motivate why we need them. Logic gates can then be used to implement higher level behavior, like addition!
@@ -32,27 +32,6 @@ Unlike other CS courses, this course is about creating devices and machines, rat
 \item Understand microprocessor architecture
 \item Understand assembly language
 \item Learn about how lower-level languages and even hardware achieve higher-level behavior
-\end{itemize}
-
-
-\subsection{Administrative Details}
-\begin{itemize}
-\item 2 hours of lecture on Tuesday, with 1 hour of tutorial inbetween \\
-Half of this tutorial is explaining what the lab is, and the other is a TA going over review material
-\item 3 hour labs are more involved, note that you will be able to do most of the work at home. There are 7 total, 4\% each, starting on week 2. 
-    \begin{itemize}
-    \item Pre-lab: exercises submitted on Quercus \textbf{before} the lab
-    \item Demo: performed for TAs, there may be follow up questions
-    \end{itemize}
-    You \textbf{must} show up to the lab you're enrolled in, they are assigned according to your last name
-\item There is an Assembly Language Project worth 15\%:
-    \begin{itemize}
-    \item Create an interactive game in MIPS assembly
-    \item 5 milestones worth 3\% each
-    \item Milestone demos take place in the lab rooms. Think about finishing early because labs may get pretty busy towards the end of the year
-    \end{itemize}
-\item Midterm worth 19\% tentatively scheduled for Thurs Oct 16, 6pm-8pm
-\item Final worth 38\%, need a 40\% to pass the course, with 3 hours time limit
 \end{itemize}
 
 \subsection{Transistors}
@@ -102,12 +81,10 @@ R := \frac{V}{I}\footnote{also we say that resistance doesn't change a lot becau
 Electrical resistance indicates how well a material allows electricity to flow through it. \textbf{Insulators} have high resistance, do not conduct electricity well, with \textbf{conductors} having low resistance and conducting electricity well.
 
 \begin{remark}
-    Even though current is caused by electrons flowing, the convention is to measure current as the \textbf{movement of positive charges}, despite them not actually moving. Electrons moving from $A$ to $B$ make $A$ less negative and $B$ more negative. But (rather incorrectly) people conclude that positive charges are moving from $B$ to $A$, meaning $A$ is getting less positive and $B$ is getting more positive.
+    Even though current is caused by electrons flowing, the convention is to measure current as the \textbf{movement of positive charges}, despite them not actually moving. Electrons moving from $A$ to $B$ make $A$ less negative and $B$ more negative. But (rather incorrectly) people conclude that positive charges are moving from $B$ to $A$, meaning $B$ is getting less positive and $A$ is getting more positive.
 \end{remark}
 
-Static electricity demonstrates this imbalance, which is caused by materials `stealing' electrons from each other. When an imbalanced object comes in contact or close enough with a balanced one (because electrons tend to not move through the air), extra electrons transfer over and there exists a \textit{current}, since electrons are flowing!
-
-Sources of electricity include:
+Static electricity demonstrates this imbalance, which is caused by materials `stealing' electrons from each other. When an imbalanced object comes in contact or close enough with a balanced one (because electrons tend to not move through the air), extra electrons transfer over and there exists a \textit{current}, since electrons are flowing. Some sources of electricity include:
 \begin{itemize}
 \item Batteries have a concentration of particles stored, which will run out eventually
 \item Outlets, which are constantly being supplied to avoid downtime

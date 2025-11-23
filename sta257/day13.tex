@@ -1,0 +1,9 @@
+\section{Day 13: Joint Probability Functions (Oct 22, 2025)}
+
+Jointly discrete random variables are the easy case. Jointly absolutely continuous random variables are the more difficult case. From yesterday, have
+\[
+P(X \leq x, Y \leq y) = \int_{-\infty}^x \int_{-\infty}^{y} f_{X,Y}(x, y) \, dy \, dx
+\]
+For the more general $P(a \leq X \leq b, c \leq Y \leq d)$ case, Fubini's theorem from calculus says that we can integrate in any order. Integration of specific shapes is still rather tricky. Although both orders (if done correctly) yield the same result, doing it in one order may be more difficult than the other.
+
+Given 2 random variables, $X$ and $Y$, and their distributions, is not sufficient information for us to know how $X$ and $Y$ are related. For example, for $X, Y \sim \text{Bernoulli}(\frac{1}{2})$. TODO: finish this example

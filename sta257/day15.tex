@@ -1,0 +1,31 @@
+\section{Day 15: More Expected Values (Nov 05, 2025)}
+
+\begin{simplethm}[Linearity of Expectation, Discrete Case]
+    If $Z = aX + bY$, $a, b \in \mathbb{R}$, and $X, Y$ being discrete random variables, then
+    \[
+    E(Z) = E(aX + bY) = aE(X) + bE(y)
+    \]
+\end{simplethm}
+
+\begin{proof}
+    \begin{align*}
+        E(Z) &= \sum_{z \in \mathbb{R}} z P(Z) \\
+        &= \sum_{x, y \in \mathbb{R}} (ax + by) P(X = x, Y = y)
+        &= \text{something}
+    \end{align*}
+\end{proof}
+
+\noindent It has the monotonicity property: If $P(X \leq Y) = 1$, then $E(X) \leq E(Y)$.
+
+\begin{proof}
+    TODO: add proof
+\end{proof}
+
+\noindent Expectation also preserves products of discrete, independent random variables.
+
+\begin{definition}
+If $X$ is an abs. continuous RV, its expected value is given by
+\[
+    E(X) = \mu_x = \int_{-\infty}^\infty x \, f_X(x) \, dx
+\]
+\end{definition}

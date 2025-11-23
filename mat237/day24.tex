@@ -1,0 +1,21 @@
+\section{Day 24: Tangent Spaces (Nov 04, 2025)}
+
+\begin{definition}[Tangent Vector]
+Have $S \subseteq \mathbb{R}^n$, $p \in S$. For $v \in \mathbb{R}^n$, $v$ is a tangent vector of $S$ at $p$ if there exists an open interval $I \subseteq \mathbb{R}$, $0 \in I$, some $\gamma : I \to \mathbb{R}^n$, with
+\begin{itemize}
+\item $\gamma$ is $C^1$
+    \item $\gamma(I) \subseteq S$
+    \item $\gamma(0) = p$
+    \item $\gamma'(0) = v$
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Tangent Space]
+The tangent space of $S$ at $p$, written $T_PS$, is given by
+\[
+    T_PS = \{ v \in \mathbb{R}^n : \text{$v$ is a tangent vector of $p$} \}
+\]
+\end{definition}
+
+\begin{definition}[Tangent Plane] Written $p + T_PS = \{ p + v : v \in T_PS \}$
+\end{definition}

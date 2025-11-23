@@ -4,16 +4,24 @@
     For any random variable $X$, the function $F_X: \mathbb{R} \to [0, 1]$, where $F_X(x) = P(X \leq x)$. 
 \end{definition}
 
-Works for discrete AND absolutely continuous $X$. If $X$ is discrete:
+\noindent This applies for discrete and absolutely continuous $X$. If $X$ is discrete:
 \[
 F_X(x) = \sum_{u \leq x} P(X = u) = \sum_{u \leq x} p_X(u)
 \]
 or if $X$ is absolutely continuous, we have:
 \[
-F_X(x) = \int_{-\infty}^x f(t) \, dt = \lim_{ k \to -\infty } \int_k^x f(t) \, dt
+F_X(x) = \int_{-\infty}^x f_X(t) \, dt
 \]
+\begin{simplethm}[`Distribution Function']
+    If $f_X$ is continuous, then $F_X' = f_X$
+\end{simplethm}
 
-We claim that all probabilities for $X$ can be found from $F_X$ which some call a ``distribution function''. 
+\begin{proof}
+    We verify using the fundamental theorem of calculus:
+    \[
+    F_X'(x) = \frac{d}{dx} \int_{-\infty}^x f_X(t) \, dt = f_X(x)
+    \]
+\end{proof}
 
 \begin{definition}[Left Continuous]
     A function is left continuous if the left hand limit always exists for all $x$ in its domain. 
@@ -21,13 +29,18 @@ We claim that all probabilities for $X$ can be found from $F_X$ which some call 
 
 We prefer using $\displaystyle \lim_{ n \to \infty } f\left(a - \frac{1}{n}\right)$ as opposed to $\displaystyle \lim_{ x \to a^- } f(x)$. 
 
-\subsection*{Properties of CDFS}
+\begin{theorem}[CDF Properties]
+    A CDF of a random variable $X$ must have the following properties:
 \begin{itemize}
-\item TODO: add CDF properties
+    \item $0 \leq F_X(x) \leq 1$ for all $x \in \mathbb{R}$
+    \item $F_X$ is non-decreasing
+    \item $\displaystyle \lim_{ x \to -\infty } F_X(x) = 0$
+    \item $\displaystyle \lim_{ x \to \infty } F_X(x) = 1$
 \end{itemize}
+\end{theorem}
 
 \begin{simplethm}
 $X$ is a continuous random variable if and only if $F_X$ is a continuous function for all $x$. 
 \end{simplethm}
 
-CDFs of discrete random variables also have nice properties, and we say that they are piecewise-constant.
+\noindent CDFs of discrete random variables also have nice properties, and we say that they are piecewise-constant.

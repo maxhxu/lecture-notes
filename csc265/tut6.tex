@@ -1,0 +1,25 @@
+\section{Tutorial 6 (Nov 07, 2025)}
+
+The graph is connected.
+
+\begin{proof}
+    We prove both directions.
+\begin{itemize}
+    \item[($\Rightarrow$)] Suppose that $G$ is bipartite. Then there exists partition of $V$, being $X, Y$, such that there is no edge between vertices in the same partition. For any cycle $v_1, \cdots, v_n \in G$, adjacent vertices in this sequence must be in different partitions. Thus odd number indices are in 1 partition, and even number indices are in the other. Since we have the edge $\{ v_1, v_n \}$, so $v_n$ and $v_1$ must be in different partitions. Hence $n$ is even. 
+    \item[($\Leftarrow$)] Suppose $G$ does have odd length cycles, and $G$ is bipartite. Pick some $s \in V$ and for all $v \in V$, define $\delta(s, v)$ to be the shortest distance between $s$ and $v$ in $G$. 
+
+    \begin{itemize}
+    \item Take $X = \{ v \in V : \delta(s, v) \text{ is even} \}$.
+    \item $Y = \{ v \in V : \delta(s, v) \text{ is odd} \}$.\\
+        Since $G$ is connected, $X \cup Y = V$.
+    \item Let $P_u$ be a shortest path from $u$ to $S$.
+    \item Let $P_v$ be a shortest path from $v$ to $S$. 
+    \item $w$ be the first common vertex on $P_u$ and $P_v$.
+    \end{itemize}
+    Consider the path $u \to \cdots \to w \to \cdots \to v$. We can obtain a cycle, since $\{ u, v \} \in E$. Have:
+    \[
+    \delta(s, u) - \delta(s, w) + \delta(s, v) - \delta(s, w) + 1
+    \]
+    Which is odd, and a contradiction. TODO: Why is $u + v$ even??? 
+\end{itemize}
+\end{proof}

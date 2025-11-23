@@ -1,8 +1,9 @@
 \section{Day 9: Continuous Random Variables (Oct 01, 2025)}
 
-Recall that continuous random variables have the property that $P(X \leq a) = P(x < a)$, since by definition $P(X = x)$.
+Continuous random variables have the property that $P(X \leq a) = P(x < a)$, since by definition $P(X = x)$. We define 3 new distributions
 
-For $L < R \in \mathbb{R}$, we can define the Uniform[$L$, $R$] distribution with the density function
+\begin{itemize}
+\item For $L < R \in \mathbb{R}$, we can define the Uniform[$L$, $R$] distribution with the density function
 \[
 f_X(x) = \begin{cases}
     0 & x < L \\
@@ -11,16 +12,14 @@ f_X(x) = \begin{cases}
 \end{cases}
 \]
 Notice that whenever $L \leq a \leq b \leq R$, $P(a \leq X \leq b) = \frac{b-a}{R - L}$. Also $P(L \leq X \leq R) = 1$, so we say that this distribution is \textbf{bounded}.
-
-The Exponential(1) distribution has the following density function
-\[
-f(x) = \begin{cases}
-    e^{-x} & x \geq 0 \\
-    0 & x < 0 
-\end{cases}
-\]
-
-We generalize this to Exponential($\lambda$), which has $f(x) = \lambda e^{-\lambda x}$ for $x \geq 0$, and 0 elsewhere.
+    \item Exponential($\lambda$), for some $\lambda > 0$, where
+    \[
+    f(x) = \begin{cases}
+        \lambda e^{-\lambda x} & x \geq 0 \\
+        0 & x < 0 
+    \end{cases}
+    \]
+\end{itemize}
 
 \begin{simplethm}
     Exponential($\lambda$) has the memoryless property.
@@ -30,16 +29,19 @@ We generalize this to Exponential($\lambda$), which has $f(x) = \lambda e^{-\lam
 \[
 \phi(x) = \frac{1}{\sqrt{2 \pi}} e^{- \frac{x^2}{2}}
 \]
-Clearly, $\phi(x) \geq 0$, but it is less clear than that $\int_ \infty ^ \infty \phi(x) \, dx = 1$, which is a result proven in the textbook. For now, assume it indeed a density. Now if $X$ has density $\phi$, we say that $X$ has the Normal(0, 1) or N(0, 1) distribution. Then for all $a \leq b$
+$\phi(x) \geq 0$, but it is less clear than that $\int_ \infty ^ \infty \phi(x) \, dx = 1$, which is a result proven in the textbook. For now, assume it a density. If $X$ has density $\phi$, we say that $X$ has the Normal(0, 1) or N(0, 1) distribution. Then for all $a \leq b$,
 \[
 P(a \leq X \leq b) = \int_a^b \phi(x) \, dx = \int_a^b \frac{1}{\sqrt{2\pi}} e^{- \frac{x^2}{2}} \, dx
 \]
 We claim that we cannot compute this integral analytically, so you would approximate this using software, or tables.
 
-We generalize to the Normal($\mu$, $\sigma^2$) distribution, where for any $\mu \in \mathbb{R}$ and $\sigma > 0$, have
+\begin{itemize}
+\item Define the Normal($\mu$, $\sigma^2$) distribution, where for any $\mu \in \mathbb{R}$ and $\sigma > 0$, have
 \[
 f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{- \frac{(x-\mu)^2}{2 \sigma^2}} = \frac{1}{\sigma} \phi(\frac{x - \mu}{\sigma})
 \]
-The curve is centered at $\mu$, and increasing/decreasing $\sigma$ makes the curve `fatter'/`thinner' respectively. This is the key distribution for the Central Limit Theorem, and arises naturally when there are lots of small influences.
+\end{itemize}
 
-The midterm covers everything up to and including the discrete distributions, meaning that there are no continuous distributions on the midterm.
+\noindent The curve is centered at $\mu$. A larger $\sigma$ means a wider, shorter and `fatter' curve, while a smaller $\sigma$ means a narrower, taller, and `thinner' curve. This is the key distribution for the Central Limit Theorem, and arises naturally when there are `lots of small influences'. \\
+
+\noindent \textbf{Midterm Info}: The midterm covers everything up to and including the discrete distributions, meaning that there are no continuous distributions on the midterm.

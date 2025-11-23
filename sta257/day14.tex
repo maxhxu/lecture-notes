@@ -1,0 +1,52 @@
+\section{Day 14: Independence of RVs, Expected Value (Nov 03, 2025)}
+
+\subsection{Independence of Random Variables}
+
+\begin{definition}
+For general two random variables $X$ and $Y$, they are independent if the events $\{ X \in B \}$ and $\{ Y \in C \}$ are independent for all subsets $B, C \in \mathbb{R}$, meaning
+\[
+    P(X \in B, Y \in C) = P(X \in B)P(Y \in C)
+\]
+\begin{itemize}
+\item    If $X, Y$ are discrete, given $p_{X, Y}(x, y)$, we can define the conditional distribution
+\[
+    p_{Y \mid X}(y \mid x) = \frac{p_{X, Y}(x, y)}{p_X(x)}
+\]
+\item    If $X, Y$ are abs. continuous, given $f_{X, Y}$ (joint density function for $X, Y$), define
+\[
+    f_{Y \mid X}(y \mid x) = \frac{f_{X, Y}(x, y)}{f_X(x)}
+\]
+called the conditional probability density of $Y$ given the occurrence of the value $x$ of $X$. 
+\end{itemize}
+\end{definition}
+
+\begin{simplethm}
+    For absolutely continuous random variables $X, Y$, $X$ and $Y$ are independent iff $f_{X, Y}(x, y) = f_X(x)f_Y(y)$ for all $x, y \in \mathbb{R}$. 
+\end{simplethm}
+
+\begin{simplethm}
+    Suppose $X, Y$ are discrete and independent. Given $p_{X, Y}(x, y)$, and $p_X(x) > 0$, then 
+    \[
+        p_{Y \mid X}(y \mid x) = p_Y(y)
+    \]
+\end{simplethm}
+
+\begin{simplethm}
+    Suppose $X, Y$ are continuous and independent. If $f_{X, Y}(x, y)$, $p_X(x) > 0$, then 
+    \[
+        p_{Y \mid X}(y \mid x) = p_Y(y)
+    \]
+\end{simplethm}
+
+\noindent Chapter 2 of the textbook ends here.
+
+\subsection{Expected Value}
+
+\begin{definition}[Expected Value]
+    If $X$ is a discrete random variable, the expected value $E(X)$\footnote{strictly speaking, in this course we use $\mathrm{E}(X)$, so mathrm should be used on E} is given by
+    \[
+    E(X) = \sum_{x \in \mathbb{R}} x \, p_X(x)
+    \]
+\end{definition}
+
+\noindent In other courses/textbooks, the alternative notation $\mathbb{E}[X], \mathbb{E}(X)$ may be used. 

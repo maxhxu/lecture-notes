@@ -1,0 +1,25 @@
+\section{Day 7: Processor Components (Oct 14, 2025)}
+
+We want to make a microprocessor, which is a digital device that can process I/O, and store values according to on-board instructions. Microprocessors have been the basis of all computing since the 1970s, found in almost every computer.
+
+The main idea is to have a controller unit overseeing a storage and arithmetic unit. The ALU performs the computations, and storing values in the storage unit. The controller unit is the brains of the operation.
+
+\begin{definition}[Datapath]
+Where are all data computations take place.
+\end{definition}
+
+\begin{definition}[Control Unit]
+Orchestrates actions taking place in the datapath.
+\end{definition}
+
+The storage and arithmetic unit are in the datapath. The control unit is a finite state machine, instructing the datapath to perform the appropriate actions.
+
+With multiple registers, we need to indicate which register (if any) will store the ALU output value. We also need to specify which two registers we take as input (if at all, we could introduce introduce new values as well).
+
+The control unit outputs the datapath controlling signals, determining what operation the ALU is performing, as well as the registers that we're reading or writing to. Sometimes, we also output a done signal, indicating that we can proceed to the next computation. There are more ALU outputs in addition to $G$, as follows.
+\begin{description}
+    \item[V] the overflow condition: meaning that the result of the operation could not be stored in the $n$ bits of $G$ 
+    \item[C] carry out bit: used to detect if error occurred during unsigned arithmetic
+    \item[N] negative indicator: ensures that signed integers are processed properly
+    \item[Z] zero-condition indicator: indicates division by zero, or other errors of the like
+\end{description} 

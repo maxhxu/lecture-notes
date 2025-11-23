@@ -1,0 +1,26 @@
+\section{Day 11: More CDFs (Oct 15, 2025)}
+
+Have $Z \sim \text{Normal}(0, 1)$, we consider the CDF for $Z$, given by $F_Z(x) = \int_{-\infty}^x \phi(u) \, du$. However, we don't have a formula consisting of elementary functions for this $F_Z(x)$. Thus we write it as $\Phi(x)$, as it is extremely important.
+
+The bell curve is symmetric, meaning $\phi(-u) = \phi(u)$ for all $u$. Thus $P(Z \leq x) = P(Z \geq -x) = 1 - P(Z \leq -x)$. Substituting $P(Z \leq x)$ with $\Phi(X)$, we get that for all $x \in \mathbb{R}$, have
+\[
+\Phi(x) = 1 - \Phi(-x)
+\]
+
+\begin{simplethm}
+    $W \sim \text{Normal}(\mu, \sigma^2)$ if and only if $W = \mu + \sigma Z$ where $Z \sim \text{Normal}(0, 1)$ 
+\end{simplethm}
+\begin{proof}
+    Recall that $W(x) = \frac{1}{\sigma} \phi(\frac{x - \mu}{\sigma})$, $Z(x) = \phi(x)$
+\end{proof}
+
+\begin{simplethm}
+    If $X$ is absolutely continuous, given $F_X(x)$, we can retrieve $f_X(x)$.
+\end{simplethm}
+
+If $X$ is absolutely continuous, it has some density function $f_X(x)$, and cdf $F_X(x)$. $F_X(x)$ is defined as $P(X \leq x) = \int_{-\infty}^x f_X(u) \, du$. From the Fundamental Theorem of Calculus, $F'_X(x) := \frac{d}{dx} F_X(x) = f_X(x)$, if $f_X$ is continuous at $x$.
+
+\begin{definition}[Mixture Distribution]
+Distributions that are neither discrete nor continuous.
+\end{definition}
+\noindent In this course, we mainly study discrete or absolutely continuous random variables. It is nice to know that other types of random variables exist. Next week, we will look at the change of variable theorem.
