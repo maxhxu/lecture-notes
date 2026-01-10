@@ -1,0 +1,55 @@
+\section{Day 20: Differentiability (Oct 20, 2025)} \label{sec:differentiability}
+
+\begin{definition}[Differentiable]
+Let $f : a \subseteq \mathbb{R}^n \to \mathbb{R}^m$ be a function, and $a \in A^o$ (interior point). $f$ is differentiable at $a$ if there exists a linear transformation $L : \mathbb{R}^n \to \mathbb{R}^m$, such that
+\[
+    \lim_{ ||h|| \to 0 } \frac{f(a + h) - f(a) - L(h)}{||h||} = 0
+\]
+\end{definition}
+
+\noindent Note that the right hand side is the zero vector, not zero (the scalar). We omit this distinction for simplicity.
+
+\begin{simplethm} \label{thm:altdiff}
+Have $f : A \subseteq \mathbb{R}^n \to \mathbb{R}^m$, $a \in A^o$. Then $f$ being differentiable at $a$, is equivalent to having a linear transformation $L : \mathbb{R}^n \to \mathbb{R}^m$ with 
+\[
+    \lim_{ ||h|| \to 0 } \frac{||f(a+h) - f(a) - L(h)||}{||h||} = 0
+\]
+\end{simplethm}
+
+\begin{proof}
+    Consider the function $g : A \setminus \{ \vec{0} \} \to \mathbb{R}^m$,
+\[
+    g(h) = \frac{f(a+h) - f(a) - L(h)}{||h||}
+\]
+We see that 
+\[
+    \lim_{ ||h|| \to 0 } g(h) = 0 \iff \lim_{ ||h|| \to 0 } ||g(h)|| = 0
+\]
+\end{proof}
+
+\begin{simplethm} \label{thm:dirdercomp}
+    Have $f : A \subseteq \mathbb{R}^n \to \mathbb{R}^m$, with $a \in A^o$, and $f$ differentiable at $a$. Then $D_vf(a) = Df_a(v)$.
+\end{simplethm}
+
+\begin{proof}
+    Since $f$ is differentiable, substitute $h$ ($h$ vector) with $hv$ ($h$ is scalar, $v$ is given vector), giving
+    \begin{align*}
+        0 = \lim_{ h \to 0 } \frac{f(a + hv) - f(a) - hdf_a(v)}{h} &= \lim_{ h \to 0 } \frac{f(a + hv) - f(a)}{h} - df_a(v)\\
+        &= D_vf(a) - df_a(v)
+    \end{align*}
+    Apply \ref{thm:diffproperties}, since the matrix for $df_a$ is $Df_a$, we get $D_vf(a) = Df_a(v)$, as desired.
+\end{proof}
+
+\begin{definition}[$C^1$]
+$f$ is continuously differentiable at $a$ if $\partial_1, \cdots, \partial_n f$ are defined on an open set containing $a$, with all being continuous at $a$.
+\end{definition}
+
+\begin{theorem} \label{thm:c1impdiff}
+    If $f$ is continuously differentiable ($C^1$) at $a$, then $f$ is differentiable at $a$. 
+\end{theorem}
+
+\begin{simplethm} \label{thm:c1composition}
+The composition of $C^1$ functions is $C^1$. 
+\end{simplethm}
+
+Proven using the chain rule.

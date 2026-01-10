@@ -1,0 +1,37 @@
+\section{Day 2: Linear Differential Equations (Jan 07, 2026)}
+
+Sometimes, there is no better way to describe a function than as a solution of a DE. For example, $e^{-x^2}$ has no elementary antiderivative.
+
+\begin{definition}[First Order Linear DE]
+    An equation of the form $y' + p(t)y = g(t)$ where $p$ and $g$ are some functions of $t$. It homogeneous if $g(t) = 0$ for all $t$.
+\end{definition}
+
+\begin{problem}
+    Find the general solutions to each of $y' = ay$, and $y' = ay + b$.
+\end{problem}
+
+Take $y = ce^{at}$. See that for arbitrary $c$, $\frac{d}{dt} ce^{at} =  ace^{at} = ay$
+
+Take $y = ce^{at} - \frac{b}{a}$.
+
+When solving for $A$ in $A'' = -9.8 - 0.17A'$, notice that $A$ is not present. Make the substitution $V = A'$, giving $V' = -9.8 - 0.17V$, which is a first order linear DE.
+
+\begin{problem}
+    Find the general solutions to each of $y' = g(t)$, and $y' = f(t) y$.
+\end{problem}
+
+The general solution of $y = \int g(t) \, dt$ is acceptable.
+
+The general solution is $c \Exp (\int f(t) \, dt)$
+
+\begin{simplethm}
+    The general solution of $y' = p(t)y + g(t)$ is
+    \[
+        y = e^{P(t)} \left( c + \int e^{-P(t)} g(t) \, dt \right)
+    \]
+    where $P(t) = \int p(t) \, dt$, and $c$ is an arbitrary constant.
+\end{simplethm}
+
+TODO: Integrating factor technique
+
+% Let $F(t)$ be a primitive of $f$. $F(t)(y - y')$

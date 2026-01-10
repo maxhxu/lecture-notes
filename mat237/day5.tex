@@ -1,0 +1,42 @@
+\section{Day 5: Coordinate Transformations (Sept 11, 2025)}
+
+\begin{definition}[Coordinate Transformation]
+A \textbf{coordinate transformation} $f: A \to B$ is a continuous transformation that is usually bijective. $A$ and the map $f$ form a \textbf{coordinate system} for the codomain $B$.
+\end{definition}
+
+We want to plot subsets of $B$ and  describe them using the coordinate system defined by $f$ and $A$. We use $(u, v)$ to describe the elements in $A$, and $(x, y)$ for $B$, and would write
+\[
+g(u, v) = (u^2 + v^2, v)
+\]
+or simply
+\[
+(x, y) = (u^2 + v^2, v)
+\]
+
+\begin{definition}[Polar Coordinate Transformation]
+A map $T: \mathbb{R}^2 \to \mathbb{R}^2$, with
+\[
+    T(r, \theta) = (r \cos \theta, r \sin \theta)
+\]
+\end{definition}
+\noindent $T$ describes a map from polar coordinates to cartesian coordinates. The radius can be negative. Two notable properties are $T(r, \theta) = T(-r, \theta + \pi)$ and $T(r, \theta) = T(r, \theta + 2\pi)$, following from trigonometry.
+
+The set $\{ (r, \theta) \in \mathbb{R}^2 : r = 2\}$ would describe the set $\{ (2 \cos \theta, 2 \sin \theta) \in \mathbb{R}^2 : \theta \in \mathbb{R} \}$, which corresponds to a circle of radius 2 centered at the origin. Restricting both sets to $\theta \in \mathbb{R}^+$ or $\theta \in \mathbb{R}^-$ would still correspond to the same set, meaning that the polar coordinate transformation is not injective. Another way to show is to consider the case $r = 0$.
+
+\noindent What follows was not covered in lecture:
+\begin{definition}[Cylindrical Coordinate Transformation]
+A map $T: \mathbb{R}^3 \to \mathbb{R}^3$, with
+\[
+    T(r, \theta, z) = (r \cos \theta, r \sin \theta, z)
+\]
+\end{definition}
+This is similar to the polar coordinate transformation except we add an additional $z$ field which remains unchanged. 
+\begin{definition}[Spherical Coordinate Transformation]
+A map $T: \mathbb{R}^3 \to \mathbb{R}^3$ with
+\[
+    T(\rho, \theta, \phi) = (\rho \cos \theta \sin \phi, \rho \sin \theta \sin \phi, \rho \cos \phi)
+\]
+\end{definition}
+\noindent If this gets covered in class I'll make a writeup deriving the formula.
+
+TODO: derive/motivate the formula

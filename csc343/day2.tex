@@ -1,0 +1,57 @@
+\section{Day 2: The Relational Model (Jan 09, 2026)}
+
+Recall that the relational model is based on the concept of a relation/table. We will explore this notion this class.
+
+Let $D_1, \cdots, D_n$ be domains. The \textbf{Cartesian product} $D_1 \times \cdots \times D_n$ is the set
+\[
+\{ \langle d_1, \cdots, d_n \rangle : d_1 \in D_1, \cdots, d_n \in D_n \}
+\]
+where $\langle \cdot \rangle$ is called a \textbf{tuple/ordered list}. A \textbf{relation} on $D_1, \cdots, D_n$ is a subset of $D_1 \times \cdots \times D_n$.
+
+Notice that a relation is a set, thus, in our database,
+\begin{itemize}
+    \item there are no duplicates
+    \item order of the tuples do not matter
+\end{itemize}
+Real DBMS do allow for duplicates, amongst other conditions.
+
+The empty set $\{  \}$ and the entire Cartesian product itself are both examples of relations.
+
+To bridge the gap between math/database terminology, the following pairs are equivalent in their meaning:
+\begin{itemize}
+    \item relation/table
+    \item attribute/column
+    \item tuple/row
+    \item arity of a relation/number of attributes
+    \item cardinality of a relation/number of tuples
+\end{itemize}
+
+\begin{remark}
+    As for empty/optional values, they are denoted by \texttt{None} in PostgreSQL. We consider it `bad design' to have a column with a lot of \texttt{None} values, and will go over techniques to avoid this later.
+\end{remark}
+
+The \textbf{schema} is the structure of a relation. The \textbf{instance} is the content of the relation. Database schema and database instances are sets of relation schema and sets of relation instances respectively.
+
+Instances change frequently, but schema should rarely change. Most databases store the current version of the data. Those that also store the history are called `temporal` databases.
+
+We now want to declare constraints on our relation. We do so using keys.
+
+\begin{definition}[Keys]
+    A \textbf{key} for a relation is a set of attributes $\{ a_1, \cdots, a_n \}$ where
+    \begin{enumerate}
+        \item Uniqueness: There do not exist distinct tuples $t_1$, $t_2$, where $\displaystyle \bigwedge_{i=1}^n t_1.a_i = t_2.a_i$
+        \item Minimality: no subset of $\{ a_1, \cdots, a_n \}$ satisfy uniqueness
+    \end{enumerate}
+\end{definition}
+
+A key defines a constraint on the integrity of the data, originating from \textbf{domain experts}. The instance must conform to said constraints. If we could encounter duplicate rows, we can invent additional attributes to ensure that keys exist.
+
+Any superset of a key is called a \textbf{superkey} (useful in theory). We mostly declare keys in practice. Immediately, every key is a superkey.
+
+\begin{definition}[Foreign Key]
+    A foreign key is a subset of attributes of some relation $R_1$, such that it is also a key for relation $R_2$.
+\end{definition}
+
+Let $R$ be a relation, and $A$ a list of attributes in $R$. Define $R[A]$ as the set of all attributes from $R$, with only the attributes in list $A$. 
+
+\textbf{Foreign key constraints} are declared as $R_1[X] \subseteq R_2[Y]$, where $X$, $Y$ have the same arity, and $Y$ must be a key in $R_2$. This is an instance \textbf{referential integrity constraint} (though not all referential integrity constraints are foreign key constraints).

@@ -1,0 +1,280 @@
+\documentclass[9pt, twocolumn]{article}
+\usepackage{aten, booktabs, tabularx, array}
+
+\setcounter{tocdepth}{1}
+
+\newcommand{\documenttitle}{STA257 Cheat Sheet}
+\newcommand{\authorname}{Max Xu}
+
+\setkeys{Gin}{width=0.95\textwidth}
+
+\begin{document}
+
+\title{\documenttitle}
+\rhead{\textbf{\small \documenttitle}}
+\lhead{\textbf{\small \authorname}}
+\author{\authorname}
+
+\section{Random Variables}
+
+\begin{definition}[Memoryless]
+    \[
+    \mathrm{P}(X \geq a + b \mid X \geq a) = \mathrm{P}(X \geq b)
+    \]
+\end{definition}
+
+% \begin{definition}[CDF]
+%     \[
+%     F_X(x) = \mathrm{P}(X \leq x)
+%     \]
+% \end{definition}
+% 
+% \begin{definition}[Conditional] For $P(B) > 0$,
+%     \[
+%     \mathrm{P}(A \mid B) = \frac{\mathrm{P}(A \cap B)}{P(B)}
+%     \]
+% \end{definition}
+
+% \begin{definition}[Expected Value] 
+%     \leavevmode
+%     \begin{itemize}
+%     \item Discrete case: $\mathrm{E}(X) := \mu_X = \sum_{x \in \mathbb{R}} x p_X(x)$
+%     \item Abs cts case: $\mathrm{E}(X) := \int_{-\infty}^\infty x f_X(x) \, dx$ 
+%     \end{itemize}
+% \end{definition}
+
+\begin{definition}[Variance]
+    \[
+    \mathrm{Var}(X) := \mathrm{E}((X - \mu_X)^2)
+    \]
+\end{definition}
+
+\begin{definition}[Covariance]
+    \[
+    \mathrm{Cov}(X, Y) := \mathrm{E}((X - \mu_X)(Y - \mu_Y))
+    \]
+\end{definition}
+
+\begin{definition}[Correlation]
+    \[
+    \mathrm{Corr}(X, Y) := \frac{\mathrm{Cov}(X, Y)}{\sqrt{\mathrm{Var}(X) \mathrm{Var}(Y)}}
+    \]
+\end{definition}
+
+% \begin{definition}[Standard Deviation]
+%     \[
+%     \mathrm{Sd}(X) := \sqrt{\mathrm{Var}(X)}
+%     \]
+% \end{definition}
+
+\begin{definition}[Convergence in Probability]
+    Given RVs $\{ X_n \}$, we say that $X_n \overset{\mathrm{P}}{\to} Y$ when for all $\epsilon > 0$,
+    \[
+    \lim_{ n \to \infty } \mathrm{P}(|X_n - Y| \geq \epsilon) = 0
+    \]
+\end{definition}
+
+\subsection{Independence}
+$X$ and $Y$ being independent is equivalent to any of the following:
+\begin{itemize}
+    \item $\mathrm{P}(X \in A, Y \in B) = \mathrm{P}(X \in A)\mathrm{P}(Y \in B)$
+    \item Discrete RVs: 
+    \begin{itemize}
+        \item $p_{X, Y}(x, y) = p_X(x) p_Y(y)$
+        \item $p_{X \mid Y}(x \mid y) = p_X(x)$ if $p_Y(y) > 0$
+    \end{itemize}
+    \item Abs Cts RVs:
+    \begin{itemize}
+        \item $f_{X, Y}(x, y) = f_X(x)f_Y(y)$
+        \item $f_{X \mid Y}(x \mid y) = f_X(x)$ if $f_Y(y) > 0$
+    \end{itemize}
+\end{itemize}
+
+\subsection{Various Properties}
+
+\begin{simplethm}[Marginals]
+    \leavevmode
+    \begin{itemize}
+        \item Discrete case: $p_X(x) = \sum_{y \in \mathbb{R}} p_{X, Y}(x, y)$
+        \item Abs cts case: $f_X(x) = \int_{-\infty}^\infty f_{X, Y}(x, y) \, dy$
+    \end{itemize}
+\end{simplethm}
+
+\begin{simplethm}
+$\frac{d}{dx} F_X = f_X$, if $f_X$ cts at $x$. 
+\end{simplethm}
+
+For general RV $X$, $Y$, constants $a, b$ have:
+\begin{itemize}
+    \item $\mathrm{Var}(aX + b) = a^2 \mathrm{Var}(X)$
+    \item $\mathrm{Var}(X + Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) + 2\mathrm{Cov}(X, Y)$
+    \item $\mathrm{Cov}(a, X) = 0$
+    \item Covariance is symmetric and bilinear: \\
+    $\mathrm{Cov}(X, Y) = \mathrm{Cov}(Y, X)$ \\ 
+    $\mathrm{Cov}(X, aY + bZ) = a\mathrm{Cov}(X, Y) + b\mathrm{Cov}(X, Z)$
+    Hence Cauchy-Schwarz applies, giving
+    \[
+    |\mathrm{Corr}(X, Y)| \leq 1
+    \]
+    
+\end{itemize}
+
+For independent RV $X$, $Y$, have:
+\begin{itemize}
+    \item $\mathrm{E}(XY) = \mathrm{E}(X)\mathrm{E}(Y)$
+    \item $\mathrm{Cov}(X, Y) = 0$ (converse implication false) 
+\end{itemize}
+
+\subsection{Functions of Random Variables}
+
+Let $h : \mathbb{R} \to \mathbb{R}$ be a function. 
+
+\begin{itemize}
+    \item Discrete: $\mathrm{E}(h(X)) = \sum_{x \in \mathbb{R}} h(x) p_X(x)$ \\
+    $h(X)$ must also be a discrete RV
+    \item Abs Cts: $\mathrm{E}(h(X)) = \int_{-\infty}^\infty h(x) f_X(x) \, dx$
+\end{itemize}
+
+\begin{simplethm}[Abs Cts Change of Variables]
+    Have $X$ abs cts, and $h : \mathbb{R} \to \mathbb{R}$ differentiable and strictly increasing/decreasing. Then for $y = h(x)$, have
+\[
+    f_Y(y) = \frac{f_X(h^{-1}(y))}{|h'(h^{-1}(y))|}
+\]
+\end{simplethm}
+thus $Y$ is also an abs cts RV. 
+
+\begin{simplethm}[WLLN]
+Given sequence of RVs $\{ X_i \}$, each with the same mean $\mu$, variances bounded, then
+\[
+    \frac{\sum_{i=1}^{n} X_i}{n} = \frac{1}{n}S_n \overset{\mathrm{P}}{\to} \mu
+\]
+\end{simplethm}
+
+\textbf{Monte Carlo algorithms} can be used to estimate the value of some definite integral $I$. Write the integral as an expectation of some RV, now generate values according to the RV's distribution and take the mean. WLLN says that $\frac{1}{n}S_n \overset{\mathrm{P}}{\to} I$.
+
+\subsection{Inequalities}
+
+\begin{simplethm}[Markov's Inequality]
+    If $a > 0$, $X \geq 0$
+    \[
+    \mathrm{P}(X \geq a) \leq \frac{\mathrm{E}(X)}{a}
+    \]
+\end{simplethm}
+
+\begin{simplethm}[Chebyshev's Inequality]
+    If $a > 0$,
+    \[
+    \mathrm{P}(|Y - \mu_Y| \geq a) \leq \frac{\mathrm{Var}(Y)}{a^2}
+    \]
+    
+\end{simplethm}
+
+
+\section{Distributions}
+
+\subsection{Discrete}
+
+In the below analogies, free throws are being repeatedly shot independently with probability $\theta$ of scoring. 
+
+\begin{itemize}
+    \item $\mathrm{Bernoulli}(\theta)$: `scores in $1$ free throw'
+    \[
+    p_X(k) = \begin{cases}
+        \theta & k = 1 \\
+        1 - \theta & k = 0 \\
+        0 & \mathrm{otherwise}
+    \end{cases}
+    \]
+    \item $\mathrm{Binomial}(n, \theta)$: `scores in $n$ free throws'
+    \[
+    p_X(k) = \begin{cases}
+        \binom{n}{k} \theta^k (1-\theta)^{n-k} & k = \{ 0, \cdots, n \} \\
+        0 & \mathrm{otherwise}
+    \end{cases}
+    \]
+    \item $\mathrm{Geometric}(\theta)$: `\# misses till score'
+    \[
+    p_X(k) = \begin{cases}
+        (1-\theta)^k \theta & k \in \{ 0, 1, \cdots \} \\
+        0 & \mathrm{otherwise}
+    \end{cases}
+    \]
+    \item $\mathrm{Poisson}(\lambda)$: approximation for $p_Y(k)$, where $k$ is held constant, $Y \sim \mathrm{Binom}(n, \frac{\lambda}{n})$ and $n$ is large 
+    \[
+    p_X(k) = \begin{cases}
+        e^{-\lambda} \frac{\lambda^k}{k!} & k \in \{ 0, 1, \cdots \} \\
+        0 & \mathrm{otherwise}
+    \end{cases}
+    \]
+\end{itemize}
+
+\subsection{Absolutely Continuous}
+\begin{itemize}
+    \item $\mathrm{Uniform}[a, b]$: `perfect fairness'
+    \[
+    f_X(x) = \begin{cases}
+        \frac{1}{b-a} & x \in [a, b] \\
+        0 & \mathrm{otherwise}
+    \end{cases}
+    \]
+    \item $\mathrm{Exponential}(\lambda)$: can describe waiting time, `continuous version of $\mathrm{Geometric}$'
+    \[
+    f_X(x) = \begin{cases}
+        \lambda e^{-\lambda x} & x \geq 0 \\
+        0 & x < 0 
+    \end{cases}
+    \]
+    \item $\mathrm{Normal}(\mu, \sigma^2)$: arises from CLT
+    \[
+    f_Z(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}, x \in \mathbb{R}
+    \]
+\end{itemize}
+$\chi^2$, $t$, and $F$ distributions are related to the normal, not listed.
+
+\subsection{Normal Distribution}
+
+Density function of $\mathrm{Normal}(\mu, \sigma^2)$ is given by $\frac{1}{\sigma} \phi(\frac{x - \mu}{\sigma})$, where
+\[
+\phi(x) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{x^2}{2}}
+\]
+
+\begin{simplethm}
+    $W \sim \mathrm{Normal}(\mu, \sigma^2)$ if and only if $W = \sigma Z + \mu$ where $Z \sim \mathrm{Normal}(0, 1)$.
+\end{simplethm}
+
+\begin{simplethm}[CLT]
+    Require $\{ X_i \}$ to be iid, with the same finite mean $\mu$ and variance $\sigma^2$. Take $Z_n = \frac{S_n - n\mu}{\sqrt{n}\sigma}$. Have $\mathrm{E}(Z_n) = 0$, $\mathrm{Var}(Z_n) = 1$. 
+    \[
+    \lim_{ n \to \infty } \mathrm{P}\left(\frac{S_n - n\mu}{\sqrt{n} \sigma} \leq z\right) = \Phi(z)
+    \]
+\end{simplethm}
+Can be written $F_{Z_n} \to \Phi$ (convergence in distirbution).
+
+\subsection{Computations}
+Think of the $Y_i \sim \mathrm{Binomial}(n, \theta)$ as the sum of $\sum_{i=1}^{n} X_i$, where $\{ X_i \}$ is independent, and each $X_i \sim \mathrm{Bernoulli}(\theta)$.
+\begin{table}[ht]
+\centering
+% \caption{}
+\begin{tabular}{lrr} % l=left, r=right alignment
+\toprule
+    \textbf{Distribution} & \textbf{Expectation} & \textbf{Variance} \\
+\midrule
+    $\mathrm{Bernoulli}(\theta)$ & $\theta$ & $\theta(1-\theta)$ \\
+    $\mathrm{Binomial}(n, \theta)$ & $n \theta$ & $n \theta(1-\theta)$ \\
+    $\mathrm{Geometric}(\theta)$ & $\frac{1-\theta}{\theta}$ & $\frac{1-\theta}{\theta^2}$ \\
+    $\mathrm{Poisson}(\lambda)$ & $\lambda$ & $\lambda$ \\
+\midrule
+    $\mathrm{Uniform}[a, b]$ & $\frac{a + b}{2}$ & $\frac{(b-a)^2}{12}$ \\
+    $\mathrm{Exponential}(\lambda)$ & $\frac{1}{\lambda}$ & $\frac{1}{\lambda^2}$ \\
+    $\mathrm{Normal}(\mu, \sigma^2)$ & $\mu$ & $\sigma^2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+To compute 95\% confidence intervals, see that
+\[
+\mathrm{P}\left(\frac{1}{n}S_n - 1.96 \frac{\sigma}{\sqrt{n}} \leq \mu \leq \frac{1}{n}S_n + 1.96 \frac{\sigma}{\sqrt{n}}\right) \approx 0.95
+\]
+In the frequentist interpretation, $S_n$ is the only random variable here. You can usually substitute $\sigma$ with the sample standard deviation.
+
+\end{document}

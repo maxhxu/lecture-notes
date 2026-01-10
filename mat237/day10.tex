@@ -1,0 +1,32 @@
+\section{Day 10: Compactness (Sep 23, 2025)}
+
+\begin{definition}[Compactness]
+A set $A \subseteq \mathbb{R}^n$ is compact if every sequence of $A$ has a subsequence which converges to a point lying inside $A$. 
+\end{definition}
+
+\noindent Compactness here is called sequential compactness in other courses/textbooks. For this reason, our theorem relating compactness to being closed and bounded will be the Bolzano-Weierstrass theorem instead of the usual Heine-Borel.
+
+\begin{definition}[Boundedness]
+    $A \subseteq \mathbb{R}^n$ is bounded if there exists a $R > 0$, $A \subseteq \{ x \in \mathbb{R}^n : ||x|| < R \}$.
+\end{definition}
+
+\noindent The complement of an unbounded set may not be bounded. The complement of a bounded set is always unbounded.
+
+\begin{theorem}[Bolzano-Weierstrass]
+A set is sequentially compact if and only if it is both closed and bounded.
+\end{theorem}
+
+\begin{proof}
+    We prove by showing both directions.
+    \begin{itemize}
+        \item[($\Rightarrow$)] Suppose that $S$ is compact.
+        \begin{itemize}
+            \item[\labelitemi] We show that $S$ is closed. 
+            Let $p$ be any limit point of $p$, meaning that there exists a sequence $\{ x_k \}_k$ that converges to $p$. 
+            \item[\labelitemi] We show that $S$ is bounded. 
+        \end{itemize}
+        \item[($\Leftarrow$)] Suppose that $S$ is closed and bounded. WTS that it is compact. 
+    \end{itemize}
+\end{proof}
+
+TODO: finish this proof.

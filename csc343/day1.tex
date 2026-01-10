@@ -1,0 +1,56 @@
+\section{Day 1: Intro (Jan 07, 2026)}
+
+Why study databases:
+\begin{itemize}
+    \item Interesting concepts and techniques
+    \item Employment reasons
+    \item Research: open problem (e.g. VLDB)
+\end{itemize}
+
+The word `database' is used colloquially. To be precise, some terminology: 
+
+\begin{definition}[Database]
+    The data itself.
+\end{definition}
+
+
+\begin{definition}[DBMS]
+    \textbf{Database Management System} (DBMS) is software, for creating (entering data into the tool) and managing large amounts of data efficiently. It must persist data (e.g. to survive natural disasters), and ensure safety and consistency in data (avoid race conditions).
+\end{definition}
+
+DBMS is based off some data model which specifies the
+\begin{itemize}
+    \item structure of the data
+    \item constraints on the data
+    \item allowed operations on the data
+\end{itemize}
+
+In addition, the DMBS must also
+\begin{enumerate}
+    \item specify logical structure (explicitly and enforce it), maintaining indices (metadata)
+    \item be able to query and modify the data 
+    \item be performant (optimization of queries)
+    \item be durability
+    \item allow for concurrent access
+\end{enumerate}
+
+DBMS manages buffers and disk space (instead of the OS!), as the DBMS is more informed about what needs to be done.
+
+Our course focuses on the \textbf{relational data model} (very old, and strict), which is based on relations from math. In past classes, we learned that pointers are messy, and almost everything required custom code. A relational data model provides simplicity: the spirit of a relational database is that each cell contains only 1 `piece'.
+
+We will be using \textbf{PostgreSQL}. It's (and more generally relational databases are) meant for `rectangular information'. You must formally define a schema, and strictly adhere to it. All rows should have data for all columns. If you must have holes, use another structure to get around this.
+
+There exist other data models not covered in this course, being semi-structure data model (JSON, XML) and unstructured data, and graph data model, where information represented in nodes and edges, queries defined by paths.
+
+% unstructured data: key-value store, Couchbase, DynamoDB
+
+This class is about \textit{using} DBMSs. We will be
+\begin{itemize}
+    \item defining schemas and instances
+    \item writing queries
+    \item connecting PostgreSQL to code written in a general-purpose language (Python)
+    \item understanding the rigorous underlying principles (some proofs)
+    \item focusing on the relational model, to build foundations
+\end{itemize}
+
+The logical next step after this course is \textbf{CSC443}, where you will understand the design choices and implementation side of things.

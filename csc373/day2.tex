@@ -1,0 +1,37 @@
+\section{Day 2: Intro Redux (Jan 08, 2026)}
+
+This course is now about the thought process behind solutions of problems. We use the \textbf{RAM Computational Model}.
+
+A proof is a convincing argument:
+\begin{itemize}
+    \item Convince your TA for marks
+    \item Convince employer that your program does what it claim it does
+\end{itemize}
+
+Sometimes, formal verification is used for mission-critical applications, where unit tests may not have sufficient coverage. We use semi-formal proofs in this course, to prove specific results (as opposed to more general ones, like in math).
+
+\subsection{Divide \& Conquer}
+
+The general framework is to
+\begin{itemize}
+    \item Break a problem into two smaller subproblems of the same type
+    \item Solve each problem recursively and independently
+    \item Quickly combine solutions from subproblems to form a solution to a bigger part of the problem
+\end{itemize}
+
+`Quick/cheap' means that the step count is in $O(f(n))$ where $f$ is a polynomial.
+
+Recurrence relations are often encountered while analyzing the running time of divide-and-conquer algorithms. We take the master theorem from (CLRS) for granted, a general result about the asymptotic behavior of certain types of recurrences.
+
+The master theorem branches: branching dominated, balance, merging dominated.
+
+\begin{example}
+    Algorithms considered divide-and-conquer include:
+    \begin{itemize}
+        \item Closest pair in $\mathbb{R}^2$, with non-degeneracy assumption
+        \item Karatsuba's Algorithm
+        \item Strassen's Algorithm
+    \end{itemize}
+\end{example}
+
+

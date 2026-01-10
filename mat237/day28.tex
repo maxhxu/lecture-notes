@@ -1,0 +1,42 @@
+\section{Day 28: Nonlinear Systems (Nov 14, 2025)}
+
+Suppose we have some non-linear system of equations, given by $F : \mathbb{R}^a \to \mathbb{R}^b$.
+\[
+F(x) = 0 \iff \begin{matrix}
+    F_1(x) &= 0 \\
+    & \vdots \\
+    F_b(x) &= 0
+\end{matrix}
+\]
+Suppose we found the solutions to $P_i \subseteq \mathbb{R}^a$, where $F_i(P_i) = \{ 0 \}$. We can take the intersection $\bigcap P_i$ to get the solutions for $F$. Hence we study the individual components, $F_i : \mathbb{R}^a \to \mathbb{R}$, motivating the upcoming definition.
+
+\begin{definitionbox}
+    Have:
+    \begin{itemize}
+    \item $U \subseteq \mathbb{R}^n \times \mathbb{R}^k$ be open
+    \item $f : U \to \mathbb{R}$ be a $C^1$ function
+    \end{itemize}
+    For some $(a, b) \in U$, $a \in \mathbb{R}^n, b \in \mathbb{R}^k$, with $f(a, b) = 0$, the equation $f(x, y) = 0$ locally defines $y$ as a $C^1$ function of $x$ near $(a, b)$, if
+    \begin{itemize}
+    \item Exists open set $V \subseteq \mathbb{R}^n$, $a \in V$
+    \item Exists open set $W \subseteq \mathbb{R}^k$, $b \in W$
+    \item $V \times W \subseteq U$
+    \item Exists $C^1$ function $\phi: V \to W$ 
+        \item For all $(x, y) \in V \times W$, $f(x, y) = 0$ iff $y = \phi(x)$ 
+    \end{itemize}
+\end{definitionbox}
+
+\noindent The idea is that by shifting $x$ slightly such the new value for $x$ lies in $V$, $\phi$ tells you how to update $y$ such that $f(x, y)$ remains a solution. If $f(x, y) = 0$ locally defines $y$ as a $C^1$ function of $x$ near $(a, b)$, then there would exist infinitely many solutions, as $V$ is open, and the usual topology of $\mathbb{R}^{n + k}$ have all non-empty open sets contain infinitely many points.
+
+\noindent To ensure you're on the right track when solving non-linear systems of equations, a checklist of tasks can be as follows:
+\begin{enumerate}
+\item Check that solutions exist in general:\\
+    you now know that the system is solvable
+\item Check if infinitely many solutions exist:\\
+    you can't list all solutions, and must attempt to get a general expression
+\item Check if you express variables as functions of another:\\
+    if you parametrize every free variable you get the explicit form, which is nice
+\item (For non-linear systems with $n + k$ variables and $k$ equations) Check if $k$ variables can be expressed as a $C^1$ function of the other $n$ variables: \\
+    use the implicit function theorem
+\end{enumerate}   
+

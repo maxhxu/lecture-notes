@@ -1,0 +1,67 @@
+\section{Day 1: Intro (Jan 05, 2026)}
+
+Our goal is to describe an unknown function using its derivatives, and hopefully obtain an explicit form.
+
+\begin{definition}[Proportional]
+    $A$ is proportional to $B$ if $A = cB$ where $c$ is constant.
+\end{definition}
+
+\begin{problem}
+    Model the following:
+    \begin{enumerate}
+        \item Researchers are studying a population of rabbits. Each year they measure the population, and they find that the population increases by 11\% each year.
+        \item Based on field measurements, some researchers studying the population of rabbits in an area propose a model where at each moment, the population is increase at approximately 10.5\% of its current size.
+        \item An object in free fall will accelerate towards the ground at $9.8m/s^2$ due to gravity, and will also be slowed down at a rate proportional to its velocity due to air resistance.
+    \end{enumerate}
+\end{problem}
+
+\begin{enumerate}
+    \item Let $P(t)$ denote the population at time $t$, with $P_0$ being the initial population. Some reasonable responses include:
+        \begin{itemize}
+            \item $\frac{dP}{dt} = 0.11 P$
+            \item $P(t) = P_0 (1.11)^t$
+            \item $P(t) = 1.11 P(t-1)$
+            \item $P(t) = 1.11 P_0 t$ 
+            \item $P(t) = 0$
+        \end{itemize}
+    Some only grow linearly, which may not model the population well. Some need to include the base case $P_0$. The question is intentionally vague, so the professor thought these were fine.
+    \item Responses could be
+        \begin{itemize}
+            \item $\frac{dP}{dt} = \ln(1.105) P_0 1.105^t$
+            \item $\frac{dP}{dt} = 0.105P$
+        \end{itemize}
+        The second is response is what we're looking for (it is autonomous).
+    \item Have $h(t)$ be the height (in meters) of the object at $t$ seconds, where positive is `up'. Slowing down is a colloquialism for some acceleration in another direction. 
+        \begin{align*}
+            a(t) &= a_\mathrm{gravity}(t) + a_\mathrm{air res}(t) \\
+            &= -9.8 - c \cdot v(t) \\
+            h'' &= -9.8 - ch'
+        \end{align*}
+\end{enumerate}
+
+\begin{definition}[ODE]
+    An ordinary differential equation is an equation involving a single variable function and the independent variable (input) of that function, and also derivatives up to a finite order of that function.
+\end{definition}
+
+\begin{definition}[PDE]
+    Partial differential equations involve derivatives w.r.t. multiple variables.
+\end{definition}
+
+An example is the wave equation, $\frac{\partial^2 u}{\partial t^2} = k \frac{\partial^2 u}{\partial x^2}$. They are not testable, and show up in MAT351/APM346.
+
+In this course\footnote{so that solutions always exist}, a general differential equation of order $n$ is written as
+\[
+    y^{(n)} = f(t, y, y', \cdots, y^{(n-1)})
+\]
+A function $\phi(t)$ is a solution when $\phi(t) \in C^n$ (is at least $n$ times continuously differentiable), is defined on an open interval, and satisfies the equation
+\[
+    \phi^{(n)}(t) = f(t, \phi(t), \phi'(t), \cdots, \phi^{(n-1)}(t))
+\]
+for all $t$ in its domain. We usually have infinitely many solutions, but we can specify them using initial values.
+
+General solutions contain one or more parameters.
+
+\begin{problem}
+    Find the general solution to the DE $y' = -0.15y$. What if we add the constraint that $y(1) = -3$?
+\end{problem}
+

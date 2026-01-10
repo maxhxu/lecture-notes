@@ -1,0 +1,52 @@
+\section{Day 26: Diffeomorphism (Nov 09, 2025)}
+
+ There are 2 big upcoming theorems, being the inverse function theorem and the implicit function theorem. The main motivation of these theorems is that we want to show that more sets are manifolds at some point. But sets can be in a rather complicated form (e.g. implicit form).
+
+\begin{definition}[Global Inverse]
+    Let $U \subseteq \mathbb{R}^n, V \subseteq \mathbb{R}^n$. The global inverse of $F : U \to V$ is a map denoted $F ^{-1} : V \to U$ with $F ^{-1} \circ F (u) = u$ for all $u \in U$, and $F \circ F ^{-1} (v) = v$ for all $v \in V$. 
+\end{definition}
+
+\begin{definition}[Global Diffeomorphism]
+    $F$ is a global diffeomorphism if $F$ is bijective, and both $F$ and its global inverse $F ^{-1}$ is $C^1$.
+\end{definition}
+
+\begin{simplethm}[Symmetry]
+    Have $F : U \to V$ be bijective. Then $F$ is a diffeomorphism iff $F^{-1}$ is a diffeomorphism. 
+\end{simplethm}
+
+\begin{proof}
+    Suppose $F$ is a diffeomorphism. Then $F^{-1}$ exists, is $C^1$ and is also bijective. We only need to check that $(F ^{-1}) ^{-1}$, the inverse of the inverse of $F$ is $C^1$ . $F^{-1} \circ (F^{-1})^{-1} = I$. Apply $F$ to both sides, giving $(F \circ F^{^{-1}}) \circ (F^{-1})^{-1} = F$, since function composition is associtive, so $(F^{-1})^{-1} = F$. As $F = (F^{-1})^{-1}$ is $C^1$, the global inverse of $F^{-1}$ is $C^1$, thus $F^{-1}$ is a diffeomorphism. The other direction follows from re-labeling (apply the forward direction to $G = F^{-1}$).
+\end{proof}
+
+\begin{simplethm}[Transitivity]
+    Have $U, V, W \subseteq \mathbb{R}^n$ be open. $F : U \to V$ and $G : V \to W$ be diffeomorphisms. Then $G \circ F$ is a diffeomorphism $G \circ F : U \to W$.
+\end{simplethm}
+%\begin{proof}
+%    The composition of bijective maps is bijective. Also the composition of $C^1$ maps is $C^1$ by \ref{thm:c1composition}. So $G \circ F$ is $C^1$. It remains to check that for $(G \circ F)^{-1}$:
+%    \begin{align*}
+%        (G \circ F) \circ (G \circ F)^{-1} &= I \\
+%        (G \circ F)^{-1} &= F^{-1} \circ G^{-1}
+%    \end{align*}
+%    which is also a composition of $C^1$ maps, since $F$ and $G$ are both diffeomorphisms. 
+%\end{proof}
+
+\begin{theorem}
+    Have $S \subseteq U$, and $F$ be a diffeomorphism.
+    \begin{itemize}
+        \item $S$ is open iff $F(S)$ is open
+        \item $S$ is closed iff $F(S)$ is closed
+        \item $S$ is compact iff $F(S)$ is compact
+        \item $S$ is path connected iff $F(S)$ is path connected 
+    \end{itemize}
+\end{theorem}
+
+\begin{theorem}
+    Let $U, V$ be open subsets of $\mathbb{R}^n$, and $F : U \to V$ be a diffeomorphism. Let $S \subseteq U$, and $p \in S$. Some vector $v \in \mathbb{R}^n$ is a tangent vector of $S$ at $p$ if and only if $dF_p(v) \in \mathbb{R}^n$ is a tangent vector of $F(S)$ at $F(p)$.
+\end{theorem}
+
+We say that diffeomorphisms preserve topological properties and tangency.
+
+\begin{definition}[Local Diffeomorphism]
+    Have $A, B \subseteq \mathbb{R}^n$ be open, with $a \in A$. $F : A \to B$ is a local diffeomorphism at $a$ if there exists some $U \subseteq A$, such that $F \big|_U : U \to F(U)$ is a diffeomorphism. $F\big|_G^{-1} : F(U) \to U$ is the local inverse of $F$ at $a$.
+\end{definition}
+

@@ -1,0 +1,45 @@
+\section{Day 11: Limits (Sep 25, 2025)}
+
+``You get a delta, you get a delta, everybody gets a delta'' - Q.
+
+\begin{definition}[Limit]
+Let $f: A \subseteq \mathbb{R}^n \to \mathbb{R}^m$ be a function. Let $a \in \mathbb{R}^n$ be a limit point of $A$, and let $b \in \mathbb{R}^m$. Define $b$ to the limit of $f$ at $a$ provided that:
+\[
+    \forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } \forall x \in A, 0 < ||x-a|| < \delta \implies ||f(x) - b|| < \epsilon 
+\]
+    If the above is true, then we write $\displaystyle \lim_{ x \to a } f(x) = b$ or say $f(x) \to b$ as $x \to a$. 
+\end{definition}
+
+\begin{remark}
+In this course, if $x$ left unquantified, then implicitly $x$ is assumed to be an element of $\mathbb{R}^n$. Furthermore, we don't define limits at isolated points, because we want limits to be unique. Look at exercises 2.5.14, 2.5.15.
+\end{remark}
+
+Having $a$ be a limit point of $A$ is important: without this condition, you could say that all points $b \in \mathbb{R}^m$ is the limit of $f$ at any limit point $k \in \mathbb{R}^n$ that is not a limit point of $A$, since there would exist some $\delta$-radius such that no points of $A$ exist in the $B_ \delta(k)$, thus the 
+
+
+
+\begin{definition}[Isolated Point]
+Have $A \subseteq \mathbb{R}^n$. A point $a \in \mathbb{R}^n$ is an isolated point of $A$ if $a \in A$ and $a$ is not a limit point of $A$. 
+\end{definition}
+
+This is equivalent to saying that $a$ is an isolated point iff $a \in A \cap (\mathbb{R}^n \setminus A^*)$
+
+\begin{theorem}[Sequential Definition of Limits]
+    Let $A \subseteq \mathbb{R}^n$ be a set and let $f: A \to \mathbb{R}^m$ be a function. Let $a \in \mathbb{R}^n$ be a limit point of $A$ and let $b \in \mathbb{R}^m$. Then $\displaystyle \lim_{ x \to a } f(x) = b$ if and only if every sequence of points $\{ x(k) \}_k$ in $A \setminus \{a\}$ with $x(k) \to a$, the sequence of points $\{ f(x(k)) \}_k$ in $\mathbb{R}^m$ converges to $b$, that is $f(x(k)) \to b$. 
+\end{theorem}
+
+Proof was left as an exercise.
+
+\begin{theorem}[Component-wise Limits] \label{thm:compwiselimits}
+    Let $f : A \subseteq \mathbb{R}^n \to \mathbb{R}^m$ be a function. Let $a$ be a limit point of $A$ and $b = (b_1, \cdots, b_m) \in \mathbb{R}^m$. Let $f_i$ be the component functions of $f$, such that $f = (f_1, \cdots, f_m)$, then $\displaystyle \lim_{ x \to a } f(x) = b$ if and only if for all $i \in \{ 1, \cdots, m \}$, $\displaystyle \lim_{ x \to a } f_i(x) = b_i$.
+\end{theorem}
+
+\begin{proof}
+    We prove both directions:\\
+    ($\implies$): Let $\epsilon > 0$. By definition of $\lim_{ x \to a } f(x) = b$, exist $\delta > 0$ (we use this same $\delta$) , for $x \in A$, if $||x - a|| < \delta$ then $||f(x) - b|| < \epsilon$. From the triangle inequality, have $|f_i(x) - b_i| \leq ||f(x) - b|| < \epsilon$, thus $|f_i(x) - b_i| < \epsilon$, which proves the claim. \\
+    ($\impliedby$): Let $\epsilon > 0$ be arbitrary. For $i \in \{ 1, \cdots, m \}$, have some $\delta_i > 0$, if $||x - a|| < \delta_i$ then $|f_i(x) - b_i| < \frac{\epsilon}{\sqrt{m}}$. Take $\delta = \text{min}\{ \delta_1, \cdots, \delta_m \}$. Then we compute
+    \begin{align*}
+        ||f(x) - b||^2 \leq \sum_{i=1}^{m} |f_i(x) - b_i|^2 < \sum_{i=1}^{m} \frac{\epsilon^2}{m} = \epsilon^2 
+    \end{align*}
+    Taking square roots, we get the desired result.
+\end{proof}

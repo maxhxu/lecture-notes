@@ -1,0 +1,126 @@
+\section{Day 21: Chain Rule, MVT (Oct 21, 2025)}
+
+\subsection{Chain Rule}
+
+The chain rule is a big theorem, that we can use to develop even more theory, such as the MVT, which has an unexpected generalization.
+
+\begin{theorem}[Chain Rule] \label{thm:chainrule}
+    Have $U \in \mathbb{R}^n$ be open, $V \in \mathbb{R}^m$ be open. Suppose $f : U \to V$ and $g: V \to \mathbb{R}^k$ are differentiable at $a \in U$ and $f(a) \in V$ respectively. Then $h = g \circ f$ is differentiable at $a$, with
+    \[
+    dh_a = dg_{f(a)} \circ df_a
+    \]
+\end{theorem}
+
+\noindent Recall the definition of differentiability. We use the equivalent formulation provided by \ref{thm:altdiff}, with some modifications:
+\[
+\lim_{ x \to a } \frac{||f(x) - f(a) - L(x - a)||}{||x - a||} = 0
+\]
+We get this by taking $x - a = h$. This form is more useful in the proof of the chain rule
+
+\begin{proof}[Proof (Adapted from Spivak).]
+    Let $b = f(a)$, $\lambda = df_a, \mu = dg_{f(a)}$. Define
+    \begin{enumerate}
+        \item For $x \in U$, define $\varphi(x) = f(x) - f(a) - \lambda(x - a)$
+        \item For $y \in V$, define $\psi(y) = g(y) - g(b) - \mu(y - b)$
+        \item For $x \in U$, define $\rho(x) = g \circ f(x) - g \circ f(a) - \mu \circ \lambda (x - a)$.
+    \end{enumerate}
+        \noindent Then our givens are
+        \[
+        \lim_{ x \to a } \frac{||\varphi(x)||}{||x-a||} = 0 \tag{$*$}, \quad\lim_{ y \to b } \frac{||\psi(y)||}{||y - b||} = 0
+        \]
+        and we want to show that $\displaystyle \lim_{ x \to a } \frac{||\rho(x)||}{||x-a||} = 0$.
+
+    \begin{align*}
+        \rho(x) &= g(f(x)) - g(f(a)) - \mu(\lambda(x-a)) & \\
+        &= g(f(x)) - g(f(a)) - \mu(f(x) - f(a) - \varphi(x)) & \text{def. of $\varphi$}\\
+        &= g(f(x)) - g(f(a)) - \mu(f(x) - f(a)) + \mu(\varphi(x)) & \text{$\mu$ is linear} \\
+        &= g(y) - g(b) - \mu(y - b) + \mu(\varphi(x)) & \text{def. of $y, b$} \\
+        &= \psi(f(x)) + \mu(\varphi(x))
+    \end{align*}
+    So it suffices to show that each part of the sum has limit 0 as $x \to a$, over $||x - a||$. We do so first for $\mu(\varphi(x))$:
+    \begin{itemize}
+        \item[] By \ref{thm:opnorm}, since $\mu$ is linear, have some $M$ such that for all $v \in \mathbb{R}^m$, $||\mu(\varphi(x))|| \leq M||\varphi(x)||$
+        \begin{align*}
+        \lim_{ x \to a } \frac{||\mu(\varphi(x))||}{||x-a||} \leq \lim_{ x \to a } \frac{M||\varphi(x)||}{||x-a||} = 0
+    \end{align*}
+        with the last inequality following from ($*$).
+    \end{itemize}
+    Now we do the same for $\psi(f(x))$.
+    \begin{itemize}
+        \item[] Let $\epsilon > 0$. Since $\lambda$ is linear, let $\epsilon' < \frac{\epsilon}{M}$, where $M$ is the scalar given by \ref{thm:opnorm}. From ($*$), we have some $\delta > 0$ such that if $||x - a|| < \delta$, then\footnote{TODO: we implicitly handle the $y = b$ case, since $\psi(b) = 0$. Usually you define a new auxiliary function}
+        \begin{align*}
+            ||\psi(f(x))|| &< \epsilon' ||f(x) - b||  \\
+            &= \epsilon' ||\varphi(x) + \lambda(x-a)|| \\
+            &\leq \epsilon' ||\varphi(x)|| + \epsilon' M||x-a||
+        \end{align*}
+
+        Considering the limit expression again, have
+        \[
+        \lim_{ x \to a } \frac{||\psi(f(x))||}{||x-a||} \leq \lim_{ x \to a } \frac{\epsilon' ||\varphi(x)|| + \epsilon' M||x-a||}{||x-a||} = \epsilon' M < \epsilon 
+        \]
+    \end{itemize}
+    Finally, we have that
+    \[
+    \lim_{ x \to a } \frac{||\rho(x)||}{||x-a||} = \lim_{ x \to a } \frac{||\psi(f(x)) + \mu(\varphi(x))||}{||x-a||} \leq \lim_{ x
+    \to a } \frac{||\psi(f(x))|| + ||\mu(\varphi(x))||}{||x-a||} = 0
+    \]
+\end{proof}
+
+\noindent Have $f : \mathbb{R}^n \to \mathbb{R}^m$, $g : \mathbb{R}^m \to \mathbb{R}^p$. With the chain rule, we can now compute $\frac{\partial (g \circ f)}{\partial x_i}\big|_{x=a}$ for some $a \in \mathbb{R}^n$ . We know that $d(g \circ f)_a = dg_{f(a)} \cdot df_a$, whose matrix is given by $Dg_{f(a)}Df_a$. Then via \ref{thm:diffproperties}, have that $\frac{\partial(g \circ f)}{\partial x_i}\big|_{x=a}= Dg_{f(a)}Df_a(e_i)$, which is the $i$-th column of that matrix. More explicitly, this is given by
+\[
+Dg_{f(a)} \left(\sum_{j=1}^{m} \partial_i f^j(a) e_j \right) = \sum_{j=1}^{m} \partial_i f^j(a) \left(\sum_{k=1}^{p} \partial_jg^k(f(a)) e_k \right)
+\]
+
+\subsection{Leibniz Notation}
+
+\begin{example}
+    Have $x = u(s, t), y = v(s, t), z = w(x, y)$, where $s, t \in \mathbb{R}$ are the independent variables, and $u, v, w : \mathbb{R}^2 \to \mathbb{R}$ all being differentiable. What is $\frac{\partial z}{\partial s}$, at some $a \in \mathbb{R}^2$?
+\end{example}
+
+\noindent We can turn this into a much simpler form, by defining $f : \mathbb{R}^2 \to \mathbb{R}^2$ by $f(s, t) = (x, y) = (u(s, t), v(s, t))$, taking the function $g(x, y) = w(x, y) = z$. Then $z = w(u(s, t), v(s, t)) =  g \circ f (s, t)$. We define $h = g \circ f$, so that we can express the final function $z$ in terms of $s$ and $t$. So the question is really asking about $\partial_1 h(a)$. Applying the chain rule to $h$, have
+\[
+dh_a = dg_{f(a)} \circ df_{a}
+\]
+To find $\partial_i h$, where $i \in \{ 1, 2 \}$, it suffices to compute the $i$-th column of the Jacobian $Dh_a$ (by \ref{thm:diffproperties}) . Also since $f, g$ are differentiable, we can represent the linear transformation using the Jacobian. 
+\begin{align*}
+    \partial_i h(a) = dh_a(e_i) &= dg_{f(a)} \circ df_{a}(e_i) \\
+ &= dg_{f(a)}(\partial_i f(a)) \\
+ &= \begin{pmatrix}
+ \partial_1 g_{f(a)} & \partial_2 g_{f(a)}
+ \end{pmatrix}
+ \begin{pmatrix}
+ \partial_i f^1(a) \\ \partial_i f^2(a)
+ \end{pmatrix} \\
+    &= \partial_1 g_{f(a)} \partial_i f^1(a) + \partial_2 g_{f(a)} \partial_i f^2(a) \tag{$*$}
+\end{align*}
+
+\noindent Notice that here, $\partial_1 g_{f(a)}$ and $\partial_2 g_{f(a)}$ can be confusing for the reader, since $\partial_1$ could be w.r.t. $s, t$ (being $f$'s inputs), or $x, y$ (being $g$'s inputs). To properly distinguish between the two, we can use Leibniz notation, such that $\partial_1 g_{f(a)}$ is written $\displaystyle \frac{\partial g}{\partial x} \big|_{x=u(s, t), y=v(s, t)}$ and $\partial_2 g_{f(a)}$ is written $\displaystyle \frac{\partial g}{\partial y} \big|_{x=u(s, t), y=v(s, t)}$. Leibniz notation solve this ambiguity immediately by explicitly naming the `independent variable'. But we took $g(x, y) = w(x, y) = z$, so we may replace $g$ with $z$ here. With that in mind, let's rewrite $(*)$ entirely in Leibniz notation. We first fix $i = 1$, so we're finding the partial derivative of $z$ with respect to $s$.
+\[
+\frac{\partial z}{\partial s}\bigg|_{(s, t) = a} = \frac{\partial z}{\partial x} \bigg|_{x=u(s, t), y=v(s, t)} \frac{\partial x}{\partial s}\bigg|_{(s, t) = a} + \frac{\partial z}{\partial y} \bigg|_{x=u(s, t), y=v(s, t)} \frac{\partial y}{\partial s}\big|_{(s, t) = a} 
+\]
+If we weren't evaluating at the point, we can drop the evaluation terms, and get the much simpler expression:
+\[
+\frac{\partial z}{\partial s} = \frac{\partial z}{\partial x} \,  \frac{\partial x}{\partial s} + \frac{\partial z}{\partial y} \, \frac{\partial y}{\partial s}
+\]
+
+
+\subsection{Mean Value Theorem}
+
+\begin{simplethm}[MVT] \label{thm:mvt}
+    Have $f : U \subseteq \mathbb{R}^n \to \mathbb{R}$, with $U$ containing some line segment $L$ from $a$ to $b$, with $f$ being differentiable on $U$. Then there exists a $c \in L$, with $f(b) - f(a) = \nabla f(c) \cdot (b-a)$.
+\end{simplethm}
+
+\begin{proof}
+    We first parameterize the line segment using $g(t) = (1-t)a + tb$, for $t \in [0, 1]$. $g([0, 1]) = L$, and from our assumptions $L \subseteq U$. Take $h : [0, 1] \to \mathbb{R}$, $h(t) = f(g(t))$. Notice that $h$ is a single variable function, with $h(0) = f(a), h(1) = f(b)$. Since $h$ is differentiable on $[0, 1]$, there exists some $s \in (0, 1)$ with $h'(s) = \nabla h(s) = \frac{h(1)-h(0)}{1-0}$, and
+    \begin{align*}
+        f(b) - f(a) = h(1) - h(0) &= h'(s) & \text{single var MVT} \\
+        &= \nabla f(g(s)) \cdot g'(s) & \text{chain rule}\\
+        &= \nabla f(g(s)) \cdot (b - a) & g'(s) = b - a\\
+        &= \nabla f(c) \cdot (b - a) & \text{Take $c = g(s)$}
+    \end{align*}
+    since $s \in (0, 1)$, $c \in L$, and we are done.
+\end{proof}
+
+Recall that for functions $f : \mathbb{R} \to \mathbb{R}^n$, differentiable at $a$, have $\nabla f(a)^\top = Df(a)$
+
+% TODO: As a quick aside, we don't have the machinery to prove Lemma 3.4.9, but Theorem 3.4.3 follows from Theorem 3.5.22. What did I mean by this?

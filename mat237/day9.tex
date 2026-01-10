@@ -1,0 +1,33 @@
+\section{Day 9: Open and Closed Sets (Sep 22, 2025)}
+
+You should know that there exist sequential formulations equivalent to the definition of closed and open sets. We want sets that have nice properties: Let $A \subseteq \mathbb{R}^n$. We want a class of sets such that if a sequence in $\mathbb{R}^n$ converges to $a \in A$, then the \textit{tail} of the sequence belongs in $A$.
+
+\begin{definition}[Open Set]
+$A$ is open if every point of $A$ is an interior point of $A$.  
+\end{definition}
+
+This is equivalent to saying $A = A^o$, and $A \cap \partial A = \emptyset$.
+
+\begin{definition}[Closed Set]
+$A$ is closed if every limit point of $A$ belongs to $A$. 
+\end{definition}
+
+That is, $A^* \subseteq A$.
+
+\begin{theorem}
+    A set $A$ is open if and only if its complement $A^c = \mathbb{R}^n \setminus A$ is closed.
+\end{theorem}
+
+\begin{proof}
+    We prove both directions:
+    \begin{itemize}
+        \item[$(\Rightarrow)$] Suppose $A$ is open. \\
+        For contradiction, suppose that $A^c$ is not closed, meaning that there exists a limit point of $A^c$, being $p$, such that $p \not \in A^c$. Thus $p \in A$. But $p$ is an interior point of $A$, hence there exists an $\epsilon > 0$, $B_\epsilon(p) \subseteq A$. But $B_ \epsilon(p) \setminus \{ p \} \subseteq A$, this contradicts our assumption that $p$ is a limit point of $A$. 
+        \item[$(\Leftarrow)$] Suppose $A^c$ is closed. \\
+        Suppose that $A$ is not open. Then there exists a point $p \in A$, such that $p$ is not an interior point. Let $k \in \mathbb{N}^+$. Then for each such $k$ there exists a point $b_k \in B_ {\frac{1}{k}}(p)$, where $b_k \in A^c$. We check that this sequence $\{ b_k \}_k$ converges to $p$:
+        \begin{itemize}
+            \item[] Take $\epsilon > 0$. By the archimedean property, exist some $N \in \mathbb{N}$, with $\frac{1}{N} < \epsilon$. For all $b_j$, $j \geq N$, have $b_j \in B_ \frac{1}{j}(p)$.
+        \end{itemize}
+        But each $b_k \in A^c$. Since this sequence lies entirely in $A^c$, and $p \in A$, a limit point of $A^c$ doesn't belong to $A$. This contradicts $A^c$ being closed. 
+    \end{itemize}
+\end{proof}

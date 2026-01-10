@@ -1,0 +1,108 @@
+\documentclass[9pt, twocolumn]{article}
+\usepackage{aten, booktabs, tabularx, array}
+
+\usepackage{enumitem}
+\setlist[description]{leftmargin=1em, labelindent=1em}
+
+\setcounter{tocdepth}{1}
+
+\newcommand{\documenttitle}{MAT237 Cheat Sheet}
+\newcommand{\authorname}{Max Xu}
+
+\setkeys{Gin}{width=0.95\textwidth}
+
+\begin{document}
+
+\title{\documenttitle}
+\rhead{\textbf{\small \documenttitle}}
+\lhead{\textbf{\small \authorname}}
+\author{\authorname}
+
+\section{Derivatives}
+
+\subsection{Single-variable}
+
+Let $A \subseteq \mathbb{R}$, $f : A \to \mathbb{R}^m$ be a function, with $a \in A^o$.
+\begin{definition}[Derivative]
+ \[ f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h} \]
+\end{definition}
+
+
+\begin{description}
+    \item[Physical] $f'(a)$ is the (instantaneous) velocity
+    \item[Geometric] the `tangent line' is given by
+        \[
+        \{ f(a) + hf'(a) : h \in \mathbb{R} \}
+        \]
+    \item[Analytic] The linear approximation of $f$ at $a$ is the function $\ell : \mathbb{R} \to \mathbb{R}^m$ given by
+        \[
+        \ell(x) = f(a) + f'(a)(x-a)
+        \]
+    \item[Algebraic] Differentiability is the existence of a linear map $L : \mathbb{R} \to \mathbb{R}^m$ where
+        \[
+        \lim_{h \to 0} \frac{f(a + h) - f(a) - L(h)}{h} = 0
+        \]
+\end{description}
+
+\subsection{Multi-variable}
+
+Let $A \subseteq \mathbb{R}^n$, $B \subseteq \mathbb{R}^m$, $a \in A^o$. Have $1 \leq j \leq n$, $\{ e_1, \cdots, e_n \}$ be the standard basis for $\mathbb{R}^n$.
+
+\begin{definition}[Partial Derivative]
+     The $j$-th partial derivative at $a$ is given by
+     \[
+     \partial_j f(a) := \lim_{h \to 0} \frac{f(a + he_j) - f(a)}{h}
+     \]
+\end{definition}
+
+\begin{definition}[Directional Derivative]
+    Fix some $v \in \mathbb{R}^n$. The directional derivative of $f$ at $a$ in the direction $v$ is given by
+    \[
+    D_vf(a) \lim_{h \to 0} \frac{f(a + hv) - f(a)}{h}
+    \]
+\end{definition}
+
+\begin{definition}[Gradient]
+    The gradient of $f$ at $a$ is written $\nabla f(a)$, when all such partial derivatives exist
+    \[
+    \nabla f(a) = \begin{pmatrix}
+        \partial_1 f(a) \\ \vdots \\ \partial_n f(a)
+    \end{pmatrix}
+    \]
+    
+\end{definition}
+
+\begin{definition}[Differentiable]
+    $f$ is differentiable at $a$ if there exists a linear map $L : \mathbb{R}^n \to \mathbb{R}^m$ such that
+    \[
+    \lim_{h \to 0} \frac{f(a+h) - f(a) - L(h)}{||h||} = 0
+    \]
+    $L$ is called the differential of $f$ at $a$, written $df_a$.
+\end{definition}
+
+\begin{definition}[Jacobian]
+    The Jacobian of $f$ at $a$ is the $m \times n$ matrix $Df(a)$ given by
+    \[
+        Df(a) = [\partial_j f_i(a)]_{i, j} = \begin{pmatrix}
+            \partial_1 f_1(a) & \cdots & \partial_n f_1(a) \\
+            \vdots & \ddots & \vdots \\
+            \partial_1 f_m(a) & \cdots & \partial_n f_m(a)
+        \end{pmatrix}
+    \]
+\end{definition}
+
+\begin{theorem}
+    If $f$ is differentiable at $a$
+    \begin{itemize}
+        \item For all $v \in \mathbb{R}^n$, $D_v f(a)$ exists and $df_a(v) = D_v f(a)$
+        \item $df_a(v) = Df(a)v$
+    \end{itemize}
+    
+\end{theorem}
+
+\begin{definition}[Continuously Differentiable]
+    $f$ is continuously differentiable at $a$ (or $C^1$ at a) if each $\partial_1 f, \cdots, \partial_n f$ are defined on some open set containing $a$, and are continuous at $a$.
+\end{definition}
+
+
+\end{document}

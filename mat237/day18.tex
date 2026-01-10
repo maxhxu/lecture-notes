@@ -1,0 +1,44 @@
+\section{Day 18: Gradients (Oct 14, 2025)}
+
+Let $A \subseteq \mathbb{R}^n$, $f : A \to \mathbb{R}$, with $a \in A^o$.
+\begin{definition}[Gradient]
+    The gradient of $f$ at $a$, denoted $\nabla f(a)$, is given by
+    \[
+    \nabla f(a) = (\partial_1 f(a), \cdots, \partial_n f(a))
+    \]
+    if each $\partial_if(a)$ is defined for every $i \in \{ 1, \cdots, n \}$
+\end{definition}
+
+\noindent  The gradient is quite useful, for:
+\begin{itemize}
+\item Finding extrema (specifically \ref{lem:optimization})
+\item Finding the `direction of steepest ascent'
+\end{itemize}
+
+\noindent The gradient greatly simplifies directional derivative computations.
+
+\begin{simplethm}
+    For $f : A \subseteq \mathbb{R}^n \to \mathbb{R}$, if $f$ is differentiable at $a \in A$ then $D_vf(a) = \nabla f(a) \cdot v$.
+\end{simplethm}
+\begin{proof}
+    Apply \ref{thm:dirdercomp}, giving us that $D_vf(a) = Df_a(v)$. Decompose $v = \sum_{i=1}^{n} v_ie_i$. Then
+    \begin{align*}
+        Df_a(v) &= Df_a(\sum_{i=1}^{n} v_ie_i) \\
+        &= \sum_{i=1}^{n} v_i Df_a(e_i) \\
+        &= \sum_{i=1}^{n} v_i \partial_i f(a)
+    \end{align*}
+    which is the exact same computation as $\nabla f(a) \cdot v$.
+\end{proof}
+
+\noindent We formalize the second point as follows:
+\begin{simplethm}
+    Suppose $f$ is differentiable at $a \in A^o$, $\nabla f(a) \ne 0$, then
+    \[
+    \mathrm{max}\{ D_u f(a) : u \in \mathbb{R}^n, ||u|| = 1 \} = D_v f(a)
+    \]
+    where $v = \frac{\nabla f(a)}{||\nabla f(a)||}$.
+\end{simplethm}
+
+\begin{proof}
+    TODO:
+\end{proof}

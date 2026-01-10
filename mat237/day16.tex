@@ -1,0 +1,18 @@
+\section{Day 16: Partial Derivatives (Oct 07, 2025)}
+
+We now want to generalize 1 dimensional derivatives to $n$-dimensional derivatives. Unfortunately, we find that this is not the right generalization, for reasons you will see later.
+
+\begin{definition}[Partial Derivative]
+The $i$-th partial derivative of $f : A \subseteq \mathbb{R}^n \to \mathbb{R}^m$ at $a \in A^o$ is given by
+\[
+    \partial_j f(a) := \lim_{ h \to 0 } \frac{f(a + he_j) - f(a)}{h}
+\]
+\end{definition}
+
+Equivalent notation for $\partial_j f$ are
+\[
+\frac{\partial f}{\partial x_j}, \quad D_{e_j} f, \quad f_{x_j}, \quad D_jf, \quad \partial_{x_j}f, \quad \partial_j f
+\]
+$\partial_j f(a)$ is relatively straightforward to compute (do it component-wise).\\
+
+% The decision of which notation to use for the partial derivative is mostly between $\partial_j f$ and $\frac{\partial f}{\partial x_j}$. The former has the advantage of not having to choose some coordinate system $(x_1, \cdots, x_n)$, since you only specify the i-th coordinate, typically assumed to be $e_i$ where $\{ e_i \}_i$ is the standard basis in $\mathbb{R}^n$. Only by choosing some coordinate system, does it make sense to write $\frac{\partial f}{\partial x_j}$.

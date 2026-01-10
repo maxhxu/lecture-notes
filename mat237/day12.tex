@@ -1,0 +1,78 @@
+\section{Day 12: Continuity (Sep 29, 2025)}
+
+\begin{definition}[Continuity]
+Let $f: A \subseteq \mathbb{R}^n \to \mathbb{R}^m$ be a function, let $a \in A$. $f$ is continuous at $a$ if
+\[
+    \forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } \forall x \in A, ||x - a|| < \delta \implies ||f(x) - f(a)|| < \epsilon 
+\]
+\end{definition}
+
+With this definition, $f$ is always continuous at isolated points in $A$, since there is a $\delta$ radius around said point that do not contain any other points in $A$. Yet we cannot write $\displaystyle \lim_{ x \to a } f(x)$ here, since $a$ would not be a limit point (from last class, we only define limits at limit points). 
+
+If $a$ is indeed a limit point, then $\displaystyle \lim_{ x \to a } f(x) = f(a)$ is equivalent to our definition of continuity, because in that case $\displaystyle \lim_{ x \to a } f(x)$ is actually a defined symbol. 
+
+\subsection{Studying Linear Transformations}
+
+\begin{simplethm} \label{lem:opnormunit}
+    If $T : \mathbb{R}^n \to \mathbb{R}^m$ is linear, there exists a $M \in \mathbb{R}$, such that for all $x \in \mathbb{R}^n$, with $||x|| = 1$, have $||T(x)|| \leq M$.
+\end{simplethm}
+\begin{proof}
+    Note that $x$ must have each component lesser than or equal to 1, otherwise the contradicts the norm of $x$ being 1. 
+    \begin{align*}
+        ||T(x)|| &= ||T(x_1) + \cdots + T(x_n)|| \\
+        &\leq ||T(e_1) + \cdots + T(e_n)|| \\
+        &\leq \sum_{i=1}^{n} ||T(e_i)|| = M
+    \end{align*}
+\end{proof}
+
+\begin{simplethm} \label{thm:opnorm}
+    If $T : \mathbb{R}^n \to \mathbb{R}^m$ is linear, then there exists some $M \geq 0$, such that for all $x \in \mathbb{R}^n$, $||T(x)|| \leq M||x||$ 
+\end{simplethm}
+
+\begin{proof}
+    Suppose $x \in \mathbb{R}^n$, $||x||$ may not be 1, 
+\begin{align*}
+    ||T(\frac{x}{||x||})|| &\leq M \\
+    \frac{||T(x)||}{||x||} &\leq M \\
+    ||T(x)|| &\leq M||x||
+\end{align*}
+    with the first line following by \ref{lem:opnormunit}. Since the norm function is non-negative, $0 \leq M$.
+\end{proof}
+
+\begin{simplethm}
+Linear transformations are continuous.
+\end{simplethm}
+
+\begin{proof}
+We will show this from the definition of continuity. Let $L : \mathbb{R}^n \to \mathbb{R}^m$ be a linear transformation.
+
+    Let $\epsilon > 0$. Take $\delta = \frac{\epsilon}{M}$. Let $x \in A$ be arbitrary, and suppose $||x - a|| < \delta$. Want to show that $||L(x) - L(a)|| < \epsilon$. We proceed as follows:
+    \begin{align*}
+        ||L(x) - L(a)|| &= ||L(x - a)||\\
+        &\leq M ||x - a|| \\
+        &< M \delta = M \frac{1}{M} = \epsilon 
+    \end{align*}
+    Note that such an $M$ exists by \ref{thm:opnorm}.
+\end{proof}
+
+\subsection{Continuity and Topology}
+
+\begin{theorem}[Topological Definition of Continuity]
+    $f : \mathbb{R}^n \to \mathbb{R}^m$ is continuous if and only if for any open $U \subseteq \mathbb{R}^m$, $f^{-1}(U)$ is open. 
+\end{theorem}
+
+\begin{proof}
+    We will prove both directions. \\
+    ($\implies$): Want to show $f^{-1}(U)$ be open. Suppose $f$ is continuous, and that $U$ is open. Let $x \in f^{-1}(U)$ be arbitrary. Then $f(y) \in U$ is an interior point of $U$ (every point in an open set is an interior point). Thus exists $\epsilon > 0$, $B_ \epsilon(y) \subseteq U$. By continuity of $f$ at $x$, exists $\delta > 0$, $f(B_ \delta(x)) \subseteq B_\epsilon(y)$, meaning that $B_ \delta(x) \subseteq f^{-1}(B_ \epsilon(y)) \subseteq f^{-1}(U)$, which is what we wanted to show.\\
+    ($\impliedby$): Want to show that $f$ is continuous. Suppose for any open $U \subseteq \mathbb{R}^m$, $f^{-1}(U)$ is open. Then 
+\end{proof}
+
+\begin{simplethm}[Component Wise Continuity]
+    The map $f = (f_1, \cdots, f_m) : A \to \mathbb{R}^m$ is continuous at $a \in A$ if and only if for each $i \in \{ 1, \cdots, m \}$, $f_i$ is continuous at $a$.
+\end{simplethm}
+
+The textbook says that the above follows by breaking into cases whether $a$ is an isolated or limit point of $A$. In the former case, continuity at $a$ `vacuously' happens, and in the latter case we apply \ref{thm:compwiselimits}, breaking the limit into its components (or joining it back together using the other direction).
+
+\begin{proof}
+Consider $\pi_i \circ f$, $\pi_i$ is a linear map, and the composition of continuous functions is continuous, each $f_i$ is continuous. For the other direction, we verify using the definition.
+\end{proof}
