@@ -6,6 +6,7 @@ A proof is a convincing argument:
 \begin{itemize}
     \item Convince your TA for marks
     \item Convince employer that your program does what it claim it does
+    \item Convince yourself that you're not producing word salad
 \end{itemize}
 
 Sometimes, formal verification is used for mission-critical applications, where unit tests may not have sufficient coverage. We use semi-formal proofs in this course, to prove specific results (as opposed to more general ones, like in math).
@@ -23,7 +24,16 @@ The general framework is to
 
 Recurrence relations are often encountered while analyzing the running time of divide-and-conquer algorithms. We take the master theorem from (CLRS) for granted, a general result about the asymptotic behavior of certain types of recurrences.
 
-The master theorem branches: branching dominated, balance, merging dominated.
+\begin{theorem}[CLRS Master Theorem] \label{thm:master}
+    Let $a \geq 1$, $b > 1$. Have $f(n)$ be a function, and let $T(n)$ be defined on the non-negative integers by the recurrence $T(n) = a T(n/b) + f(n)$, where $n/b$ is interpreted as $\left\lceil \frac{n}{b} \right\rceil$ or $\left\lfloor \frac{n}{b} \right\rfloor$. Then $T(n)$ has the following asymptotic bounds:
+    \begin{enumerate}
+        \item If $f(n) \in O(n^{\log_b a - \varepsilon})$ for some constant $\varepsilon > 0$, then $T(n) = \Theta(n^{\log_b a})$
+        \item If $f(n) \in \Theta(n^{\log_b a})$, then $T(n) = \Theta(n^{\log_b a} \log_2 n)$
+        \item If $f(n) = \Omega(n^{\log_b a + \varepsilon})$ for some constant $\varepsilon > 0$, and if $af(n/b) \leq cf(n)$ for some constant $c < 1$ and all sufficiently large $n$, then $T(n) \in \Theta(f(n))$
+    \end{enumerate}
+\end{theorem}
+
+$n/b$ describes the size of the subproblems, and $f(n)$ describes the step count required to merge/divide the subproblems to form a solution of size $n$. The Master Theorem handles the leaf-heavy, balanced, and root-heavy case in that order.
 
 \begin{example}
     Algorithms considered divide-and-conquer include:
@@ -34,4 +44,4 @@ The master theorem branches: branching dominated, balance, merging dominated.
     \end{itemize}
 \end{example}
 
-
+There was also a brief discussion about galactic algorithms.

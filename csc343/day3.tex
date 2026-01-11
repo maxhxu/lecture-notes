@@ -1,0 +1,28 @@
+\section{Day 3: The Relational Algebra (Jan 14, 2026)}
+
+\subsection{Pre-Class}
+
+A \textbf{query} on a set of relations produces a relation as a result. We perform queries on our database, which is a set of relations. 
+
+The semantics of relational algebra says that duplicates from queries are always eliminated, as opposed to SQL, which operates with multisets/bags. Some queries include:
+\begin{description}
+    \item[Relation Name]
+        Obtains a copy of the relation of the same name. Returns an entire relation.
+    \item[Select]
+        Picks certain rows from relation $R$ with condition $cond$. Written as $\sigma_{cond} \, R$. Returns a subset of said relation. \\
+        $\sigma_{cond} \, \Expr$ functions similarly, where $\Expr$ is any expression of the algebra.
+    \item[Project]
+        $\Pi_{attr1, attr2, \cdots} \Expr$ picks the columns with attribute $attr_1, attr_2, \cdots$ respectively from the expression $\Expr$.
+    \item[Cross-product]
+        Combines two expressions, written $\Expr_1 \times \Expr_2$. This is the standard Cartesian product for sets. \\
+        When two relations have the same attribute name, we add the relation name as a prefix to distinguish them.
+    \item[Natural Join]
+        Similar to cross-product, except it enforces equality on all attributes with the same name, and eliminates one copy of duplicate attributes. Written $\Expr_1 \Join \Expr_2$.
+    \item[Theta Join]
+        Let $\theta$ be some condition. $\Expr_1 \Join_\theta \Expr_2 \equiv \sigma_\theta (\Expr_1 \times \Expr_2)$.
+\end{description}
+
+The natural join and theta join add no expressive power to the language.
+
+
+
