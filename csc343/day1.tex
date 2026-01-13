@@ -13,7 +13,6 @@ The word `database' is used colloquially. To be precise, some terminology:
     The data itself.
 \end{definition}
 
-
 \begin{definition}[DBMS]
     \textbf{Database Management System} (DBMS) is software, for creating (entering data into the tool) and managing large amounts of data efficiently. It must persist data (e.g. to survive natural disasters), and ensure safety and consistency in data (avoid race conditions).
 \end{definition}
@@ -25,8 +24,8 @@ DBMS is based off some data model which specifies the
     \item allowed operations on the data
 \end{itemize}
 
-In addition, the DMBS must also
-\begin{enumerate}
+In addition, the DMBS must also:
+\begin{enumerate}[(a)]
     \item specify logical structure (explicitly and enforce it), maintaining indices (metadata)
     \item be able to query and modify the data 
     \item be performant (optimization of queries)
@@ -45,7 +44,7 @@ There exist other data models not covered in this course, being semi-structure d
 % unstructured data: key-value store, Couchbase, DynamoDB
 
 This class is about \textit{using} DBMSs. We will be
-\begin{itemize}
+\begin{itemize}[(i)]
     \item defining schemas and instances
     \item writing queries
     \item connecting PostgreSQL to code written in a general-purpose language (Python)

@@ -1,0 +1,51 @@
+\section{Day 3: Separable ODEs, Euler's Method (Jan 12, 2026)}
+
+\subsection{Separable ODEs}
+
+Recall that $y$ is a function of $x$.
+
+\begin{definition}[Separable]
+    A first order ODE is separable if there exist functions $M$, $N$ such that $y' = \frac{M(x)}{N(y)}$.
+\end{definition}
+
+See that $\int N(y) \, dy = \int M(x) \, dx$ implicitly gives a solution.
+
+\begin{problem}
+    \begin{enumerate}
+        \item Find the general solution to $y' = \frac{-x}{y}$, and the solution when $y(3) = -4$.
+        \item Find the general solution to $y' = \frac{x^2}{y^2 - 1}$
+        \item Find the general solution to $y' = 1 + y^2$
+    \end{enumerate}
+\end{problem}
+
+\begin{enumerate}[(1)]
+    \item $N(y) = y$, and $M(x) = -x$.
+\begin{align*}
+    \int y \, dy &= \int -x \, dx \\
+    \frac{y^2}{2} &= c - \frac{x^2}{2} \\
+    y &= \pm \sqrt{2c - x^2}
+\end{align*}
+
+For the IVP, we choose the negative branch. $-4 = -\sqrt{c - 3^2}$, $c = 25$. $y = -\sqrt{25-x^2}$.
+
+    \item $\frac{y^3}{3} - y = \frac{x^3}{3} + c$ implicitly gives a solution.\footnote{You can use the cubic formula to get an explicit form (not testable)}
+    \item Check that $\tan(x + c)$ works.
+\end{enumerate}
+
+Generalizing (1), we find that the solution to the initial value problem $y' = \frac{M(x)}{N(y)}$ with $y(x_0) = y_0$ is given by
+\[
+    \int_{y_0}^y N(s) \, ds = \int_{x_0}^x M(t) \, dt
+\]
+We can quickly check that it satisfies both the initial condition and the differential equation.
+
+\subsection{Euler's Method}
+
+For some differentiable function $f$ near $a$, $\ell(t) = f(a) + f'(a)(t-a)$ for $t$ close to $a$ can be used to linearly approximate $f$.
+
+Euler's method performs a sequence of linear approximations to estimate values $y(t)$ of an IVP. Given $y' = f(t, y)$, $y(a) = y_0$, we want to estimate $y(b)$.
+
+Create an increasing sequence $a = t_0, t_1, \cdots, t_n = b$, and define
+\[
+    y_{i+1} = y_i + (t_{i+1} - t_i) f(t_i, y_i)
+\]
+Notice that this is reminiscent of the slope field tracing activity.
