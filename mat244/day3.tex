@@ -1,6 +1,4 @@
-\section{Day 3: Separable ODEs, Euler's Method (Jan 12, 2026)}
-
-\subsection{Separable ODEs}
+\section{Day 3: Separable ODEs (Jan 12, 2026)}
 
 Recall that $y$ is a function of $x$.
 
@@ -38,14 +36,3 @@ Generalizing (1), we find that the solution to the initial value problem $y' = \
 \]
 We can quickly check that it satisfies both the initial condition and the differential equation.
 
-\subsection{Euler's Method}
-
-For some differentiable function $f$ near $a$, $\ell(t) = f(a) + f'(a)(t-a)$ for $t$ close to $a$ can be used to linearly approximate $f$.
-
-Euler's method performs a sequence of linear approximations to estimate values $y(t)$ of an IVP. Given $y' = f(t, y)$, $y(a) = y_0$, we want to estimate $y(b)$.
-
-Create an increasing sequence $a = t_0, t_1, \cdots, t_n = b$, and define
-\[
-    y_{i+1} = y_i + (t_{i+1} - t_i) f(t_i, y_i)
-\]
-Notice that this is reminiscent of the slope field tracing activity.

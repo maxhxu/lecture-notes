@@ -44,7 +44,7 @@ We now want to declare constraints on our relation. We do so using keys.
     \end{enumerate}
 \end{definition}
 
-In other words, no two tuples may be identical in the fields specified by a key.
+In other words, no two tuples may be identical in the fields specified by a key. Some notation: $\mathrm{Artists}(\underline{a_1, a_2}, a_3, a_4)$ means that $\{ a_1, a_2 \}$ is a key for the relation $\mathrm{Example}$ with attributes $a_1$, $a_2$, $a_3$, $a_4$. If they were not adjacent, explicitly stating the key set also works.
 
 A key defines a constraint on the integrity of the data, originating from \textbf{domain experts}. The instance must conform to said constraints. If we could encounter duplicate rows, we can invent additional attributes to ensure that keys exist.
 

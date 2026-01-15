@@ -1,0 +1,27 @@
+\section{Day 4: Euler's Method, Autonomous ODEs (Jan 14, 2026)}
+
+\subsection{Euler's Method}
+
+For some differentiable function $f$, $f(a + \Delta x) \approx f(a) + f'(a) \Delta x$, which is called the first order approximation.
+
+Euler's method performs a sequence of linear approximations to estimate values $y(t)$ of an IVP. Given $y' = f(t, y)$, $y(a) = y_0$, we want to estimate $y(b)$.
+
+Create an increasing sequence $a = t_0, t_1, \cdots, t_n = b$, and define
+\[
+    y_{i+1} = y_i + (t_{i+1} - t_i) f(t_i, y_i)
+\]
+This is reminiscent of the slope field tracing activity. For a better approximation, choose $t_i$ such that $|t_i - t_{i-1}|$ is small. 
+
+Usually, each step of the approximation tends to move further away from the original solution curve, hence the error tends to accumulate. Euler's method can get an arbitrarily good approximation of $y$ on some finite interval $[a, b]$ as step size goes to 0, no guarantee exists for unbounded intervals.
+
+\begin{remark}
+    Euler's method is mostly a pedagogical tool, there are better tools (Runge-Kutta) developed that converge faster.
+\end{remark}
+
+\subsection{Autonomous ODEs}
+
+\begin{definition}[Autonomous]
+    An ODE is autonomous if $y'$ doesn't depend on $t$.
+\end{definition}
+
+In other words, $y' = g(y)$. By setting $N(x) = 1$, $M(y) = \frac{1}{g(y)}$, we see that all autonomous ODEs are separable.

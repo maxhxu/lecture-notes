@@ -32,6 +32,13 @@ The general solution is $c \Exp (\int f(t) \, dt)$
     where $P(t) = \int_{t_0}^t p(s) \, ds$, and $c$ is an arbitrary constant.
 \end{simplethm}
 
-The integration factor technique was briefly mentioned.
-
 % Let $F(t)$ be a primitive of $f$. $F(t)(y - y')$
+
+\subsection{Integrating Factors}
+
+The product rule says that $f(t) = \frac{d}{dt} (\mu(t)y(t)) = \mu(t)y'(t) + \mu'(t)y(t)$. Dividing both sides by $\mu(t)$, see that this is a first order linear DE,
+\[
+y' + \frac{\mu'}{\mu}y = y' + p(t)y = g(t) = \frac{f}{\mu}
+\]
+
+Solve for $\mu$ in $\frac{\mu'}{\mu} = p(t)$. Finally, get $y(t) = \frac{\int f(t) \, dt + c}{\mu(t)} = \frac{\int g(t)\mu(t) \, dt}{\mu(t)}$.
