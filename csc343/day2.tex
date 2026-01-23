@@ -4,7 +4,7 @@ Recall that the relational model is based on the concept of a relation/table. We
 
 Let $D_1, \cdots, D_n$ be domains. The \textbf{Cartesian product} $D_1 \times \cdots \times D_n$ is the set
 \[
-\{ \langle d_1, \cdots, d_n \rangle : d_1 \in D_1, \cdots, d_n \in D_n \}
+    \{ \langle d_1, \cdots, d_n \rangle : d_1 \in D_1, \cdots, d_n \in D_n \}
 \]
 where $\langle \cdot \rangle$ is called a \textbf{tuple/ordered list}. A \textbf{relation} on $D_1, \cdots, D_n$ is a subset of $D_1 \times \cdots \times D_n$.
 
@@ -48,12 +48,21 @@ In other words, no two tuples may be identical in the fields specified by a key.
 
 A key defines a constraint on the integrity of the data, originating from \textbf{domain experts}. The instance must conform to said constraints. If we could encounter duplicate rows, we can invent additional attributes to ensure that keys exist.
 
-Any superset of a key is called a \textbf{superkey} (useful in theory). We mostly declare keys in practice. Immediately, every key is a superkey.
+Any superset of a key is called a \textbf{superkey} (useful in
+theory). We mostly declare keys in practice. Immediately, every key
+is a superkey.
 
 \begin{definition}[Foreign Key]
-    A foreign key is a subset of attributes of some relation $R_1$, such that it is also a key for relation $R_2$.
+    A foreign key is a subset of attributes of some relation $R_1$,
+    such that it is also a key for relation $R_2$.
 \end{definition}
 
-Let $R$ be a relation, and $A$ a list of attributes in $R$. Define $R[A]$ as the set of all attributes from $R$, with only the attributes in list $A$. 
+Let $R$ be a relation, and $A$ a list of attributes in $R$. Define
+$R[A]$ as the set of all attributes from $R$, with only the
+attributes in list $A$.
 
-\textbf{Foreign key constraints} are declared as $R_1[X] \subseteq R_2[Y]$, where $X$, $Y$ have the same arity, and $Y$ must be a key in $R_2$. This is an instance of a \textbf{referential integrity constraint} (though not all referential integrity constraints are foreign key constraints).
+\textbf{Foreign key constraints} are declared as $R_1[X] \subseteq
+R_2[Y]$, where $X$, $Y$ have the same arity, and $Y$ must be a key in
+$R_2$. This is an instance of a \textbf{referential integrity
+constraint} (though not all referential integrity constraints are
+foreign key constraints).

@@ -1,0 +1,19 @@
+\section{Day 5: Autonomous and Exact ODEs (Jan 19, 2026)}
+
+\begin{definition}[Autonomous]
+    An ODE is autonomous if $y'$ doesn't depend on $t$.
+\end{definition}
+
+In other words, $y' = g(y)$. By setting $N(x) = 1$, $M(y) = \frac{1}{g(y)}$, we see that all autonomous ODEs are separable. Solving first order autonomous ODEs using the template for first order separable ODEs may miss the equilibrium (constant) solutions though.
+
+In general, the equilibrium solutions of $y' = f(y)$ are $y = c$, where $f(c) = 0$.
+
+\begin{definitionbox}
+    \begin{itemize}
+        \item The \textbf{critical points} of $y_0$ are values where $f(y_0) = 0$.
+        \item $y_0$ is asymptotically stable for nearby values $y_1$, if the solutions of $y' = f(y)$, $y(0) = y_1$, have.
+    \end{itemize}
+
+\end{definitionbox}
+
+% A trick is to leave the constants on the RHS.

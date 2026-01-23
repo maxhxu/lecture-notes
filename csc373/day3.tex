@@ -5,7 +5,7 @@ Greedy algorithms have the following outline:
 \begin{description}
     \item[Goal] Find a solution $x$ involving a objective function $f$ (finding maxima/minima)
     \item[Challenge] It is not feasible to check the entire solution space
-    \item[Observation] Decompose $x$ into its parts (being individual decisions), make the choice that maximize the `immediate benefit' (e.g. maximize change in $f$). 
+    \item[Observation] Decompose $x$ into its parts (being individual decisions), make the choice that maximize the `immediate benefit' (e.g. maximize change in $f$).
 \end{description}
 
 The correctness proof needs to show that the choices made greedily are in fact optimal. The greedy (partial) solution after $j$ iterations can be extended to an optimal solutions, for each $j$.
@@ -29,34 +29,33 @@ It remains to show that our algorithm is optimal. There are 2 approaches, contra
     \item[Contradiction]
         Suppose for contradiction that our algorithm doesn't produce the optimal solution, instead giving $I = i_1, \cdots, i_k$ sorted by finish time.
 
-        Since $n$ is finite, an optimal solution $J = j_1, \cdots, j_m$ exists (meaning $m > k$), that matches our algorithm's greedy solution for the largest possible contiguous chunk of indices from the beginning. Let $r$ be the last index, where $i_1 = j_i, i_2 = j_2, \cdots, i_r = j_r$ (default 0).
+        Since $n$ is finite, an optimal solution $J = j_1, \cdots, j_m$ exists (meaning $m > k$), that matches our algorithm's greedy solution for the largest possible contiguous chunk of indices from the beginning. Let $r$ be the last index, where $i_1 = j_i, i_2 = j_2, \cdots, i_r = j_r$ ($r$ defaults to 0).
 
-         We may then replace $j_{r+1}$ with $i_{r+1}$ in $J$, creating a new solution of size $m$, $J'$. WTS $J'$ is a pairwise compatible solution of size $m$.
+        We may then replace $j_{r+1}$ with $i_{r+1}$ in $J$, creating a new solution of size $m$, $J'$. WTS $J'$ is a pairwise compatible solution of size $m$.
         \begin{itemize}
             \item Show $f_{i_{r}} \leq s_{i_{r+1}}$. \\
                 This follows from ($*$).
             \item Show $f_{i_{r+1}} \leq s_{j_{r+2}}$. \\
                 Our algorithm has the property that $i_{r+1}$ is the first compatible job in the remaining set of jobs, sorted by finishing time. In other words, $f_{i_{r+1}} \leq f_{j_{r+1}} \leq s_{j_{r+2}}$, with the last inequality following from $J$ being pairwise compatible.
         \end{itemize}
-        
+
         This shows that $J'$ is pairwise compatible, with size equal to that of $J$, hence it is optimal. Yet $J'$ and $I$ are equal up till the $r+1$st index, contradicting our original claim.
-    \item[Induction] The induction case uses a very similar argument, which argues that every partial solution from our algorithm is a subset of a optimal solution, where optimality once again stems from our algorithm's choice of the next compatible text with the lowest finishing time.
+    \item[Induction] The induction case uses a very similar argument, which argues that every partial solution from our algorithm is a subset of a optimal solution, where optimality once again stems from our algorithm's choice of the next compatible task with the earliest finishing time.
 
-%        Let $S_j$ be the subset of jobs picked by our greedy algorithm after considering the first $j$ jobs in the increasing order of finish time, and have $S_0 = \emptyset$.
-%
-%        A partial solution is promising if there exists a $T \subseteq \{ j+1, \cdots, n \}$ such that $O_j = S_j \cup T$ is optimal.
-%
-%        We prove by induction, that for all $t \in \{ 0, 1, \cdots, n \}$, $S_t$ is promising. Clearly, $S_0$ is promising.
-%
-%        Suppose $S_{j-1}$ is promising. When handling $t = j$, there are two cases
-%        \begin{itemize}
-%            \item Our algorithm did not select job $j$, meaning $S_j = S_{j-1}$.
-%                We can re-use the same $T$ for $S_{j-1}$, which unions with $S_j$ to $O_{j-1}$, an optimal solution.
-%            \item Our algorithm did select job $j$, meaning $S_j = \{ j \} \cup S_{j-1}$. Take the earliest job $r$ from $O_{j-1} \setminus S_{j-1}$. $r \in O_j$, so replace $r$ with $j$ in $O_{j-1}$, giving $O_j$, where a similar argument to the contradiction proof shows that $O_j$ optimal.
-%        \end{itemize}
-        
+        %        Let $S_j$ be the subset of jobs picked by our greedy algorithm after considering the first $j$ jobs in the increasing order of finish time, and have $S_0 = \emptyset$.
+        %
+        %        A partial solution is promising if there exists a $T \subseteq \{ j+1, \cdots, n \}$ such that $O_j = S_j \cup T$ is optimal.
+        %
+        %        We prove by induction, that for all $t \in \{ 0, 1, \cdots, n \}$, $S_t$ is promising. Clearly, $S_0$ is promising.
+        %
+        %        Suppose $S_{j-1}$ is promising. When handling $t = j$, there are two cases
+        %        \begin{itemize}
+        %            \item Our algorithm did not select job $j$, meaning $S_j = S_{j-1}$.
+        %                We can re-use the same $T$ for $S_{j-1}$, which unions with $S_j$ to $O_{j-1}$, an optimal solution.
+        %            \item Our algorithm did select job $j$, meaning $S_j = \{ j \} \cup S_{j-1}$. Take the earliest job $r$ from $O_{j-1} \setminus S_{j-1}$. $r \in O_j$, so replace $r$ with $j$ in $O_{j-1}$, giving $O_j$, where a similar argument to the contradiction proof shows that $O_j$ optimal.
+        %        \end{itemize}
+
 \end{description}
-
 
 %Since $I$ is pairwise compatible, $f_{i_r} \leq s_{i_{r+1}}$ Combining, have
 %
@@ -66,5 +65,4 @@ It remains to show that our algorithm is optimal. There are 2 approaches, contra
 %
 %        With the fact that $J$ is pairwise compatible, $f_{i_{r}} = f_{j_{r}} \leq s_{j_{r+1}}$ (since $i_r = j_r$ by hypothesis) gives us the lower bound. $f_{i_{r+1}} \leq s_{j_r+2}$$J'$ is pairwise compatible, and of size $m$, hence it is optimal. See that $J'$ and $I$ are equal up till the $r+1$-th index, contradiction the fact that $J$ is the largest such solution.
 
-Both methods ultimately make the same claim: the greedy choice at step $j$ is always part of an optimal solution. Induction proves this through a sequence of steps, while contradiction proves it by showing that any supposed `non-optimal' greedy choice could still be extended to reach the optimum."
-
+Both methods ultimately make the same claim: the greedy choice at step $j$ is always part of an optimal solution. Induction proves this through a sequence of steps, while contradiction proves it by showing that any supposed `non-optimal' greedy choice could still be extended to reach the optimum.

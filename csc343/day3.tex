@@ -1,10 +1,11 @@
-\section{Day 3: The Relational Algebra (Jan 14, 2026)}
+\section{Day 3: Relational Algebra I (Jan 14, 2026)}
 
-Pre class readings: \href{https://www.youtube.com/watch?v=tii7xcFilOA}{this video}. 
+Pre class readings:
+\href{https://www.youtube.com/watch?v=tii7xcFilOA}{this video}.
 
-A \textbf{query} on a set of relations produces a relation as a result. We perform queries on our database, which is a set of relations. 
+A \textbf{query} on a set of relations produces a relation as a result. We perform queries on our database, which is a set of relations. The motivation for introducing relational algebra is as an `intermediate language' for SQL, which uses it to perform query optimization.
 
-% The semantics of relational algebra says that duplicates from queries are always eliminated. In SQL, which operates with multisets/bags and allows for duplicates in queries, we no longer make these assumptions. 
+% The semantics of relational algebra says that duplicates from queries are always eliminated. In SQL, which operates with multisets/bags and allows for duplicates in queries, we no longer make these assumptions.
 
 We will drop these assumptions when we work with SQL, but for now, we assume the following:
 \begin{enumerate}[(i)]
@@ -25,10 +26,13 @@ Some types of queries include:
         Combines two expressions, written $\Expr_1 \times \Expr_2$. This is the standard Cartesian product for sets. \\
         When two relations have the same attribute name, we add the relation name as a prefix to distinguish them.
     \item[Theta Join]
-        Let $\theta$ be some condition. $\Expr_1 \Join_\theta \Expr_2 \equiv \sigma_\theta (\Expr_1 \times \Expr_2)$.
+        For some condition $\theta$, write $\Expr_1 \Join_\theta \Expr_2$ to mean $\sigma_\theta (\Expr_1 \times \Expr_2)$.
     \item[Natural Join]
         Written $\Expr_1 \Join \Expr_2$, it is similar to the cross-product, but with additional steps when $\Expr_1$ and $\Expr_2$ have shared attributes. In the resulting relation, for each attribute $attr$, tuples whose $\Expr_1.attr$ and $\Expr_2.attr$ differ are removed. A projection then occurs, consolidating $\Expr_1.attr$ and $\Expr_2.attr$ into the same column.
-%        Similar to cross-product, except it enforces equality on all attributes with the same name, and eliminates one copy of duplicate attributes. Written $\Expr_1 \Join \Expr_2$.
+        %        Similar to cross-product, except it enforces
+        % equality on all attributes with the same name, and
+        % eliminates one copy of duplicate attributes. Written
+        % $\Expr_1 \Join \Expr_2$.
 \end{description}
 
 The natural join and theta join add no additional expressive power to the language. They are defined for convenience.
@@ -40,11 +44,14 @@ So far, we have encountered 3 kinds of integrity constraints.
         e.g. $\mathrm{Roles}( \underline{mid, aid}, character)$
     \item \textbf{Referential Integrity Constraint}
 
-        e.g. $\mathrm{Artists}[aid] \subseteq \mathrm{Roles}[aid]$. $\{ aid \}$ may or may not be a key for $\mathrm{Artists}$.
+        e.g. $\mathrm{Artists}[aid] \subseteq \mathrm{Roles}[aid]$.
+        $\{ aid \}$ may or may not be a key for $\mathrm{Artists}$.
         \begin{itemize}
             \item \textbf{Foreign Key Constraint}
 
-            $\mathrm{Artists}[aid] \subseteq \mathrm{Roles}[aid]$, where $\{ aid \}$ is a key for $\mathrm{Artists}$.
+                $\mathrm{Artists}[aid] \subseteq
+                \mathrm{Roles}[aid]$, where $\{ aid \}$ is a key for
+                $\mathrm{Artists}$.
         \end{itemize}
 \end{enumerate}
 

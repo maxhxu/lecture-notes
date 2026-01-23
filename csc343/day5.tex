@@ -1,0 +1,10 @@
+\section{Day 5: Relational Algebra III (Jan 21, 2026)}
+
+Notice that the cross-product of a relation with itself currently creates ambiguity in references to columns. We introduce the rename operator to resolve this ambiguity.
+\begin{description}
+    \item[Rename] Denoted by $\rho$, it renames a relation, subject to scoping constrants. The renamed relation is only available in ancestor nodes in the relational expression tree.
+\end{description}
+
+For example, $\rho_{B(foo, bar)} A$, where $A$ is a relation of form $A(attr1, attr2)$, is equivalent to renaming the relation $B$, the column $attr1$ with $foo$, and the column $attr2$ with $bar$.
+
+The remainder of class was spent working on a worksheet.

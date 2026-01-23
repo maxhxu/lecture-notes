@@ -1,0 +1,83 @@
+\section{Day 4: Greedy Algorithms II (Jan 22, 2026)}
+
+Outline for finding optimal greedy algorithms:
+\begin{enumerate}[(i)]
+    \item List heuristics that sound reasonable
+    \item Test each of your heuristics on a test case, analyze their shortcomings
+    \item Convince yourself that one is optimal, and explain why it succeeds
+\end{enumerate}
+
+Usually our greedy algorithm only finds a optimal solution. There may be more optimal solutions that our greedy algorithm cannot find.
+
+\begin{problem}[Minimizing Lateness]
+    Suppose you have a single machine and $j$ jobs, each requiring $t_j$ units of time and are due by $d_j$. Your task is to choose the start times for each job $s_j \geq 0$, such that
+    \[
+        \max_j \{ 0, s_j + t_j - d_j \}
+    \]
+    is minimized. The machine can only do one task at a time.
+\end{problem}
+
+Sort the tasks by deadline in non-decreasing order. Define a `inversion'\footnote{tangentially related to the inversion encountered in sorting}, which is a pair $(i, j)$, where $d_i < d_j$, yet $s_j < s_i$. Begin by stating some observations:
+\begin{itemize}
+    \item There is an optimal schedule with no idle time between tasks. ($*$)
+    \item If a schedule with no idle time between tasks has at least one inversion, it has an inversion between consecutive tasks: i.e. exists $j$, $(j, j+1)$ is an inversion.
+    \item Removing the aforementioned inversion by scheduling task $j$ at $s_{j+1}$, and task $j+1$ at $s_{j+1} + t_{j}$ does not increase lateness, and also reduces the number of inversions by 1. ($**$)
+\end{itemize}
+
+Now we show our algorithm is optimal.
+
+\begin{description}
+    \item[Induction] We will prove by induction on $n$, the problem size.
+
+        \textbf{Base Case}: There is nothing to do.
+
+        \textbf{Inductive Step}: A viable induction hypothesis is there always exists an optimal schedule for problems with $n$ jobs, with no idle time between tasks ($*$) and no inversions ($**$), and that our algorithm produces this schedule.
+    \item[Contradiction] We use the minimal counterexample strategy. Suppose there's an optimal schedule with the fewest inversions. Clearly, the number of inversions is nonzero, since we can `reduce' that case to something our algorithm will output using ($*$). We then use a standard \href{https://en.wikipedia.org/wiki/Well-ordering_principle}{well-ordering} argument using ($**$) to remove inversions, concluding that the set of counterexamples is empty.
+\end{description}
+
+% Our strategy is to show that for an arbitrary optimal solution, we can convert this to another optimal solution that our algorithm can output. This shows that our algorithm can produce optimal solutions.
+
+\begin{problem}[Lossless Compression]
+    Given $n$ symbols and their frequencies/weights $(w_1, \dots, w_n)$, find a prefix-free encoding with lengths $(\ell_1, \dots, \ell_n)$ assigned to the symbols which minimizes $\sum_{i=1}^{n} w_i \cdot \ell_i$, the size of the compressed document.
+\end{problem}
+
+This problem is motivated by restrictions on file transfer speed. Lossless compression should reduce the file size, and result in no loss of information. We now motivate the notion of prefix-free encoding:
+
+\begin{example}
+    Suppose you encode $a$ as 0, $b$ as 1, and $c$ as 01. When encountering 01 in a transmission, it is unclear whether the intended message is $ab$ or $c$. Realize this ambiguity arises from the fact that the encoding of $a$ is a prefix for $c$.
+\end{example}
+
+The \textbf{Huffman Coding} technique generates a prefix-free encoding for any set of $n$ symbols, by building a binary tree. The symbols will be stored in the leaves (hence the internal nodes' symbol field are meaningless), and the encoding will be the sequence of binary digits (0 for left, 1 for right) needed to reach the corresponding leaf for a symbol from the root. The choice of 0 and 1 for left and right does not matter.
+
+\begin{itemize}
+    \item Initialize a min-priority queue by $w$ by adding $(x, w_x)$
+    \item While there's at least 2 nodes in the queue, pop 2 nodes from the priority queue, and set their parent to a new node with weight $w_x + w_y$. Add this node back to the priority queue. The choice between left right child also doesn't matter.
+\end{itemize}
+
+Notice that the choice of the 2 nodes with the smallest $w$ field makes the algorithm greedy. We now prove that this is prefix free.
+\begin{description}
+    \item[Contradiction] For contradiction, suppose $s_1$ and $s_2$ are both symbols, and the encoding for $s_1$, is a prefix of that of $s_2$. The node obtained by following that for $s_1$ in the tree is an ancestor of that of $s_2$. But this contradicts our tree invariant, that all symbols are stored in leaves.
+
+\end{description}
+
+See that prefix-free encoding generates a tree $T$. Define $W(T) = \sum_{i=1}^{n} w_i \cdot \ell_i$, where $\ell_i$ is the length of the path from the root to the leaf.
+
+We state some observations/lemmas:
+\begin{itemize}
+    \item If $w_x < w_y$, then $\ell_x \geq \ell_y$ in any optimal tree.
+    \item For each pair $(x, w_x)$, $(y, w_y)$ that Huffman Coding combines, there exists an optimal tree in which they are siblings. ($*$)
+\end{itemize}
+
+Now, we prove optimality.
+\begin{description}
+    \item[Induction] We prove by induction on the size of the alphabet.
+
+        \textbf{Base Case}: There is nothing to do ($n = 1$).
+
+        \textbf{Induction Step}: Our induction hypothesis our algorithm produces optimal trees for alphabets of smaller size.
+
+        Let $(x, w_x)$ and $(y, w_y)$ be the symbols first assigned a parent by our algorithm (thus at maximum depth). Consider the alphabet, with $x$ and $y$ removed, and the additional symbol $xy$, with $w_{xy} = w_x + w_y$. Our algorithm produces an optimal tree $H'$ by the induction hypothesis. 
+
+        We now take said tree, and add $(x, w_{x})$ and $(y, w_y)$ as the children of $(xy, w_{xy})$, giving a new tree $H$. We show that this tree is optimal. Realize $W(H) = W(H') + w_{x} + w_{y}$. By ($*$), there exists an optimal tree $T$ where $x$ and $y$ are siblings. Joining them together to form $(xy, w_{xy})$ once again, get a tree $T'$ with $W(T') + w_x + w_y = W(T)$. Re-arranging, see that $W(T) = W(H)$. This shows optimality of our algorithms' tree $H$.
+\end{description}
+
